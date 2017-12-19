@@ -16,7 +16,6 @@ module.exports.activateEventListeners = function(){
     });
 
     clearButton.addEventListener("click", function () {
-        console.log("you clicked the clear button!");
         clearAll.clearMessages();
     });
 };

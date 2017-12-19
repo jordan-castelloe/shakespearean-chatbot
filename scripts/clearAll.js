@@ -1,5 +1,7 @@
 'use strict';
 
+const messageContainer = document.getElementById("message-area");
+
 module.exports.clearMessages = function(){
-    console.log("You fired the clear all messages function!");
+    messageContainer.innerHTML = "";
 };
