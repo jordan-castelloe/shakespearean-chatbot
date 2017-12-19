@@ -12,6 +12,8 @@ const messageContainer = document.getElementById("message-area");
 
 module.exports.activateEventListeners = function(){
 
+    printToDOM.loadMessages();
+
     sendButton.addEventListener("click", function () {
         printToDOM.printMessage();
        

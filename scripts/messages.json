@@ -1,0 +1,31 @@
+{
+    "messages": [
+        {
+            "text": "Who's there?",
+            "user": "BERNARDO",
+            "timestamp": "1"
+        },
+        {
+            "text": "Nay, answer me: stand, and unfold yourself.",
+            "user": "FRANCISCO",
+            "timestamp": "2"
+        },
+        {
+            "text": "Long live the king!",
+            "user": "BERNARDO",
+            "timestamp": "3"
+        },
+        {
+            "text": "Bernado?",
+            "user": "FRANCISCO",
+            "timestamp": "4"
+        },
+        {
+            "text": "He.",
+            "user": "Bernado",
+            "timestamp": "5"
+        }
+       
+    ]
+}
+

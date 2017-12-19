@@ -2,4 +2,5 @@
 
 const eventHandler = require("./eventHandler.js");
 
+
 eventHandler.activateEventListeners();
