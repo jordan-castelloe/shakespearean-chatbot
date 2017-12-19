@@ -13,7 +13,10 @@ module.exports.saveMessage = function (text, user, timestamp) {
     addToMessageArray(messageObject);
 };
 
+module.exports.messageArray = function (){
+    return messageArray;
+};
+
 function addToMessageArray(message){
     messageArray.push(message);
-    console.log("message array", messageArray);
 }
