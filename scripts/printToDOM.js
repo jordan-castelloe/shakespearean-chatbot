@@ -22,6 +22,7 @@ function createMessageDiv(text){
     let deleteButton = document.createElement("button");
     deleteButton.innerText = "X";
     deleteButton.classList.add("delete-button");
+    deleteButton.id = "delete-button";
 
     messageDiv.appendChild(deleteButton);
     messageContainer.appendChild(messageDiv);
