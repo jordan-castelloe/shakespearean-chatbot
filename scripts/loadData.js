@@ -1,21 +1,28 @@
 'use strict';
 
-module.exports.loadMessages = function() {
-    console.log("the real load message function was fired!");
+const printer = require("./printToDOM.js");
+
+
+module.exports.loadMessages= function(){
+    console.log("the load message function was fired from inside hte loadData.js module");
     let messageRequest = new XMLHttpRequest();
-    messageRequest.addEventListener("load", function(){
-        let data = JSON.parse(event.target.responseText);
-        let initialMessages = data.messages;
-        console.log("initial messages", initialMessages);
-        return initialMessages;
-    });
-    messageRequest.addEventListener("error", errorMessage);
     messageRequest.open("GET", "./scripts/messages.json");
     messageRequest.send();
+    messageRequest.addEventListener("load", processMessages);
+    messageRequest.addEventListener("error", errorMessage);
 };
 
 
 
+function processMessages () {
+    let data = JSON.parse(event.target.responseText);
+    let oldMessages = data.messages; 
+    console.log("this is the message array from inside the laoddata module", typeof oldMessages);
+    printer.printOldMessages(oldMessages);
+}
+
 function errorMessage(){
     console.log("There was an error loading the data!");
 }
+
+

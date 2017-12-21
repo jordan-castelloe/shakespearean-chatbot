@@ -1,7 +1,7 @@
 'use strict';
 
 const messageMaker = require("./messageMaker.js");
-const messageLoader = require("./loadData.js");
+
 
 const messageContainer = document.getElementById("message-area");
 const messageTextArea = document.getElementById("message-textarea");
@@ -15,10 +15,13 @@ module.exports.printMessage = function(){
     clearMessageTextArea();
 };
 
-module.exports.loadMessages = function(){
-    messageLoader.loadMessages();
-    
+module.exports.printOldMessages = function(array){
+    for(let i = 0; i < array.length; i++){
+        let currentMessage = array[i];
+        createMessageDiv(currentMessage.text, currentMessage.user, currentMessage.timestamp);
+    }
 };
+
 
 function createMessageDiv(text, user, timestamp){
     let messageDiv = document.createElement("div");

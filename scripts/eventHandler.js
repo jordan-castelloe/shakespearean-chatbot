@@ -1,6 +1,7 @@
 'use strict';
 
 const printToDOM = require("./printToDOM.js");
+let loader = require("./loadData.js");
 const clearAll = require("./clearAll.js");
 const messageMaker = require("./messageMaker.js");
 const deleteIndividual = require("./deleteIndividual.js");
@@ -11,8 +12,8 @@ const messageTextArea = document.getElementById("message-textarea");
 const messageContainer = document.getElementById("message-area");
 
 module.exports.activateEventListeners = function(){
-
-    printToDOM.loadMessages();
+    
+    loader.loadMessages();
 
     sendButton.addEventListener("click", function () {
         printToDOM.printMessage();
