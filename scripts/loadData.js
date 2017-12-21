@@ -17,7 +17,6 @@ module.exports.loadMessages= function(){
 function processMessages () {
     let data = JSON.parse(event.target.responseText);
     let oldMessages = data.messages; 
-    console.log("this is the message array from inside the laoddata module", typeof oldMessages);
     printer.printOldMessages(oldMessages);
 }
 

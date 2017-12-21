@@ -26,15 +26,21 @@ module.exports.printOldMessages = function(array){
 function createMessageDiv(text, user, timestamp){
     let messageDiv = document.createElement("div");
     messageDiv.classList.add("message-div");
+    messageDiv.classList.add("container");
     messageDiv.classList.add(`${user}`);
     messageDiv.id = Date.now();
-    messageDiv.innerText = `${user}: ${text}`;
+    let messageText = document.createElement("p");
+    messageText.innerText = `${user}: ${text}`;
 
     let deleteButton = document.createElement("button");
-    deleteButton.innerText = "X";
+    deleteButton.innerText = "x";
     deleteButton.classList.add("delete-button");
+    deleteButton.classList.add("btn");
+    deleteButton.classList.add("btn-light");
+
     deleteButton.id = "delete-button";
 
+    messageDiv.appendChild(messageText);
     messageDiv.appendChild(deleteButton);
     messageContainer.appendChild(messageDiv);
 }

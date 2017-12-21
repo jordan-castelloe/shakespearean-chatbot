@@ -5,21 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chatty Redux</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' href='main.css'>
+    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Open+Sans" rel="stylesheet">
 </head>
 <body>
 
-    <header>
+    <header class = "message-area-header">
         <h1>Chatty Redux</h1>
     </header>
 
+    <div class = "main container">
+    <div class = "messages container">
     <section id = "message-area" class = "message-area"></section>
     <textarea id="message-textarea" class="message-textarea"></textarea>
-    
+    </div>
+
     <nav class = "options">
-        <button id = "send-button" class = "send-button">Send</button>
-        <button id = "clear-button" class = "clear-button">Clear Messages</button>
+        <button type = "button" id = "send-button" class = "btn btn-success send-button">Send</button>
+        <button type = "button" id = "clear-button" class = "btn btn-warning clear-button">Clear Messages</button>
     </nav>
+    </div>
 
     
     
