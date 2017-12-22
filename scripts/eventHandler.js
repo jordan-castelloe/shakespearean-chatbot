@@ -5,14 +5,17 @@ let loader = require("./loadData.js");
 const clearAll = require("./clearAll.js");
 const messageMaker = require("./messageMaker.js");
 const deleteIndividual = require("./deleteIndividual.js");
+const themeChanger = require("./themeChanger.js");
 
 const sendButton = document.getElementById("send-button");
 const clearButton = document.getElementById("clear-button");
+const themeButton = document.getElementById("theme-button");
+const textSizeButton = document.getElementById("text-size-button");
 const messageTextArea = document.getElementById("message-textarea");
 const messageContainer = document.getElementById("message-area");
 
 module.exports.activateEventListeners = function(){
-    
+
     loader.loadMessages();
 
     sendButton.addEventListener("click", function () {
@@ -35,6 +38,14 @@ module.exports.activateEventListeners = function(){
             let targetMessage = event.target.parentNode;
             deleteIndividual.deleteThisMessage(targetMessage);
         }
+    });
+
+    themeButton.addEventListener("click", function(){
+        themeChanger.changeTheme();
+    });
+
+    textSizeButton.addEventListener("click", function(){
+        themeChanger.changeTextSize();
     });
 
     

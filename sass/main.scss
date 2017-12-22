@@ -66,3 +66,28 @@ button{
     background-color: rgb(234, 234, 234);
     color: black;
 }
+
+.large-text{
+    font-size: 1.6em;
+}
+
+
+
+.dark {
+    background-color: rgb(54, 54, 118);
+    .message-area-header{
+        color: rgb(229, 222, 222);
+    }
+    .message-area{
+        background-color: rgb(157, 157, 177);
+        .message-div{
+            background-color: rgb(54, 54, 118);
+            .delete-button{
+                background-color: rgb(54, 54, 118);
+            }
+        }
+    }
+    .message-textarea{
+        background-color: rgb(157, 157, 177);
+    }
+}
