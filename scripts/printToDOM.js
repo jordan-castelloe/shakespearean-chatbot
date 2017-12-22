@@ -12,7 +12,7 @@ module.exports.printMessage = function(){
     let messageText = messageTextArea.value;
     createMessageDiv(messageText, user, Date.now());
     messageMaker.saveMessage(messageText, user, Date.now());
-    clearMessageTextArea();
+    clearTextArea();
 };
 
 module.exports.printOldMessages = function(array){
@@ -46,7 +46,6 @@ function createMessageDiv(text, user, timestamp){
     messageDiv.scrollIntoView(false);
 }
 
-function clearMessageTextArea(){
+function clearTextArea (){
     messageTextArea.value= "";
-    
 }

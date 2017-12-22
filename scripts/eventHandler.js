@@ -27,6 +27,7 @@ module.exports.activateEventListeners = function(){
 
     messageTextArea.addEventListener("keydown", function () {
         if (event.keyCode == 13) {
+            event.preventDefault();
             printToDOM.printMessage();
         }
     });
