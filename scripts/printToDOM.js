@@ -43,6 +43,7 @@ function createMessageDiv(text, user, timestamp){
     messageDiv.appendChild(messageText);
     messageDiv.appendChild(deleteButton);
     messageContainer.appendChild(messageDiv);
+    messageDiv.scrollIntoView(false);
 }
 
 function clearMessageTextArea(){

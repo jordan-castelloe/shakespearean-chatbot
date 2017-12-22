@@ -16,14 +16,16 @@ const messageContainer = document.getElementById("message-area");
 
 module.exports.activateEventListeners = function(){
 
-    loader.loadMessages();
+    messageContainer.scrollTop = messageContainer.scrollHeight;
 
+    loader.loadMessages();
+    
     sendButton.addEventListener("click", function () {
         printToDOM.printMessage();
        
     });
 
-    messageTextArea.addEventListener("keypress", function () {
+    messageTextArea.addEventListener("keydown", function () {
         if (event.keyCode == 13) {
             printToDOM.printMessage();
         }
