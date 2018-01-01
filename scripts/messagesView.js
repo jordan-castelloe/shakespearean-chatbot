@@ -10,6 +10,7 @@ module.exports.printSection = function (section) {
     $('.truth-textarea').attr('placeholder', section.options.truth.truthDefault);
     $('.lie-text').text(section.options.lie.liePrompt);
     $('.lie-textarea').attr('placeholder', section.options.lie.lieDefault);
+    $('#character-list').text(section.characters.join(', '));
 };
 
 

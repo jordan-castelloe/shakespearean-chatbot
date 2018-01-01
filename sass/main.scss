@@ -4,21 +4,21 @@
 
 h1, h2, h3{
     font-family: 'Leckerli One', sans-serif;
+    color: rgb(54, 54, 118);
 }
 
 .message-area-header{
     font-size: 4em;
-    color: rgb(54, 54, 118);
     padding: 0.5em;
     text-align: center;
 }
 
 .truth-container{
-    background-color: rgb(149, 186, 149);
+    background-color: rgb(255, 220, 122);
 }
 
 .lie-container{
-    background-color: rgb(230, 182, 182);
+    background-color: rgb(97, 133, 252);
 }
 
 .truth-container, .lie-container{
@@ -45,28 +45,18 @@ h1, h2, h3{
     height: 77vh;
 }
 
-
-
-
 .message-div{
-  background-color:rgb(75, 128, 182);
-  color: rgb(234, 234, 234);
-  padding: 0.5em;
-  margin: 0.4em;
-  width: 35vw;
-  border-radius: 0.5em;
-  display: flex;
-  justify-content: space-between;
+    background-color: rgb(234, 234, 234);
+    color: rgb(55, 55, 55);
+    padding: 0.5em;
+    margin: 0.4em;
+    width: 35vw;
+    border-radius: 0.5em;
+    display: flex;
+    justify-content: space-between;
 }
 
-.delete-button{
-    font-size: 0.7em;
-    padding: 0.4em;
-    color: rgb(234, 234, 234);
-    background-color: rgb(75, 128, 182);
-    border: none;
-    
-}
+
 
 .You{
     float: right;
@@ -74,27 +64,31 @@ h1, h2, h3{
     color: black;
 }
 
-.large-text{
-    font-size: 1.6em;
+.Roderigo{
+    background-color: rgb(255, 194, 194);
 }
 
+.Duke{
+    background-color: rgb(255, 219, 194);
+}
 
+.Emilia{
+    background-color: rgb(255, 235, 194);
+}
 
-.dark {
-    background-color: rgb(54, 54, 118);
-    .message-area-header{
-        color: rgb(229, 222, 222);
-    }
-    .message-area{
-        background-color: rgb(157, 157, 177);
-        .message-div{
-            background-color: rgb(54, 54, 118);
-            .delete-button{
-                background-color: rgb(54, 54, 118);
-            }
-        }
-    }
-    .message-textarea{
-        background-color: rgb(157, 157, 177);
-    }
+.Othello{
+    background-color: rgb(194, 255, 195);
+}
+
+.Cassio{
+    background-color: rgb(194, 227, 255);
+}
+
+.Desdemona{
+    background-color: rgb(209, 194, 255);
+
+}
+
+.Brabantio{
+    background-color: rgb(194, 254, 255);
 }
