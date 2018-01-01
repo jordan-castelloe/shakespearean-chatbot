@@ -25,7 +25,6 @@ module.exports.activateEventListeners = function(){
 
     $(".truth-textarea").keydown(function(e){
         if (e.keyCode == 13) {
-            console.log("you hit the enter key");
             event.preventDefault();
             printToDOM.printTruth();
         }
@@ -33,15 +32,10 @@ module.exports.activateEventListeners = function(){
 
     $(".lie-textarea").keydown(function(e){
         if (e.keyCode == 13) {
-            console.log("you hit the enter key");
             event.preventDefault();
             printToDOM.printLie();
-        }
-            
+        }      
     });
-
-        
-    
 
 };
 
