@@ -1,4 +1,4 @@
-##Othello Chatbot
+# Othello Chatbot
 
 This is an adaptation (bastardization?) of Shakespeare's Othello based on the Chatty project that we built for NSS. You play Iago, the central character and villain of the play. 
 
