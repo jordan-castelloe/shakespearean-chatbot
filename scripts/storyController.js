@@ -1,63 +1,69 @@
 'use strict';
 
-const printer = require("./printToDOM.js");
+const messagePrinter = require("./messagesView.js");
+const characterController = require("./characterController.js");
+
+
 
 
 module.exports.loadScene = function(scene){
-    $("#message-area").scrollTop($("#message-area")[0].scrollHeight); 
+    $("#message-area").scrollTop($("#message-area")[0].scrollHeight); // is this working or not?? 
 
-
-    printer.printSection(scene.openingLines);
     let currentSection = scene.openingLines;
     let nextSection = "";
 
-    // player tells the truth
+    messagePrinter.printSection(scene.openingLines);
+    
     $('.send-truth').click(function () {
-        printer.printTruth();
-        printNextSection("truth");
+        tellTheTruth();
 
     });
 
     $(".truth-textarea").keydown(function (e) {
         if (e.keyCode == 13) {
             event.preventDefault();
-            printer.printTruth();
-            printNextSection("truth");
+            tellTheTruth();
         }
     });
 
-    // player lies
     $('.send-lie').click(function () {
-        printer.printLie();
-        printNextSection("lie");
+       tellALie();
     });
 
-    
 
     $(".lie-textarea").keydown(function (e) {
         if (e.keyCode == 13) {
             event.preventDefault();
-            printer.printLie();
-            printNextSection("lie");
-            console.log("this should be the whole scene???", scene);
-            console.log("this should be the opening lines section", currentSection);
+            tellALie();
         }
     });
 
+
     function printNextSection(truthOrLie) {
         nextSection = currentSection.options[truthOrLie].nextSection;
-        // if (truthOrLie === "truth"){
-        //     nextSection = currentSection.options.truth.nextSection;
-        // } else if (truthOrLie === "lie"){
-        //     nextSection = currentSection.options.lie.nextSection;
-        // }
-        console.log(nextSection);
-        console.log("this should be the next section name for the opening lines section", currentSection.options.truth.nextSection);
-        printer.printSection(nextSection);
+        if ('newCharacter' in nextSection) {
+            messagePrinter.clearMessageArea();
+        }
+        messagePrinter.printSection(nextSection);
         currentSection = nextSection;
     }
 
+    function tellALie() {
+        messagePrinter.printLie();
+        printNextSection("lie");
+    }
+
+    function tellTheTruth() {
+        messagePrinter.printTruth();
+        printNextSection("truth");
+    }
+ 
 };
+
+
+
+
+
 
 
 

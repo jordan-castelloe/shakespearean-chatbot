@@ -1,29 +1,9 @@
 'use strict';
 
-let tellHerDad = {
-    messages: [{ text: "Omg, Brabantio will flip", name: "Roderigo" }, 
-        { text: "You're a genius", name: "Roderigo" }, 
-        { text: "Texting him now", name: "Roderigo" },
-        { text: "Okay, he REALLY doesn't want to talk to me", name: "Roderigo" }, 
-        { text: "Thinks I'm still after Desdemona", name: "Roderigo" }],
-    narration: "Desdemona's father, Brabantio, is a powerful man with powerful friends. He'll make life difficult for Othello once he learns that his daughter has eloped.",
-    options: {
-        truth: {
-            truthPrompt: "Stick to the truth. He'll figure it all out eventually anyway.",
-            truthDefault: "Tell him to go look for Desdemona in her bedroom",
-            consequences: "consequences function",
-            nextSection: "textOthello"
-        },
-        lie: {
-            liePrompt: "Might as well go the whole nine yards.",
-            lieDefault: "Oooh tell him you heard she was pregnant!",
-            consequences: "consequences function",
-            nextSection: "textOthello"
-        }
-    }
-};
+const sceneTwo = require("./act1scene2");
 
 let theEnd = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "Downloading tinder as we speak", name: "Roderigo" }],
     narration: "The End! Congratulations, you're a good person. That was a really boring story.",
     options: {
@@ -42,7 +22,59 @@ let theEnd = {
     }
 };
 
+
+
+let brabantioIsPissed= {
+    characters: ["Roderigo", "You"],
+    messages: [{ text: "That worked. He's pissed.", name: "Roderigo" }, 
+        { text: "Ha! He says he wishes I'd married her.", name: "Roderigo" }, 
+        { text: "He's going to look for Othello", name: "Roderigo" },
+        { text: "I'm gonna go with him", name: "Roderigo" }],
+    narration: "Looks like Othello's wedding night is going to be cut a little short. You really can't be seen working against your boss. You need Roderigo to delete his text history.",
+    options: {
+        truth: {
+            truthPrompt: "Tell Roderigo to delete his text history.",
+            truthDefault: "I can't be seen working against Othello, can you delete these texts?",
+            consequences: "consequences function",
+            nextSection: sceneTwo.warnOthello
+        },
+        lie: {
+            liePrompt: "Tell Roderigo where Othello will be and THEN to delete his text history.",
+            lieDefault: "Othello will be at the Sagittarius Inn. Don't tell him I told you. Delete your texts.",
+            consequences: "consequences function",
+            nextSection: sceneTwo.warnOthello
+        }
+    }
+};
+
+let tellHerDad = {
+    characters: ["Roderigo", "You"],
+    messages: [{ text: "Omg, Brabantio will flip", name: "Roderigo" }, 
+        { text: "You're a genius", name: "Roderigo" }, 
+        { text: "Texting him now", name: "Roderigo" },
+        { text: "Okay, he REALLY doesn't want to talk to me", name: "Roderigo" }, 
+        { text: "Thinks I'm still after Desdemona", name: "Roderigo" }],
+    narration: "Desdemona's father, Brabantio, is a powerful man with powerful friends. He'll make life difficult for Othello once he learns that his daughter has eloped.",
+    options: {
+        truth: {
+            truthPrompt: "Stick to the truth. He'll figure it all out eventually anyway.",
+            truthDefault: "Tell him to go look for Desdemona in her bedroom",
+            consequences: "consequences function",
+            nextSection: brabantioIsPissed
+        },
+        lie: {
+            liePrompt: "Might as well go the whole nine yards.",
+            lieDefault: "Oooh tell him you heard she was pregnant!",
+            consequences: "consequences function",
+            nextSection: brabantioIsPissed
+        }
+    }
+};
+
+
+
 let maybeTheEnd = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "Ugh, you're right. She has weird teeth anyway.", name: "Roderigo" }],
     narration: "Well, that's that. Better move on with your life, right?",
     options: {
@@ -62,6 +94,7 @@ let maybeTheEnd = {
 };
 
 let suggestSnitching= {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "There has to be a way to stop the marraige!", name: "Roderigo" }],
     narration: "You're pretty sure they're already married.",
     options: {
@@ -81,7 +114,8 @@ let suggestSnitching= {
 };
 
 let youShouldQuit= {
-    messages: [{ text: "You should just quit.", name: "Roderigo" }],
+    characters: ["Roderigo", "You"],
+    messages: [{ text: "If you hate him, you should just quit.", name: "Roderigo" }],
     narration: "But hey, you have a comfortable job and Othello totally loves you.",
     options: {
         truth: {
@@ -100,6 +134,7 @@ let youShouldQuit= {
 };
 
 let whyHelpMe = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "If you don't hate him, why are you helping me?", name: "Roderigo" }],
     narration: "That's a really good question. Seriously, scholars will labor over your motivations for hundreds of years.",
     options: {
@@ -119,6 +154,7 @@ let whyHelpMe = {
 };
 
 let doYouHateHim = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "I thought you hated him.", name: "Roderigo" }],
     narration: "You don't hate Othello but he is, after all, your boss. He recently passed you over for a promotion in favor of Michael Cassio, a math major straight out of school.",
     options: {
@@ -138,6 +174,7 @@ let doYouHateHim = {
 };
 
 let openingLines = {
+    characters: ["Roderigo", "You"],
     messages:[{text: "Tell me you didn't know about this.", name: "Roderigo"}],
     narration: "Your friend, Roderigo, is in love with a young woman named Desdemona and has learned that she has eloped with your commanding officer, Othello.",
     options: {
@@ -156,7 +193,9 @@ let openingLines = {
     }
 };
 
-module.exports = { openingLines, doYouHateHim, youShouldQuit, suggestSnitching, tellHerDad, whyHelpMe, theEnd, maybeTheEnd };
+
+module.exports = {openingLines, theEnd};
+
 
 
 
