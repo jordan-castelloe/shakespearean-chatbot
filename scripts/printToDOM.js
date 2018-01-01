@@ -1,51 +1,52 @@
 'use strict';
 
-const messageMaker = require("./messageMaker.js");
-
-
-const messageContainer = document.getElementById("message-area");
-const messageTextArea = document.getElementById("message-textarea");
-
-let user = "You";
-
-module.exports.printMessage = function(){
-    let messageText = messageTextArea.value;
-    createMessageDiv(messageText, user, Date.now());
-    messageMaker.saveMessage(messageText, user, Date.now());
-    clearTextArea();
-};
-
-module.exports.printOldMessages = function(array){
-    for(let i = 0; i < array.length; i++){
-        let currentMessage = array[i];
-        createMessageDiv(currentMessage.text, currentMessage.user, currentMessage.timestamp);
+module.exports.printSection = function (section) {
+    for (let i = 0; i < section.messages.length; i++) {
+        createMessageDiv(section.messages[i].text, section.messages[i].name);
     }
+
+    $('.narration').text(section.narration);
+    $('.truth-text').text(section.options.truth.truthPrompt);
+    $('.truth-textarea').attr('placeholder', section.options.truth.truthDefault);
+    $('.lie-text').text(section.options.lie.liePrompt);
+    $('.lie-textarea').attr('placeholder', section.options.lie.lieDefault);
 };
 
 
-function createMessageDiv(text, user, timestamp){
-    let messageDiv = document.createElement("div");
-    messageDiv.classList.add("message-div");
-    messageDiv.classList.add("container");
-    messageDiv.classList.add(`${user}`);
-    messageDiv.id = Date.now();
-    let messageText = document.createElement("p");
-    messageText.innerText = `${user}: ${text}`;
+module.exports.printTruth = function () {
+    let messageText = $(".truth-textarea").val();
+    console.log('this should be the truth', messageText);
+    printPlayerMessage(messageText);
 
-    let deleteButton = document.createElement("button");
-    deleteButton.innerText = "x";
-    deleteButton.classList.add("delete-button");
-    deleteButton.classList.add("btn");
-    deleteButton.classList.add("btn-light");
+};
 
-    deleteButton.id = "delete-button";
+module.exports.printLie = function () {
+    let messageText = $(".lie-textarea").val();
+    console.log('this should be the lie', messageText);
+    printPlayerMessage(messageText);
+};
 
-    messageDiv.appendChild(messageText);
-    messageDiv.appendChild(deleteButton);
-    messageContainer.appendChild(messageDiv);
-    messageDiv.scrollIntoView(false);
+function printPlayerMessage (text) {
+    createMessageDiv(text, "You");
+    // save message
+    clearTextArea();
 }
 
-function clearTextArea (){
-    messageTextArea.value= "";
+
+function createMessageDiv(text, character) {
+    let messageDiv = $("<div>", { class: `message-div ${character}` }).text(`${character}: ${text}`).appendTo($("#message-area"));
 }
+
+
+
+function clearTextArea() {
+    $(".message-textarea").val("");
+}
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Chatty Redux</title>
+    <title>Othello Chatbot</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' href='main.css'>
     <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Open+Sans" rel="stylesheet">
@@ -12,25 +12,37 @@
 <body>
 
     <header class = "message-area-header">
-        <h1>Chatty Redux</h1>
+        <h1>Othello Chatbot</h1>
     </header>
 
-    <div class = "main container">
-    <div class = "messages container">
-    <section id = "message-area" class = "message-area"></section>
-    <textarea id="message-textarea" class="message-textarea"></textarea>
-    </div>
+    <div class = "container">
+        <div class="row">
 
-    <nav class = "options">
-        <button type = "button" id = "send-button" class = "btn btn-success send-button">Send</button>
-        <button type = "button" id = "clear-button" class = "btn btn-warning clear-button">Clear Messages</button>
-        <button type = "button" id = "theme-button" class = "btn btn-secondary theme-button">Dark Theme</button>
-        <button type = "button" id = "text-size-button" class = "btn btn-secondary text-size-button">Large Print</button>
-    </nav>
+            <div id = "message-area" class="col-md message-area">
+            </div>
+
+            <div class="col-md story-area">
+                <p class = "narration"></p>
+                <section class = "options">
+                    <div class = "truth-container">
+                        <p class = "truth-text"></p>
+                        <textarea placeholder="" class="message-textarea truth-textarea"></textarea>
+                        <button type="button" class="btn btn-secondary send-button send-truth">Send</button>
+                    </div>
+                    <div class = "lie-container">
+                        <p class = "lie-text"></p>
+                        <textarea placeholder="" class="message-textarea lie-textarea"></textarea>
+                        <button type="button" class="btn btn-secondary send-button send-lie">Send</button>
+                    </div>
+                </section> 
+            </div>
+        </div>
     </div>
 
     
+
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src = "dist/bundle.js"></script>
 </body>
 </html>
