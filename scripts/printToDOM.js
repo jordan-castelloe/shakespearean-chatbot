@@ -4,15 +4,21 @@ const messageMaker = require("./messageMaker.js");
 
 
 const messageContainer = document.getElementById("message-area");
-const messageTextArea = document.getElementById("message-textarea");
+
 
 let user = "You";
 
-module.exports.printMessage = function(){
-    let messageText = messageTextArea.value;
-    createMessageDiv(messageText, user, Date.now());
-    messageMaker.saveMessage(messageText, user, Date.now());
-    clearTextArea();
+module.exports.printTruth = function(){
+    let messageText= $(".truth-textarea").val();
+    console.log('this should be the truth', messageText);
+    printMessage(messageText);
+    
+};
+
+module.exports.printLie = function(){
+    let messageText = $(".lie-textarea").val();
+    console.log('this should be the lie', messageText);
+    printMessage(messageText);
 };
 
 module.exports.printOldMessages = function(array){
@@ -22,6 +28,11 @@ module.exports.printOldMessages = function(array){
     }
 };
 
+function printMessage(messageText){
+    createMessageDiv(messageText, user, Date.now());
+    messageMaker.saveMessage(messageText, user, Date.now());
+    clearTextArea();
+}
 
 function createMessageDiv(text, user, timestamp){
     let messageDiv = document.createElement("div");
@@ -47,5 +58,5 @@ function createMessageDiv(text, user, timestamp){
 }
 
 function clearTextArea (){
-    messageTextArea.value= "";
+    $(".message-textarea").val("");
 }

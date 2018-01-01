@@ -13,33 +13,38 @@ h1, h2, h3{
     text-align: center;
 }
 
-.main-container, .message-area{
-    width: 60vw;
-    height: 60vh;
+.truth-container{
+    background-color: rgb(149, 186, 149);
+}
+
+.lie-container{
+    background-color: rgb(230, 182, 182);
+}
+
+.truth-container, .lie-container{
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+.message-textarea{
+    width: 80%;
+    height: 2em;
+    padding: 0.2em;
+    border: 1px solid gray;
+    border-radius: 0.6em;
+}
+
+.send-button{
+    margin-bottom: 2em;
 }
 
 .message-area{
-    width: 60vw;
-    height: 60vh;
     border: 0.2px solid rgb(130, 130, 130);
     overflow: scroll;
 }
 
-.message-textarea{
-    width: 60vw;
-    height: 10vh;
-    border: 0.2px solid rgb(130, 130, 130);
-    margin: 0.5em 0;
-}
 
-.options{
-    display: flex;
-    margin: 0.5em;
-}
 
-button{
-    margin: 0.5em;
-}
 
 .message-div{
   background-color:rgb(75, 128, 182);

@@ -2,16 +2,10 @@
 
 const printToDOM = require("./printToDOM.js");
 let loader = require("./loadData.js");
-const clearAll = require("./clearAll.js");
 const messageMaker = require("./messageMaker.js");
-const deleteIndividual = require("./deleteIndividual.js");
-const themeChanger = require("./themeChanger.js");
+
 
 const sendButton = document.getElementById("send-button");
-const clearButton = document.getElementById("clear-button");
-const themeButton = document.getElementById("theme-button");
-const textSizeButton = document.getElementById("text-size-button");
-const messageTextArea = document.getElementById("message-textarea");
 const messageContainer = document.getElementById("message-area");
 
 module.exports.activateEventListeners = function(){
@@ -20,39 +14,33 @@ module.exports.activateEventListeners = function(){
 
     loader.loadMessages();
     
-    sendButton.addEventListener("click", function () {
-        printToDOM.printMessage();
+    $('.send-truth').click(function(){
+        printToDOM.printTruth();
        
     });
 
-    messageTextArea.addEventListener("keydown", function () {
-        if (event.keyCode == 13) {
+    $('.send-lie').click(function(){
+        printToDOM.printLie();
+    });
+
+    $(".truth-textarea").keydown(function(e){
+        if (e.keyCode == 13) {
+            console.log("you hit the enter key");
             event.preventDefault();
-            printToDOM.printMessage();
+            printToDOM.printTruth();
         }
     });
 
-    clearButton.addEventListener("click", function () {
-        clearAll.clearMessages();
-    });
-
-    messageContainer.addEventListener("click", function(){
-        if (event.target.id == "delete-button"){
-            let targetMessage = event.target.parentNode;
-            deleteIndividual.deleteThisMessage(targetMessage);
+    $(".lie-textarea").keydown(function(e){
+        if (e.keyCode == 13) {
+            console.log("you hit the enter key");
+            event.preventDefault();
+            printToDOM.printLie();
         }
+            
     });
 
-    themeButton.addEventListener("click", function(){
-        themeChanger.changeTheme();
-    });
-
-    textSizeButton.addEventListener("click", function(){
-        themeChanger.changeTextSize();
-    });
-
-    
-
+        
     
 
 };
