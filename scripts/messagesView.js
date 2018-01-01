@@ -8,7 +8,7 @@ module.exports.printSection = function (section) {
         typingIndicator = createTypingIndicator(section.messages[i].name);
         messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
         typingIndicator.appendTo($("#message-area"));
-        setTimeout(switchMessageDiv, 1000); 
+        setTimeout(switchMessageDiv, 1500); 
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -39,7 +39,7 @@ module.exports.printLie = function () {
 };
 
 function printPlayerMessage (text) {
-    createMessageDiv(text, "You");
+    createMessageDiv(text, "You").appendTo("#message-area");
     clearTextArea();
 }
 
