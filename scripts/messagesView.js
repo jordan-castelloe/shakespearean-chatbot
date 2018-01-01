@@ -2,7 +2,7 @@
 
 module.exports.printSection = function (section) {
     for (let i = 0; i < section.messages.length; i++) {
-        createTypingIndicator();
+        createTypingIndicator(section.messages[i].name);
         createMessageDiv(section.messages[i].text, section.messages[i].name);
     }
 
@@ -36,9 +36,9 @@ function createMessageDiv(text, character) {
     let messageDiv = $("<div>", { class: `message-div ${character}` }).text(`${character}: ${text}`).appendTo($("#message-area"));
 }
 
-function createTypingIndicator(){
+function createTypingIndicator(character){
     console.log("create typing indicator function fired");
-    let typingIndicator = $("<div>", {class: 'typing-indicator'}).appendTo($('#message-area'));
+    let typingIndicator = $("<div>", {class: `typing-indicator message-div ${character}`}).appendTo($('#message-area'));
     let dotOne = $("<span>").appendTo(typingIndicator);
     let dotTwo = $("<span>").appendTo(typingIndicator);
     let dotThree = $("<span>").appendTo(typingIndicator);
