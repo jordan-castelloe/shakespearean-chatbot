@@ -4,6 +4,9 @@ const printer = require("./printToDOM.js");
 
 
 module.exports.loadScene = function(scene){
+    $("#message-area").scrollTop($("#message-area")[0].scrollHeight); 
+
+
     printer.printSection(scene.openingLines);
     let currentSection = scene.openingLines;
     let nextSection = "";
@@ -42,11 +45,12 @@ module.exports.loadScene = function(scene){
     });
 
     function printNextSection(truthOrLie) {
-        if (truthOrLie === "truth"){
-            nextSection = currentSection.options.truth.nextSection;
-        } else if (truthOrLie === "lie"){
-            nextSection = currentSection.options.lie.nextSection;
-        }
+        nextSection = currentSection.options[truthOrLie].nextSection;
+        // if (truthOrLie === "truth"){
+        //     nextSection = currentSection.options.truth.nextSection;
+        // } else if (truthOrLie === "lie"){
+        //     nextSection = currentSection.options.lie.nextSection;
+        // }
         console.log(nextSection);
         console.log("this should be the next section name for the opening lines section", currentSection.options.truth.nextSection);
         printer.printSection(nextSection);

@@ -22,16 +22,17 @@ h1, h2, h3{
 }
 
 .truth-container, .lie-container{
-    padding: 0.5em;
+    padding: 1em;
     margin: 0.5em;
+    border-radius: 0.7em;
 }
 
 .message-textarea{
     width: 80%;
-    height: 2em;
-    padding: 0.2em;
+    height: 15vh;
+    padding: 0.4em;
     border: 1px solid gray;
-    border-radius: 0.6em;
+    border-radius: 0.4em;
 }
 
 .send-button{
@@ -41,6 +42,7 @@ h1, h2, h3{
 .message-area{
     border: 0.2px solid rgb(130, 130, 130);
     overflow: scroll;
+    height: 77vh;
 }
 
 
