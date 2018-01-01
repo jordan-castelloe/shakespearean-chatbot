@@ -156,7 +156,9 @@ let openingLines = {
     }
 };
 
-module.exports = { openingLines, doYouHateHim, youShouldQuit, suggestSnitching, tellHerDad, whyHelpMe, theEnd, maybeTheEnd };
+
+module.exports = {openingLines};
+
 
 
 
