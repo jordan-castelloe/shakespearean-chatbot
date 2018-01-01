@@ -1,39 +1,37 @@
 'use strict';
 
-const printToDOM = require("./printToDOM.js");
-let loader = require("./loadData.js");
-const messageMaker = require("./messageMaker.js");
+const printer = require("./printToDOM.js");
+const loader = require("./loadData.js");
+const storyController = require("./storyController");
+const act1scene1 = require("./act1scene1");
 
-
-const sendButton = document.getElementById("send-button");
-const messageContainer = document.getElementById("message-area");
 
 module.exports.activateEventListeners = function(){
 
-    messageContainer.scrollTop = messageContainer.scrollHeight;
+    $("#message-area").scrollTop = ("#message-area").scrollHeight;
+    printer.printSection(act1scene1.openingLines);
 
-    loader.loadMessages();
     
     $('.send-truth').click(function(){
-        printToDOM.printTruth();
+        printer.printTruth();
        
     });
 
     $('.send-lie').click(function(){
-        printToDOM.printLie();
+        printer.printLie();
     });
 
     $(".truth-textarea").keydown(function(e){
         if (e.keyCode == 13) {
             event.preventDefault();
-            printToDOM.printTruth();
+            printer.printTruth();
         }
     });
 
     $(".lie-textarea").keydown(function(e){
         if (e.keyCode == 13) {
             event.preventDefault();
-            printToDOM.printLie();
+            printer.printLie();
         }      
     });
 
