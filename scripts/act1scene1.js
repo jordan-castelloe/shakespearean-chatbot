@@ -1,6 +1,122 @@
 'use strict';
 
+
+
+let groupText= {
+    characters: ["Othello", "Brabantio", "The Duke", "You"],
+    newCharacter: true,
+    messages: [
+        { text: "THIS IS THE GROUP TEXT", name: "Othello" },
+        { text: "Speaking of, Cassio just texted and says the Duke wants to talk to us about the war in Cyprus", name: "Othello" },
+        { text: "I'm gonna start a group text, want me to include you?", name: "Othello" }],
+    narration: "On the one hand, you love knowing everybody's business. On the other hand, group texts are the actual worst.",
+    options: {
+        truth: {
+            truthPrompt: "Get in on the group text.",
+            truthDefault: "Yes please! Count me in!",
+            consequences: "consequences function -- trust increases",
+            nextSection: "groupText"
+        },
+        lie: {
+            liePrompt: "Skip the group text.",
+            lieDefault: "Nah, fill me in later.",
+            consequences: "consequences function-- trust increases more",
+            nextSection: "skip group text"
+        }
+    }
+};
+
+let brabantioCanSuckMyDick= {
+    characters: ["Othello", "You"],
+    messages: [
+        { text: "Brabantio can whine all he wants. I've done enough for the Venetian government that it won't make a dent", name: "Othello" },
+        { text: "Speaking of, Cassio just texted and says the Duke wants to talk to us about the war in Cyprus", name: "Othello" },
+        { text: "I'm gonna start a group text, want me to include you?", name: "Othello" }],
+    narration: "On the one hand, you love knowing everybody's business. On the other hand, group texts are the actual worst.",
+    options: {
+        truth: {
+            truthPrompt: "Get in on the group text.",
+            truthDefault: "Yes please! Count me in!",
+            consequences: "consequences function -- trust increases",
+            nextSection: groupText
+        },
+        lie: {
+            liePrompt: "Skip the group text.",
+            lieDefault: "Nah, fill me in later.",
+            consequences: "consequences function-- trust increases more",
+            nextSection: "skip group text"
+        }
+    }
+};
+
+let imGladYouDidnt= {
+    characters: ["Othello", "You"],
+    messages: [{ text: "I'm glad you didn't.", name: "Othello" },
+        { text: "Oh, hey. Cassio just texted. He said the Duke wants to talk to us about the war in Cyprus", name: "Othello" },
+        { text: "I'm gonna start a group text, do you want in?", name: "Othello" }],
+    narration: "On the one hand, you love knowing everybody's business. On the other hand, group texts are the actual worst.",
+    options: {
+        truth: {
+            truthPrompt: "Get in on the group text.",
+            truthDefault: "Yes, please, count me in!.",
+            consequences: "consequences function -- trust increases",
+            nextSection: groupText
+        },
+        lie: {
+            liePrompt: "Skip the group text.",
+            lieDefault: "Fill me in later.",
+            consequences: "consequences function-- trust increases more",
+            nextSection: "skip the groupText"
+        }
+    }
+};
+
+let warnOthello= {
+    characters: ["Othello", "You"],
+    newCharacter: true,
+    messages: [{ text: "Hey, Iago. Are you going to make it to the wedding party tomorrow?", name: "Othello" }],
+    narration: "You need Othello to trust you.",
+    options: {
+        truth: {
+            truthPrompt: "Warn Othello that Brabantio is coming.",
+            truthDefault: "Do you have all your marriage paperwork together? Brabantio's found out about the marraige and he's not pleased.",
+            consequences: "consequences function -- trust increases",
+            nextSection: brabantioCanSuckMyDick
+        },
+        lie: {
+            liePrompt: "Shit talk Roderigo.",
+            lieDefault: "Dude, you should have heard the shit Roderigo was saying about you! I almost had to kill him!",
+            consequences: "consequences function-- trust increases more",
+            nextSection: imGladYouDidnt
+        }
+    }
+};
+
+let brabantioIsPissed= {
+    characters: ["Roderigo", "You"],
+    messages: [{ text: "That worked. He's pissed.", name: "Roderigo" }, 
+        { text: "Ha! He says he wishes I'd married her.", name: "Roderigo" }, 
+        { text: "He's going to look for Othello", name: "Roderigo" },
+        { text: "I'm gonna go with him", name: "Roderigo" }],
+    narration: "Looks like Othello's wedding night is going to be cut a little short. You really can't be seen working against your boss. You need Roderigo to delete his text history.",
+    options: {
+        truth: {
+            truthPrompt: "Tell Roderigo to delete his text history.",
+            truthDefault: "I can't be seen working against Othello, can you delete these texts?",
+            consequences: "consequences function",
+            nextSection: warnOthello
+        },
+        lie: {
+            liePrompt: "Tell Roderigo where Othello will be and THEN to delete his text history.",
+            lieDefault: "Othello will be at the Sagittarius Inn. Don't tell him I told you. Delete your texts.",
+            consequences: "consequences function",
+            nextSection: warnOthello
+        }
+    }
+};
+
 let tellHerDad = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "Omg, Brabantio will flip", name: "Roderigo" }, 
         { text: "You're a genius", name: "Roderigo" }, 
         { text: "Texting him now", name: "Roderigo" },
@@ -12,18 +128,19 @@ let tellHerDad = {
             truthPrompt: "Stick to the truth. He'll figure it all out eventually anyway.",
             truthDefault: "Tell him to go look for Desdemona in her bedroom",
             consequences: "consequences function",
-            nextSection: "textOthello"
+            nextSection: brabantioIsPissed
         },
         lie: {
             liePrompt: "Might as well go the whole nine yards.",
             lieDefault: "Oooh tell him you heard she was pregnant!",
             consequences: "consequences function",
-            nextSection: "textOthello"
+            nextSection: brabantioIsPissed
         }
     }
 };
 
 let theEnd = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "Downloading tinder as we speak", name: "Roderigo" }],
     narration: "The End! Congratulations, you're a good person. That was a really boring story.",
     options: {
@@ -43,6 +160,7 @@ let theEnd = {
 };
 
 let maybeTheEnd = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "Ugh, you're right. She has weird teeth anyway.", name: "Roderigo" }],
     narration: "Well, that's that. Better move on with your life, right?",
     options: {
@@ -62,6 +180,7 @@ let maybeTheEnd = {
 };
 
 let suggestSnitching= {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "There has to be a way to stop the marraige!", name: "Roderigo" }],
     narration: "You're pretty sure they're already married.",
     options: {
@@ -81,7 +200,8 @@ let suggestSnitching= {
 };
 
 let youShouldQuit= {
-    messages: [{ text: "You should just quit.", name: "Roderigo" }],
+    characters: ["Roderigo", "You"],
+    messages: [{ text: "If you hate him, you should just quit.", name: "Roderigo" }],
     narration: "But hey, you have a comfortable job and Othello totally loves you.",
     options: {
         truth: {
@@ -100,6 +220,7 @@ let youShouldQuit= {
 };
 
 let whyHelpMe = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "If you don't hate him, why are you helping me?", name: "Roderigo" }],
     narration: "That's a really good question. Seriously, scholars will labor over your motivations for hundreds of years.",
     options: {
@@ -119,6 +240,7 @@ let whyHelpMe = {
 };
 
 let doYouHateHim = {
+    characters: ["Roderigo", "You"],
     messages: [{ text: "I thought you hated him.", name: "Roderigo" }],
     narration: "You don't hate Othello but he is, after all, your boss. He recently passed you over for a promotion in favor of Michael Cassio, a math major straight out of school.",
     options: {
@@ -138,6 +260,7 @@ let doYouHateHim = {
 };
 
 let openingLines = {
+    characters: ["Roderigo", "You"],
     messages:[{text: "Tell me you didn't know about this.", name: "Roderigo"}],
     narration: "Your friend, Roderigo, is in love with a young woman named Desdemona and has learned that she has eloped with your commanding officer, Othello.",
     options: {

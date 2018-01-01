@@ -43,6 +43,10 @@ function clearTextArea() {
     $(".message-textarea").val("");
 }
 
+module.exports.clearMessageArea= function(){
+    $("#message-area").text("");
+};
+
 
 
 

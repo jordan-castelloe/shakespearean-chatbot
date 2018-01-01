@@ -1,17 +1,19 @@
 'use strict';
 
 const messagePrinter = require("./messagesView.js");
+const characterController = require("./characterController.js");
+
+
 
 
 module.exports.loadScene = function(scene){
-    $("#message-area").scrollTop($("#message-area")[0].scrollHeight); 
+    $("#message-area").scrollTop($("#message-area")[0].scrollHeight); // is this working or not?? 
 
-
-    messagePrinter.printSection(scene.openingLines);
     let currentSection = scene.openingLines;
     let nextSection = "";
 
-    // player tells the truth
+    messagePrinter.printSection(scene.openingLines);
+    
     $('.send-truth').click(function () {
         tellTheTruth();
 
@@ -24,12 +26,10 @@ module.exports.loadScene = function(scene){
         }
     });
 
-    // player lies
     $('.send-lie').click(function () {
        tellALie();
     });
 
-    
 
     $(".lie-textarea").keydown(function (e) {
         if (e.keyCode == 13) {
@@ -37,6 +37,16 @@ module.exports.loadScene = function(scene){
             tellALie();
         }
     });
+
+
+    function printNextSection(truthOrLie) {
+        nextSection = currentSection.options[truthOrLie].nextSection;
+        if ('newCharacter' in nextSection) {
+            messagePrinter.clearMessageArea();
+        }
+        messagePrinter.printSection(nextSection);
+        currentSection = nextSection;
+    }
 
     function tellALie() {
         messagePrinter.printLie();
@@ -47,15 +57,13 @@ module.exports.loadScene = function(scene){
         messagePrinter.printTruth();
         printNextSection("truth");
     }
-
-    function printNextSection(truthOrLie) {
-        nextSection = currentSection.options[truthOrLie].nextSection;
-        messagePrinter.printSection(nextSection);
-        currentSection = nextSection;
-    }
-
  
 };
+
+
+
+
+
 
 
 
