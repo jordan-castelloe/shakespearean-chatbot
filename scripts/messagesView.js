@@ -10,7 +10,7 @@ module.exports.printSection = function (section) {
             setTypingIndicator(typingIndicator, messageDiv, offset);
         } else if (i > 0){
             offset = i * 1500;
-            setTimeout(setTypingIndicator, offset, typingIndicator, messageDiv);  
+            setTimeout(setTypingIndicator, offset, typingIndicator, messageDiv, offset, i);  
         }
     }
     $('.narration').text(section.narration);
@@ -24,7 +24,10 @@ module.exports.printSection = function (section) {
 };
 
 
-function setTypingIndicator(typingIndicator, messageDiv, offset){
+function setTypingIndicator(typingIndicator, messageDiv, offset, messageIndex){
+    if (messageIndex > 0) {
+        offset = messageIndex * 1000;
+    }
     typingIndicator.appendTo($("#message-area"));
     setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
 }
@@ -33,6 +36,7 @@ function switchMessageDiv(typingIndicator, messageDiv) {
     typingIndicator.remove();
     messageDiv.appendTo("#message-area");
 }
+
 module.exports.printTruth = function () {
     let messageText = $(".truth-textarea").val();
     printPlayerMessage(messageText);
