@@ -5,8 +5,13 @@ module.exports.printSection = function (section) {
     for (let i = 0; i < section.messages.length; i++) {
         let typingIndicator = createTypingIndicator(section.messages[i].name);
         let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
-        typingIndicator.appendTo($("#message-area"));
-        setTimeout(switchMessageDiv, 1500, typingIndicator, messageDiv, i);
+        let offset = 1500;
+        if (i == 0){
+            setTypingIndicator(typingIndicator, messageDiv, offset);
+        } else if (i > 0){
+            offset = i * 1500;
+            setTimeout(setTypingIndicator, offset, typingIndicator, messageDiv);  
+        }
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -18,39 +23,16 @@ module.exports.printSection = function (section) {
   
 };
 
-// var s = ['John', 'Mark', 'Alex'];
-// var i = 0;
 
-// (function loop() {
-//     x.innerHTML = s[i];
-//     if (++i < s.length) {
-//         setTimeout(loop, 3000);  // call myself in 3 seconds time if required
-//     }
-// })();      // above function expression is called immediately to start it off
-
-
-function switchMessageDiv(typingIndicator, messageDiv, messageIndex) {
-    if (messageIndex == 0){
-        console.log("the first message", messageDiv);
-        setTypingIndicator(typingIndicator, messageDiv);
-    } else {
-        console.log("the following message", messageDiv);
-        setTimeout(setTypingIndicator, 1500, typingIndicator, messageDiv);
-    }
+function setTypingIndicator(typingIndicator, messageDiv, offset){
+    typingIndicator.appendTo($("#message-area"));
+    setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
 }
 
-function setTypingIndicator(typingIndicator, messageDiv){
+function switchMessageDiv(typingIndicator, messageDiv) {
     typingIndicator.remove();
     messageDiv.appendTo("#message-area");
 }
-
-
-
-
-
-
-
-
 module.exports.printTruth = function () {
     let messageText = $(".truth-textarea").val();
     printPlayerMessage(messageText);
