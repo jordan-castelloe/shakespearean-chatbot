@@ -7,8 +7,7 @@ const characterController = require("./characterController.js");
 
 
 module.exports.loadScene = function(scene){
-    $("#message-area").scrollTop($("#message-area")[0].scrollHeight); // is this working or not?? 
-
+   
     let currentSection = scene.openingLines;
     let nextSection = "";
 

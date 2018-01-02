@@ -1,36 +1,16 @@
 'use strict';
 
 const sceneTwo = require("./act1scene2");
-
-let theEnd = {
-    characters: ["Roderigo", "You"],
-    messages: [{ text: "Downloading tinder as we speak", name: "Roderigo" }],
-    narration: "The End! Congratulations, you're a good person. That was a really boring story.",
-    options: {
-        truth: {
-            truthPrompt: "",
-            truthDefault: "",
-            consequences: "",
-            nextSection: ""
-        },
-        lie: {
-            liePrompt: "",
-            lieDefault: "",
-            consequences: "",
-            nextSection: ""
-        }
-    }
-};
-
-
+const endings = require("./endings");
 
 let brabantioIsPissed= {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "That worked. He's pissed.", name: "Roderigo" }, 
-        { text: "Ha! He says he wishes I'd married her.", name: "Roderigo" }, 
+        { text: "Ha! He he says he wishes I'd married her.", name: "Roderigo" }, 
         { text: "He's going to look for Othello", name: "Roderigo" },
         { text: "I'm gonna go with him", name: "Roderigo" }],
-    narration: "Looks like Othello's wedding night is going to be cut a little short. You really can't be seen working against your boss. You need Roderigo to delete his text history.",
+    narration: "You really can't be seen working against your boss.",
     options: {
         truth: {
             truthPrompt: "Tell Roderigo to delete his text history.",
@@ -48,6 +28,7 @@ let brabantioIsPissed= {
 };
 
 let tellHerDad = {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Omg, Brabantio will flip", name: "Roderigo" }, 
         { text: "You're a genius", name: "Roderigo" }, 
@@ -64,7 +45,7 @@ let tellHerDad = {
         },
         lie: {
             liePrompt: "Might as well go the whole nine yards.",
-            lieDefault: "Oooh tell him you heard she was pregnant!",
+            lieDefault: "Oooh tell him you heard she was preggo",
             consequences: "consequences function",
             nextSection: brabantioIsPissed
         }
@@ -74,6 +55,7 @@ let tellHerDad = {
 
 
 let maybeTheEnd = {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Ugh, you're right. She has weird teeth anyway.", name: "Roderigo" }],
     narration: "Well, that's that. Better move on with your life, right?",
@@ -82,10 +64,10 @@ let maybeTheEnd = {
             truthPrompt: "Totally. Time to move on. No reason to hold a grudge.",
             truthDefault: "Gotta go. You should look into Tinder.",
             consequences: "consequences function",
-            nextSection: theEnd
+            nextSection: endings.tinderEnder
         },
         lie: {
-            liePrompt: "That was lame. Stir the pot! Let's tell her dad!",
+            liePrompt: "Just kidding, that was lame. Stir the pot! Let's tell her dad!",
             lieDefault: "On second thought, we might owe it to her dad to let him know. Man to man.",
             consequences: "consequences function",
             nextSection: tellHerDad
@@ -94,6 +76,7 @@ let maybeTheEnd = {
 };
 
 let suggestSnitching= {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "There has to be a way to stop the marraige!", name: "Roderigo" }],
     narration: "You're pretty sure they're already married.",
@@ -114,8 +97,9 @@ let suggestSnitching= {
 };
 
 let youShouldQuit= {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
-    messages: [{ text: "If you hate him, you should just quit.", name: "Roderigo" }],
+    messages: [{ text: "If you hate him, you should quit.", name: "Roderigo" }],
     narration: "But hey, you have a comfortable job and Othello totally loves you.",
     options: {
         truth: {
@@ -134,6 +118,7 @@ let youShouldQuit= {
 };
 
 let whyHelpMe = {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you don't hate him, why are you helping me?", name: "Roderigo" }],
     narration: "That's a really good question. Seriously, scholars will labor over your motivations for hundreds of years.",
@@ -154,18 +139,19 @@ let whyHelpMe = {
 };
 
 let doYouHateHim = {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "I thought you hated him.", name: "Roderigo" }],
-    narration: "You don't hate Othello but he is, after all, your boss. He recently passed you over for a promotion in favor of Michael Cassio, a math major straight out of school.",
+    narration: "You don't really hate Othello, but he is, after all, your boss. Othello recently passed you over for a promotion in favor of Michael Cassio, a math major straight out of school. Not cool.",
     options: {
         truth: {
-            truthPrompt: "Say you don't really hate him.",
-            truthDefault: "Hate's a strong word, it pissed me off when he promoted Michael Cassio over me.",
+            truthPrompt: "Explain the situation in emotionally reasonable terms.",
+            truthDefault: "Hate's a strong word, but it pissed me off when he promoted Michael Cassio over me.",
             consequences: "consequences function",
             nextSection: whyHelpMe
         },
         lie: {
-            liePrompt: "Say you hate him.",
+            liePrompt: "Say you totally hate him.",
             lieDefault: "I hate his guts! The bastard passed me over for a promotion! You'll see, I'll screw him over!",
             consequences: "consequences function",
             nextSection: youShouldQuit
@@ -174,27 +160,28 @@ let doYouHateHim = {
 };
 
 let openingLines = {
+    scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages:[{text: "Tell me you didn't know about this.", name: "Roderigo"}],
-    narration: "Your friend, Roderigo, is in love with a young woman named Desdemona and has learned that she has eloped with your commanding officer, Othello.",
+    narration: "Your friend, Roderigo, is in love with a young woman named Desdemona. He's just learned that she has eloped with your commanding officer, Othello.",
     options: {
         truth: {
             truthPrompt: "Admit that you knew about it.",
             truthDefault: "I knew about it, but I was afraid to tell you",
-            consequences: function(){console.log("consequences function fired!");},
+            consequences: "",
             nextSection: doYouHateHim
         }, 
         lie: {
             liePrompt: "Tell him you had no idea.",
             lieDefault: "I didn't, I swear!",
-            consequences: function(){console.log("consequences function fired!");},
+            consequences: "",
             nextSection: doYouHateHim
         }
     }
 };
 
 
-module.exports = {openingLines, theEnd};
+module.exports = {openingLines};
 
 
 
