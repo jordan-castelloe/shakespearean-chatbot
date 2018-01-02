@@ -1,14 +1,15 @@
 'use strict';
 
 module.exports.printSection = function (section) {
-    let typingIndicator = "";
-    let messageDiv = "";
+    // let typingIndicator = "";
+    // let messageDiv = "";
 
     for (let i = 0; i < section.messages.length; i++) {
-        typingIndicator = createTypingIndicator(section.messages[i].name);
-        messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
+        let typingIndicator = createTypingIndicator(section.messages[i].name);
+        let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
+        console.log("this is the messageDiv from within the loop", messageDiv);
         typingIndicator.appendTo($("#message-area"));
-        setTimeout(switchMessageDiv, 1500); 
+        setTimeout(switchMessageDiv, 1500, typingIndicator, messageDiv); 
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -18,12 +19,14 @@ module.exports.printSection = function (section) {
     $('#character-list').text(section.characters.join(', '));
 
   
-    function switchMessageDiv() {
-        typingIndicator.remove();
-        messageDiv.appendTo($("#message-area"));
-
-    }
 };
+
+function switchMessageDiv(typingIndicator, messageDiv) {
+    typingIndicator.remove();
+    console.log("this is the message div from the switch message function", messageDiv);
+    messageDiv.appendTo($("#message-area"));
+}
+
 
 
 
@@ -39,7 +42,7 @@ module.exports.printLie = function () {
 };
 
 function printPlayerMessage (text) {
-    createMessageDiv(text, "You").appendTo("#message-area");
+    createMessageDiv(text, "You").appendTo($("#message-area"));
     clearTextArea();
 }
 
@@ -50,7 +53,6 @@ function createMessageDiv(text, character) {
 }
 
 function createTypingIndicator(character){
-    console.log("create typing indicator function fired");
     let typingIndicator = $("<div>", {class: `typing-indicator message-div ${character}`});
     let dotOne = $("<span>").appendTo(typingIndicator);
     let dotTwo = $("<span>").appendTo(typingIndicator);
