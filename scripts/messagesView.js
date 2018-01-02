@@ -2,8 +2,6 @@
 
 module.exports.printSection = function (section) {
     for (let i = 0; i < section.messages.length; i++) {
-        console.log("this should be the message", section.messages[i]);
-        console.log("this is i from inside the loop", i);
         let typingIndicator = createTypingIndicator(section.messages[i].name);
         let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
         startMessageSequence(typingIndicator,messageDiv, i);
@@ -17,7 +15,6 @@ module.exports.printSection = function (section) {
 };
 
 function startMessageSequence(typingIndicator, messageDiv, messageIndex){
-    console.log("this should be i", messageIndex);
     let offset = 2000;
     if (messageIndex == 0){
         appendTypingIndicator(typingIndicator);
@@ -32,6 +29,7 @@ function startMessageSequence(typingIndicator, messageDiv, messageIndex){
 
 function appendTypingIndicator(typingIndicator){
     typingIndicator.appendTo($("#message-area"));
+    scrollToBottom();
 }
 
 function switchMessageDiv(typingIndicator, messageDiv) {
@@ -53,6 +51,7 @@ module.exports.printLie = function () {
 function printPlayerMessage (text) {
     createMessageDiv(text, "You").appendTo($("#message-area"));
     clearTextArea();
+    scrollToBottom();
 }
 
 
@@ -69,15 +68,19 @@ function createTypingIndicator(character){
     return typingIndicator;
 }
 
-
-
 function clearTextArea() {
     $(".message-textarea").val("");
+}
+
+function scrollToBottom(){
+    $('#message-area').scrollTop($('#message-area')[0].scrollHeight);
 }
 
 module.exports.clearMessageArea= function(){
     $("#message-area").text("");
 };
+
+
 
 
 

@@ -97,7 +97,8 @@ h1, h2, h3{
 .typing-indicator {
   will-change: transform;
   animation: 2s bulge infinite ease-out;
-  width: 5.5em;
+  width: 6em;
+  margin-right: 4em;
 
   span {
     height: 1em;
