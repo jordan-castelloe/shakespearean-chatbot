@@ -5,13 +5,7 @@ module.exports.printSection = function (section) {
     for (let i = 0; i < section.messages.length; i++) {
         let typingIndicator = createTypingIndicator(section.messages[i].name);
         let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
-        let offset = 1500;
-        if (i == 0){
-            setTypingIndicator(typingIndicator, messageDiv, offset);
-        } else if (i > 0){
-            offset = i * 1500;
-            setTimeout(setTypingIndicator, offset, typingIndicator, messageDiv, offset, i);  
-        }
+        startMessage(typingIndicator,messageDiv, i);
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -19,17 +13,20 @@ module.exports.printSection = function (section) {
     $('.lie-text').text(section.options.lie.liePrompt);
     $('.lie-textarea').attr('placeholder', section.options.lie.lieDefault);
     $('#character-list').text(section.characters.join(', '));
-
-  
 };
 
-
-function setTypingIndicator(typingIndicator, messageDiv, offset, messageIndex){
-    if (messageIndex > 0) {
-        offset = messageIndex * 1000;
+function startMessage(typingIndicator, messageDiv, messageIndex){
+    console.log("this should be i", messageIndex);
+    let offset = 1500;
+    if (messageIndex == 0){
+        typingIndicator.appendTo($("#message-area"));
+        setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
+    } else if (messageIndex > 0){
+        let typingOffset = messageIndex * offset;
+        let messageOffset = typingOffset + offset;
+        setTimeout(typingIndicator.appendTo($("#message-area")), typingOffset);
+        setTimeout(switchMessageDiv, messageOffset, typingIndicator, messageDiv);
     }
-    typingIndicator.appendTo($("#message-area"));
-    setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
 }
 
 function switchMessageDiv(typingIndicator, messageDiv) {
