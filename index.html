@@ -7,36 +7,65 @@
     <title>Othello Chatbot</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link rel='stylesheet' type='text/css' href='main.css'>
-    <link href="https://fonts.googleapis.com/css?family=Leckerli+One|Open+Sans" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700|Open+Sans" rel="stylesheet">
 </head>
 <body>
+    <div class = "intro-section">
+        <header class = "instructions-header">
+            <h1 id = "page-title">Othello Chatbot</h1>
+        </header>
 
-    <header class = "message-area-header">
-        <h1>Othello Chatbot</h1>
-    </header>
+        <div class = "instructions">
+            <h3 id = "about-title">Introduction</h3>
+            <p>This is an interactive adaptation of Shakespeare's <i>Othello</i>. You play Iago, the central character and villain of the story. In the original text, Iago ruins people's lives for fun by withholding information and lying.</p>
+            <h3>Instructions</h3>
+            <ul>
+                <li>You'll get messages from other characters. These are based on lines of dialogue from the play.</li>
+                <li>You can respond to each message by either telling the truth (the yellow box) or telling a lie(the purple box).</li>
+                <li>The truth isn't always the kindest option.</li>
+                <li>Your choice affects the characters' responses and the overall story arc.</li>
+                <li>There's no winning or losing, just different endings.</li>
+            </ul>
+            <h3>This is under construction</h3>
+            <p>Right now the first act is up, but it's still a little buggy. Here are some things to watch out for:
+                <ul>
+                    <li>Please don't send your response until the character has finished typing.</li>
+                    <li>If you type text into the yellow truth box, the program will think you're telling the truth, no matter what you type.</li>
+                    <li>Same goes for the lie box.</li>
+                    <li>If you want the story to make sense, your response should have similar <i>meaning</i> to the suggestion in the box. You can use whatever phrasing you want.</li>
+                </ul>
+            </p>
+        </div>
+    </div>
+    
+    <div class = "story">
+        <header class = "message-area-header">
+            <h1 id = "scene-title"></h1>
+        </header>
 
-    <div class = "container">
-        <div class="row">
-            <div class="col-md message-container">
-                <h3 id  = "character-list"></h3>
-                <div id = "message-area" class="message-area">
+        <div class = "container">
+            <div class="row">
+                <div class="col-md message-container">
+                    <h3 class="character-list" id="character-list"></h3>
+                    <div id = "message-area" class="message-area">  
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md story-area">
-                <p class = "narration"></p>
-                <section class = "options">
-                    <div class = "truth-container">
-                        <p class = "truth-text"></p>
-                        <textarea placeholder="" class="message-textarea truth-textarea"></textarea>
-                        <button type="button" class="btn btn-secondary send-button send-truth">Send</button>
-                    </div>
-                    <div class = "lie-container">
-                        <p class = "lie-text"></p>
-                        <textarea placeholder="" class="message-textarea lie-textarea"></textarea>
-                        <button type="button" class="btn btn-secondary send-button send-lie">Send</button>
-                    </div>
-                </section> 
+                <div class="col-md story-area">
+                    <p class = "narration"></p>
+                    <section class = "options">
+                        <div class = "truth-container">
+                            <p class = "truth-text"></p>
+                            <textarea placeholder="" class="message-textarea truth-textarea"></textarea>
+                            <button type="button" class="btn btn-secondary send-button send-truth">Send</button>
+                        </div>
+                        <div class = "lie-container">
+                            <p class = "lie-text"></p>
+                            <textarea placeholder="" class="message-textarea lie-textarea"></textarea>
+                            <button type="button" class="btn btn-secondary send-button send-lie">Send</button>
+                        </div>
+                    </section> 
+                </div>
             </div>
         </div>
     </div>

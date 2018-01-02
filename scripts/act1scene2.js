@@ -2,6 +2,7 @@
 const sceneThree = require("./act1scene3");
 
 let skipGroupText = {
+    scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [
         { text: "Okay, I'll fill you in.", name: "Othello" },
@@ -14,18 +15,19 @@ let skipGroupText = {
         truth: {
             truthPrompt: "Play it straight",
             truthDefault: "Good deal. See you tomorrow.",
-            consequences: "consequences function -- trust increases",
+            consequences: "consequences function",
             nextSection: sceneThree.roderigoIsAMess
         },
         lie: {
             liePrompt: "Suck up to Othello",
             lieDefault: "So glad you got off the hook with the Duke! The Turks won't even know what hit em!",
-            consequences: "consequences function-- trust increases more",
+            consequences: "consequences function",
             nextSection: sceneThree.roderigoIsAMess
         }
     }
 };
 let groupText = {
+    scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke", "You", "Desdemona"],
     newCharacter: true,
     messages: [
@@ -33,17 +35,17 @@ let groupText = {
         { text: "Bad news in Cyprus. The Turks outnumber us three to one.", name: "The Duke" },
         { text: "I'm sending you in, Othello. You're the only man for the job", name: "The Duke" },
         { text: "Hang a second!", name: "Brabantio" },
-        { text: "Do you have thoughts on Cyprus, Brabantio?", name: "The Duke" },
-        { text: "No, I want to talk about my daughter!", name: "Brabantio" },
+        { text: "Do you have a better plan, Brabantio?", name: "The Duke" },
+        { text: "No, but something terrible has happened my daughter!", name: "Brabantio" },
         { text: "Is she dead?", name: "The Duke" },
-        { text: "To me, yes! She was stolen away from me with witchcraft!", name: "Brabantio" },
-        { text: "Witchcraft! No! Name the person and I'll let you decide their punishment.", name: "The Duke" },
+        { text: "She's dead to me! She was stolen away from me with witchcraft!", name: "Brabantio" },
+        { text: "Witchcraft! No! Name the guy who did it and I'll let you decide their punishment.", name: "The Duke" },
         { text: "It was Othello!", name: "Brabantio" },
         { text: "On second thought, withcraft isn't really a thing.", name: "The Duke" },
-        { text: "I know Desdemon and she would never have eloped with this man on her own free will.", name: "Brabantio" },
+        { text: "I know Desdemona and she would never have eloped with this man on her own free will.", name: "Brabantio" },
         { text: "Othello, what do you have to say?", name: "The Duke" },
         { text: "It's true that I've married Desdemona.", name: "Othello" },
-        { text: "You see!", name: "Brabantio" },
+        { text: "See!", name: "Brabantio" },
         { text: "But there was no witchcraft involved. I'm not very good at talking. I've been a soldier all my life, and fighting's what I know best. But if you let me, I'll tell you the story of how we fell in love.", name: "Othello" },
         { text: "Go ahead.", name: "The Duke" },
         { text: "It started when Brabantio used to have me around for dinner. He'd ask me about different battles and I'd tell stories about my adventures in and out of wartime. Cannibals, caves, deserts, being sold as a slave, escaping.", name: "Othello" },
@@ -60,20 +62,21 @@ let groupText = {
     options: {
         truth: {
             truthPrompt: "Play it straight",
-            truthDefault: "I'll pack my bags!",
-            consequences: "consequences function -- trust increases",
+            truthDefault: "Yes, sir!",
+            consequences: "consequences function",
             nextSection: sceneThree.roderigoIsAMess
         },
         lie: {
             liePrompt: "Suck up to Othello",
-            lieDefault: "Of course, sir! I'd go anywhere with Othello.",
-            consequences: "consequences function-- trust increases more",
+            lieDefault: "Woohoo! I'm so ready to kick some Turkish butt!",
+            consequences: "consequences function",
             nextSection: sceneThree.roderigoIsAMess
         }
     }
 };
 
 let brabantioCanSuckMyDick = {
+    scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [
         { text: "Brabantio can whine all he wants. I've done enough for the Venetian government that it won't make a dent", name: "Othello" },
@@ -97,8 +100,9 @@ let brabantioCanSuckMyDick = {
 };
 
 let imGladYouDidnt = {
+    scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
-    messages: [{ text: "I'm glad you didn't kill him.", name: "Othello" },
+    messages: [{ text: "Thanks for watching my back, man.", name: "Othello" },
     { text: "Oh, hey. Cassio just texted. He said the Duke wants to talk to us about the war in Cyprus", name: "Othello" },
     { text: "I'm gonna start a group text, do you want in?", name: "Othello" }],
     narration: "On the one hand, you love knowing everybody's business. On the other hand, group texts are the actual worst.",
@@ -106,27 +110,28 @@ let imGladYouDidnt = {
         truth: {
             truthPrompt: "Get in on the group text.",
             truthDefault: "Yes, please, count me in!.",
-            consequences: "consequences function -- trust increases",
+            consequences: "consequences function",
             nextSection: groupText
         },
         lie: {
             liePrompt: "Skip the group text.",
             lieDefault: "Fill me in later.",
-            consequences: "consequences function-- trust increases more",
-            nextSection: "skip the groupText"
+            consequences: "consequences function",
+            nextSection: skipGroupText
         }
     }
 };
 
 let warnOthello = {
+    scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     newCharacter: true,
-    messages: [{ text: "Hey, Iago. Are you going to make it to the wedding party tomorrow?", name: "Othello" }],
-    narration: "You need Othello to trust you.",
+    messages: "playerWritesFirst",
+    narration: "You should text Othello. You need him to trust you.",
     options: {
         truth: {
-            truthPrompt: "Warn Othello that Brabantio is coming.",
-            truthDefault: "Do you have all your marriage paperwork together? Brabantio's found out about the marraige and he's not pleased.",
+            truthPrompt: "Warn him that Brabantio knows about the elopement.",
+            truthDefault: "FYI, I think Brabantio found out about you and Desdemona.",
             consequences: "consequences function -- trust increases",
             nextSection: brabantioCanSuckMyDick
         },

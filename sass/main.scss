@@ -3,12 +3,21 @@
 }
 
 h1, h2, h3{
-    font-family: 'Leckerli One', sans-serif;
     color: rgb(54, 54, 118);
 }
 
+.intro-section{
+    padding: 1em 3em;
+}
+
+.story{
+    padding: 2em 1em 3em 1em;
+}
+
+
+
 .message-area-header{
-    font-size: 4em;
+    font-size: 2em;
     padding: 0.5em;
     text-align: center;
 }
@@ -22,7 +31,7 @@ h1, h2, h3{
 }
 
 .truth-container, .lie-container{
-    padding: 1em;
+    padding: 0.5em;
     margin: 0.5em;
     border-radius: 0.7em;
 }
@@ -42,9 +51,15 @@ h1, h2, h3{
 .message-area{
     border: 0.2px solid rgb(130, 130, 130);
     overflow: scroll;
-    height: 77vh;
+    height: 70vh;
+    padding: 0.4em;
 }
-
+.character-list{
+    margin: auto;
+    font-size: 0.9em;
+    text-align: center;
+    padding: 0.5em;
+}
 .message-div{
     background-color: rgb(234, 234, 234);
     color: rgb(55, 55, 55);

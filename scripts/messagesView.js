@@ -1,10 +1,13 @@
 'use strict';
 
 module.exports.printSection = function (section) {
-    for (let i = 0; i < section.messages.length; i++) {
-        let typingIndicator = createTypingIndicator(section.messages[i].name);
-        let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
-        startMessageSequence(typingIndicator,messageDiv, i);
+
+    if(section.messages != "playerWritesFirst"){
+        for (let i = 0; i < section.messages.length; i++) {
+            let typingIndicator = createTypingIndicator(section.messages[i].name);
+            let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
+            startMessageSequence(typingIndicator, messageDiv, i);
+        }
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -12,6 +15,7 @@ module.exports.printSection = function (section) {
     $('.lie-text').text(section.options.lie.liePrompt);
     $('.lie-textarea').attr('placeholder', section.options.lie.lieDefault);
     $('#character-list').text(section.characters.join(', '));
+    $('#scene-title').text(section.scene);
 };
 
 function startMessageSequence(typingIndicator, messageDiv, messageIndex){
