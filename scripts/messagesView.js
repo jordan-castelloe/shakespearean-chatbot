@@ -1,15 +1,12 @@
 'use strict';
 
 module.exports.printSection = function (section) {
-    // let typingIndicator = "";
-    // let messageDiv = "";
 
     for (let i = 0; i < section.messages.length; i++) {
         let typingIndicator = createTypingIndicator(section.messages[i].name);
         let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
-        console.log("this is the messageDiv from within the loop", messageDiv);
         typingIndicator.appendTo($("#message-area"));
-        setTimeout(switchMessageDiv, 1500, typingIndicator, messageDiv); 
+        setTimeout(switchMessageDiv, 1500, typingIndicator, messageDiv, i);
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -21,11 +18,35 @@ module.exports.printSection = function (section) {
   
 };
 
-function switchMessageDiv(typingIndicator, messageDiv) {
-    typingIndicator.remove();
-    console.log("this is the message div from the switch message function", messageDiv);
-    messageDiv.appendTo($("#message-area"));
+// var s = ['John', 'Mark', 'Alex'];
+// var i = 0;
+
+// (function loop() {
+//     x.innerHTML = s[i];
+//     if (++i < s.length) {
+//         setTimeout(loop, 3000);  // call myself in 3 seconds time if required
+//     }
+// })();      // above function expression is called immediately to start it off
+
+
+function switchMessageDiv(typingIndicator, messageDiv, messageIndex) {
+    if (messageIndex == 0){
+        console.log("the first message", messageDiv);
+        setTypingIndicator(typingIndicator, messageDiv);
+    } else {
+        console.log("the following message", messageDiv);
+        setTimeout(setTypingIndicator, 1500, typingIndicator, messageDiv);
+    }
 }
+
+function setTypingIndicator(typingIndicator, messageDiv){
+    typingIndicator.remove();
+    messageDiv.appendTo("#message-area");
+}
+
+
+
+
 
 
 
