@@ -1,11 +1,12 @@
 'use strict';
 
 module.exports.printSection = function (section) {
-
     for (let i = 0; i < section.messages.length; i++) {
+        console.log("this should be the message", section.messages[i]);
+        console.log("this is i from inside the loop", i);
         let typingIndicator = createTypingIndicator(section.messages[i].name);
         let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
-        startMessage(typingIndicator,messageDiv, i);
+        startMessageSequence(typingIndicator,messageDiv, i);
     }
     $('.narration').text(section.narration);
     $('.truth-text').text(section.options.truth.truthPrompt);
@@ -15,18 +16,22 @@ module.exports.printSection = function (section) {
     $('#character-list').text(section.characters.join(', '));
 };
 
-function startMessage(typingIndicator, messageDiv, messageIndex){
+function startMessageSequence(typingIndicator, messageDiv, messageIndex){
     console.log("this should be i", messageIndex);
-    let offset = 1500;
+    let offset = 2000;
     if (messageIndex == 0){
-        typingIndicator.appendTo($("#message-area"));
+        appendTypingIndicator(typingIndicator);
         setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
     } else if (messageIndex > 0){
         let typingOffset = messageIndex * offset;
         let messageOffset = typingOffset + offset;
-        setTimeout(typingIndicator.appendTo($("#message-area")), typingOffset);
+        setTimeout(appendTypingIndicator, typingOffset, typingIndicator);
         setTimeout(switchMessageDiv, messageOffset, typingIndicator, messageDiv);
     }
+}
+
+function appendTypingIndicator(typingIndicator){
+    typingIndicator.appendTo($("#message-area"));
 }
 
 function switchMessageDiv(typingIndicator, messageDiv) {
