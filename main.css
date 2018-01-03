@@ -1,0 +1,115 @@
+* {
+  font-family: 'Open Sans', sans-serif; }
+
+h1, h2, h3 {
+  color: #363676; }
+
+.intro-section {
+  padding: 1em 3em; }
+
+.story {
+  padding: 2em 1em 3em 1em; }
+
+.message-area-header {
+  font-size: 2em;
+  padding: 0.5em;
+  text-align: center; }
+
+.truth-container {
+  background-color: #fee7a8; }
+
+.lie-container {
+  background-color: #aabcf7; }
+
+.truth-container, .lie-container {
+  padding: 0.5em;
+  margin: 0.5em;
+  border-radius: 0.7em; }
+
+.message-textarea {
+  width: 80%;
+  height: 15vh;
+  padding: 0.4em;
+  border: 1px solid gray;
+  border-radius: 0.4em; }
+
+.send-button {
+  margin-bottom: 2em; }
+
+.message-area {
+  border: 0.2px solid #828282;
+  overflow: scroll;
+  height: 70vh;
+  padding: 0.4em; }
+
+.character-list {
+  margin: auto;
+  font-size: 0.9em;
+  text-align: center;
+  padding: 0.5em; }
+
+.message-div {
+  background-color: #eaeaea;
+  color: #373737;
+  padding: 0.5em;
+  margin: 0.4em;
+  width: 35vw;
+  border-radius: 0.5em;
+  display: flex;
+  justify-content: space-between; }
+
+.You {
+  float: right;
+  background-color: #eaeaea;
+  color: black; }
+
+.Roderigo {
+  background-color: #ffc2c2; }
+
+.Duke {
+  background-color: #ffdbc2; }
+
+.Emilia {
+  background-color: #ffebc2; }
+
+.Othello {
+  background-color: #c2ffc3; }
+
+.Cassio {
+  background-color: #c2e3ff; }
+
+.Desdemona {
+  background-color: #faa793; }
+
+.Brabantio {
+  background-color: #ffc2cb; }
+
+.typing-indicator {
+  will-change: transform;
+  animation: 2s bulge infinite ease-out;
+  width: 6em;
+  margin-right: 4em; }
+  .typing-indicator span {
+    height: 1em;
+    width: 1em;
+    float: left;
+    margin: 0 0.1em;
+    background-color: #b4b4b4;
+    display: block;
+    border-radius: 50%;
+    opacity: 0.4; }
+    .typing-indicator span:nth-of-type(1) {
+      animation: 1s blink infinite 0.3333s; }
+    .typing-indicator span:nth-of-type(2) {
+      animation: 1s blink infinite 0.6666s; }
+    .typing-indicator span:nth-of-type(3) {
+      animation: 1s blink infinite 0.9999s; }
+
+@keyframes blink {
+  50% {
+    opacity: 1; } }
+@keyframes bulge {
+  50% {
+    transform: scale(1.05); } }
+
+/*# sourceMappingURL=main.css.map */
