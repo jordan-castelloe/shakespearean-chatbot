@@ -611,14 +611,20 @@ function switchMessageDiv(typingIndicator, messageDiv) {
     messageDiv.appendTo("#message-area");
 }
 
-module.exports.printTruth = function () {
+module.exports.printTruth = function (currentSection) {
     let messageText = $(".truth-textarea").val();
+    if(messageText == ""){
+        messageText = currentSection.options.truth.truthDefault;
+    }
     printPlayerMessage(messageText);
 
 };
 
-module.exports.printLie = function () {
+module.exports.printLie = function (currentSection) {
     let messageText = $(".lie-textarea").val();
+    if (messageText == "") {
+        messageText = currentSection.options.lie.lieDefault;
+    }
     printPlayerMessage(messageText);
 };
 
@@ -715,12 +721,12 @@ module.exports.loadScene = function(scene){
     }
 
     function tellALie() {
-        messagePrinter.printLie();
+        messagePrinter.printLie(currentSection);
         printNextSection("lie");
     }
 
     function tellTheTruth() {
-        messagePrinter.printTruth();
+        messagePrinter.printTruth(currentSection);
         printNextSection("truth");
     }
  

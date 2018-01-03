@@ -41,14 +41,20 @@ function switchMessageDiv(typingIndicator, messageDiv) {
     messageDiv.appendTo("#message-area");
 }
 
-module.exports.printTruth = function () {
+module.exports.printTruth = function (currentSection) {
     let messageText = $(".truth-textarea").val();
+    if(messageText == ""){
+        messageText = currentSection.options.truth.truthDefault;
+    }
     printPlayerMessage(messageText);
 
 };
 
-module.exports.printLie = function () {
+module.exports.printLie = function (currentSection) {
     let messageText = $(".lie-textarea").val();
+    if (messageText == "") {
+        messageText = currentSection.options.lie.lieDefault;
+    }
     printPlayerMessage(messageText);
 };
 
