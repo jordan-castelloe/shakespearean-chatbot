@@ -48,12 +48,12 @@ module.exports.loadScene = function(scene){
     }
 
     function tellALie() {
-        messagePrinter.printLie();
+        messagePrinter.printLie(currentSection);
         printNextSection("lie");
     }
 
     function tellTheTruth() {
-        messagePrinter.printTruth();
+        messagePrinter.printTruth(currentSection);
         printNextSection("truth");
     }
  

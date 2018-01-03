@@ -4,11 +4,22 @@
 h1, h2, h3 {
   color: #363676; }
 
-.intro-section {
+.intro-section, .characters-section {
   padding: 1em 3em; }
 
 .story {
   padding: 2em 1em 3em 1em; }
+
+.character-card {
+  padding: 0.4em;
+  margin: 0.4em; }
+  .character-card img {
+    border-radius: 50%; }
+  .character-card h4 {
+    font-size: 1em;
+    margin: 0.3em; }
+  .character-card p {
+    font-size: 0.7em; }
 
 .message-area-header {
   font-size: 2em;

@@ -6,7 +6,7 @@ h1, h2, h3{
     color: rgb(54, 54, 118);
 }
 
-.intro-section{
+.intro-section, .characters-section{
     padding: 1em 3em;
 }
 
@@ -14,7 +14,21 @@ h1, h2, h3{
     padding: 2em 1em 3em 1em;
 }
 
-
+.character-card{
+    padding: 0.4em;
+    margin: 0.4em;
+    img{
+        border-radius: 50%;
+    }
+    h4{
+        font-size: 1em;
+        margin: 0.3em;
+    }
+    p{
+        font-size: 0.7em;
+    }
+    
+}
 
 .message-area-header{
     font-size: 2em;
