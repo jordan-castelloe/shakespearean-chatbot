@@ -5,7 +5,7 @@ const endings = require("./endings");
 let askRoderigoForMoney = {
     scene: "Act One, Scene Three",
     characters: ["Roderigo", "You"],
-    messages: [{ text: "What should I do?.", name: "Roderigo" }],
+    messages: [{ text: "What should I do?", name: "Roderigo" }],
     narration: "You're hatching a plan: if you really want to screw Othello over, you'll need to ruin his marriage. You'll have to make him think that Desdemona having an affair. It might be nice to have Roderigo around for the dirty work. On the other hand, he's emotional and a pain and you work better alone.",
     options: {
         truth: {

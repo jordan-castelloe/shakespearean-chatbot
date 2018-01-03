@@ -46,11 +46,18 @@ let groupText = {
         { text: "Othello, what do you have to say?", name: "The Duke" },
         { text: "It's true that I've married Desdemona.", name: "Othello" },
         { text: "See!", name: "Brabantio" },
-        { text: "But there was no witchcraft involved. I'm not very good at talking. I've been a soldier all my life, and fighting's what I know best. But if you let me, I'll tell you the story of how we fell in love.", name: "Othello" },
+        { text: "But there was no witchcraft involved.", name: "Othello" },
+        { text: "I'm not very good at talking. I've been a soldier all my life, and fighting's what I know best.", name: "Othello" },
+        { text: "But if you let me, I'll tell you the story of how we fell in love.", name: "Othello" },
         { text: "Go ahead.", name: "The Duke" },
-        { text: "It started when Brabantio used to have me around for dinner. He'd ask me about different battles and I'd tell stories about my adventures in and out of wartime. Cannibals, caves, deserts, being sold as a slave, escaping.", name: "Othello" },
-        { text: "Desdemona always listened so carefully. She asked wonderful questions. She seemed genuinely sad that I'd had to endure so much.", name: "Othello" },
-        { text: "There's no witchcraft. She loves me for everything I've been through and I love her for caring about it so deeply. You can ask her yourself.", name: "Othello" },
+        { text: "It started when Brabantio used to have me around for dinner.", name: "Othello" },
+        { text: "He'd ask me about different battles and I'd tell stories about my adventures in and out of wartime.", name: "Othello" },
+        { text: "Cannibals, caves, deserts, being sold as a slave, escaping, that kind of thing.", name: "Othello" },
+        { text: "Desdemona always listened so carefully.", name: "Othello" },
+        { text: "She asked wonderful questions. She seemed genuinely sad that I'd had to endure so much.", name: "Othello" },
+        { text: "I guess she loves me for everything I've been through and I love her for caring about it so deeply.", name: "Othello" },
+        { text: "No witchcraft to speak of.", name: "Othello" },
+        { text: "You can ask her yourself.", name: "Othello" },
         { text: "I think a story like that would win my own daughter over. Desdemona, what do you have to say?", name: "The Duke" },
         { text: "Dad, I love you, but I've chosen to marry Othello. I want to go with him to Cyprus.", name: "Desdemona" },
         { text: "Good riddance! You'll never be welcome under my roof again!", name: "Brabantio" },
@@ -127,7 +134,7 @@ let warnOthello = {
     characters: ["Othello", "You"],
     newCharacter: true,
     messages: "playerWritesFirst",
-    narration: "You should text Othello. You need him to trust you.",
+    narration: "You really want Othello to trust you. You could warn him about Brabantio or tell him that Roderigo was insulting him.",
     options: {
         truth: {
             truthPrompt: "Warn him that Brabantio knows about the elopement.",
@@ -137,7 +144,7 @@ let warnOthello = {
         },
         lie: {
             liePrompt: "Shit talk Roderigo.",
-            lieDefault: "Dude, you should have heard the shit Roderigo was saying about you! I almost had to kill him!",
+            lieDefault: "Dude, you should have heard what Roderigo was saying about you! The only reason I didn't kill him on the spot is because I'm too soft.",
             consequences: "consequences function-- trust increases more",
             nextSection: imGladYouDidnt
         }
