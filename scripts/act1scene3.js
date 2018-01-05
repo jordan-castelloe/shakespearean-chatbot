@@ -12,13 +12,13 @@ let askRoderigoForMoney = {
             truthPrompt: "Leave him out of the plan. You can do this on your own.",
             truthDefault: "Just wait it out and be nice to her. She'll come around.",
             consequences: "consequences function",
-            nextSection: "act 2"
+            nextSection: endings.tempEnding
         },
         lie: {
             liePrompt: "Why not use him? Tell him to raise a bunch of money.",
             lieDefault: "Sell all your land and raise a bunch of cash. That way you can elope with her when the time comes!",
             consequences: "consequences function",
-            nextSection: "act 2"
+            nextSection: endings.tempEnding
         }
     }
 };
