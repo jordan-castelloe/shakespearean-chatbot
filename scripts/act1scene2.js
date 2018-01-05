@@ -61,7 +61,8 @@ let wtfIago = {
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     messages: [
         { text: "Wtf, Iago", name: "Othello" },
-        { text: "Othello, what do you have to say?", name: "The Duke" },
+        { text: "On second thought, withcraft isn't really a thing.", name: "The Duke" },
+        { text: "Othello, what do you have to say?", name: "The Duke" }
     ],
     narration: "Uh oh, looks like the Duke's not going for it.",
     options: {
@@ -91,8 +92,7 @@ let groupText = {
         { text: "I'm sending you in, Othello. You're the only man for the job", name: "The Duke" },
         { text: "Hang on a second, Duke! My daughter's been stolen away by witchcraft!", name: "Brabantio" },
         { text: "Witchcraft! No way! Name the guy who did it and I'll let you decide their punishment.", name: "The Duke" },
-        { text: "It was Othello!", name: "Brabantio" },
-        { text: "On second thought, withcraft isn't really a thing.", name: "The Duke" }
+        { text: "It was Othello!", name: "Brabantio" }
     ],
     narration: "If you stick up for Othello in front of the whole group, he'll trust you even more than he already does. On the other hand, your ultimate goal is to ruin Othello's life. Do you play the long game or sieze the opportunity?",
     options: {
