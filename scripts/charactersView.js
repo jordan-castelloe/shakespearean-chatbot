@@ -21,17 +21,31 @@ module.exports.populateCharacterMenu = function(){
     characterArray.forEach((character) => {
         let characterBlock = $("<div>", { class: "character-block"});
         let characterName = $("<h5>", { class: "character-name" }).text(character.name);
-        let characterRelationships = $("<div>", {class: "character-relationships"}).text(character.relationships).css('display', 'none');
+        let characterRelationship = $("<div>", { class: "character-relationships" }).css('display', 'none');
+        let relationshipArray = Object.keys(character.relationships);
+
+        relationshipArray.forEach(name => {
+            
+            let relationshipName = $("<p>").text(`Name : ${name.charAt(0).toUpperCase() + name.slice(1)}`);
+            let trust = $("<p>").text(`Trust: ${character.relationships[name].trust}`);
+            let anger = $("<p>").text(`Anger: ${character.relationships[name].anger}`);
+            characterRelationship.append(relationshipName).append(trust).append(anger);
+            characterRelationship.appendTo(characterName);
+
+        });
+
         characterBlock.appendTo($("#character-states"));
         characterName.appendTo(characterBlock);
-        characterRelationships.appendTo(characterName);
+        
+
         if (character.isAlive){
             characterBlock.css('background-color', 'green');
         } else {
             characterBlock.css('background-color', 'red');
         }
+
         characterName.click(function(){
-            characterRelationships.toggle();
+            characterRelationship.toggle();
         });
     });
 
