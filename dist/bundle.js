@@ -786,6 +786,26 @@ module.exports.logCharacters = function(){
     });
 };
 
+module.exports.populateCharacterMenu = function(){
+    characterArray.forEach((character) => {
+        let characterBlock = $("<div>", { class: "character-block"});
+        let characterName = $("<h5>", { class: "character-name" }).text(character.name);
+        let characterRelationships = $("<div>", {class: "character-relationships"}).text(character.relationships).css('display', 'none');
+        characterBlock.appendTo($("#character-states"));
+        characterName.appendTo(characterBlock);
+        characterRelationships.appendTo(characterName);
+        if (character.isAlive){
+            characterBlock.css('background-color', 'green');
+        } else {
+            characterBlock.css('background-color', 'red');
+        }
+        characterName.click(function(){
+            characterRelationships.toggle();
+        });
+    });
+
+};
+
 
 
 
@@ -1024,6 +1044,10 @@ module.exports.loadScene = function(scene){
         }
     });
 
+    $("#character-menu").click(function(){
+        $("#character-states").toggle();
+    });
+
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
         nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
@@ -1032,7 +1056,8 @@ module.exports.loadScene = function(scene){
         }
         messagePrinter.printSection(nextSection); // prints the next section
         currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
-        charactersView.logCharacters(); //logs character states after the consequence function
+        // charactersView.logCharacters();
+        charactersView.populateCharacterMenu(); 
         currentSection = nextSection; // resets variable
     }
 

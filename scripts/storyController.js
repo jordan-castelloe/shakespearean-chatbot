@@ -37,6 +37,10 @@ module.exports.loadScene = function(scene){
         }
     });
 
+    $("#character-menu").click(function(){
+        $("#character-states").toggle();
+    });
+
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
         nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
@@ -45,7 +49,8 @@ module.exports.loadScene = function(scene){
         }
         messagePrinter.printSection(nextSection); // prints the next section
         currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
-        charactersView.logCharacters(); //logs character states after the consequence function
+        // charactersView.logCharacters();
+        charactersView.populateCharacterMenu(); 
         currentSection = nextSection; // resets variable
     }
 

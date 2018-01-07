@@ -26,6 +26,14 @@ h1, h2, h3 {
   padding: 0.5em;
   text-align: center; }
 
+.character-menu {
+  height: 3em;
+  float: left;
+  opacity: 0.6; }
+
+.hidden {
+  display: none; }
+
 .truth-container {
   background-color: #fee7a8; }
 

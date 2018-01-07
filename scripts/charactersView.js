@@ -17,5 +17,25 @@ module.exports.logCharacters = function(){
     });
 };
 
+module.exports.populateCharacterMenu = function(){
+    characterArray.forEach((character) => {
+        let characterBlock = $("<div>", { class: "character-block"});
+        let characterName = $("<h5>", { class: "character-name" }).text(character.name);
+        let characterRelationships = $("<div>", {class: "character-relationships"}).text(character.relationships).css('display', 'none');
+        characterBlock.appendTo($("#character-states"));
+        characterName.appendTo(characterBlock);
+        characterRelationships.appendTo(characterName);
+        if (character.isAlive){
+            characterBlock.css('background-color', 'green');
+        } else {
+            characterBlock.css('background-color', 'red');
+        }
+        characterName.click(function(){
+            characterRelationships.toggle();
+        });
+    });
+
+};
+
 
 

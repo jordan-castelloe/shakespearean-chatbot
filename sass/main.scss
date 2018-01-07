@@ -36,6 +36,15 @@ h1, h2, h3{
     text-align: center;
 }
 
+.character-menu{
+    height: 3em;
+    float: left;
+    opacity: 0.6;
+}
+
+.hidden{
+    display: none;
+}
 .truth-container{
     background-color: rgb(254, 231, 168);
 }
