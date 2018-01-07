@@ -169,7 +169,11 @@ let openingLines = {
             truthPrompt: "Admit that you knew about it.",
             truthDefault: "I knew about it, but I was afraid to tell you",
             consequences: "",
-            nextSection: doYouHateHim
+            nextSection: function(){
+                let nextSection = doYouHateHim;
+                if (2+2 == 4){nextSection = whyHelpMe;}
+                return nextSection;
+            }
         }, 
         lie: {
             liePrompt: "Tell him you had no idea.",

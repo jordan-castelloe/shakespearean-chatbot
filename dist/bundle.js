@@ -170,7 +170,11 @@ let openingLines = {
             truthPrompt: "Admit that you knew about it.",
             truthDefault: "I knew about it, but I was afraid to tell you",
             consequences: "",
-            nextSection: doYouHateHim
+            nextSection: function(){
+                let nextSection = doYouHateHim;
+                if (2+2 == 4){nextSection = whyHelpMe;}
+                return nextSection;
+            }
         }, 
         lie: {
             liePrompt: "Tell him you had no idea.",
@@ -640,6 +644,9 @@ const act1scene1 = require("./act1scene1");
 
 storyController.loadScene(act1scene1);
 
+
+
+
 },{"./act1scene1":1,"./storyController":9}],8:[function(require,module,exports){
 'use strict';
 
@@ -789,7 +796,7 @@ module.exports.loadScene = function(scene){
         if ('newCharacter' in nextSection) {
             messagePrinter.clearMessageArea();
         }
-        messagePrinter.printSection(nextSection);
+        messagePrinter.printSection(nextSection());
         currentSection = nextSection;
     }
 

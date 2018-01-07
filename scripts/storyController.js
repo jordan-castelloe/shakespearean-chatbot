@@ -43,7 +43,7 @@ module.exports.loadScene = function(scene){
         if ('newCharacter' in nextSection) {
             messagePrinter.clearMessageArea();
         }
-        messagePrinter.printSection(nextSection);
+        messagePrinter.printSection(nextSection());
         currentSection = nextSection;
     }
 
