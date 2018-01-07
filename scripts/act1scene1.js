@@ -2,6 +2,8 @@
 
 const sceneTwo = require("./act1scene2");
 const endings = require("./endings");
+const characters = require("./characters");
+const characterController = require("./characterController");
 
 let brabantioIsPissed= {
     scene: "Act One, Scene One",
@@ -168,18 +170,20 @@ let openingLines = {
         truth: {
             truthPrompt: "Admit that you knew about it.",
             truthDefault: "I knew about it, but I was afraid to tell you",
-            consequences: "",
+            consequences: function(){
+                characterController.adjustTrust(characters.roderigo, "iago", -1);
+            },
             nextSection: function(){
-                let nextSection = doYouHateHim;
-                if (2+2 == 4){nextSection = whyHelpMe;}
-                return nextSection;
+                return doYouHateHim;
             }
         }, 
         lie: {
             liePrompt: "Tell him you had no idea.",
             lieDefault: "I didn't, I swear!",
             consequences: "",
-            nextSection: doYouHateHim
+            nextSection: function () {
+                return doYouHateHim;
+            }
         }
     }
 };

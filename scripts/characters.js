@@ -1,6 +1,6 @@
 'use strict';
 
-let othello = {
+module.exports.othello = {
     name: "Othello",
     relationships: {
         desdemona: {
@@ -23,7 +23,29 @@ let othello = {
     }
 };
 
-let desdemona = {
+module.exports.roderigo = {
+    name: "Roderigo",
+    relationships: {
+        iago: {
+            trust: 10,
+            anger: 0
+        }, 
+        othello: {
+            trust: 5,
+            anger: 7
+        },
+        cassio: {
+            trust: 5,
+            anger: 5
+        },
+        desdemona: {
+            trust: 10,
+            anger: 0
+        }
+    }
+};
+
+module.exports.desdemona = {
     name: "Desdemona",
     relationships: {
         othello: {
@@ -50,7 +72,7 @@ let desdemona = {
     }
 };
 
-let emilia = {
+module.exports.emilia = {
     name: "Emilia",
     relationships: {
         othello: {
@@ -77,7 +99,7 @@ let emilia = {
     }
 };
 
-let cassio = {
+module.exports.cassio = {
     name: "Cassio",
     relationships: {
         desdemona: {
@@ -101,7 +123,7 @@ let cassio = {
     }
 };
 
-module.exports.charactersArray = [othello, desdemona, cassio, emilia];
+
 
 
 

@@ -44,6 +44,7 @@ module.exports.loadScene = function(scene){
             messagePrinter.clearMessageArea();
         }
         messagePrinter.printSection(nextSection());
+        currentSection.options[truthOrLie].consequences();
         currentSection = nextSection;
     }
 

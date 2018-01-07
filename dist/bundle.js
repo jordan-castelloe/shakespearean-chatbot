@@ -3,6 +3,8 @@
 
 const sceneTwo = require("./act1scene2");
 const endings = require("./endings");
+const characters = require("./characters");
+const characterController = require("./characterController");
 
 let brabantioIsPissed= {
     scene: "Act One, Scene One",
@@ -169,18 +171,20 @@ let openingLines = {
         truth: {
             truthPrompt: "Admit that you knew about it.",
             truthDefault: "I knew about it, but I was afraid to tell you",
-            consequences: "",
+            consequences: function(){
+                characterController.adjustTrust(characters.roderigo, "iago", -1);
+            },
             nextSection: function(){
-                let nextSection = doYouHateHim;
-                if (2+2 == 4){nextSection = whyHelpMe;}
-                return nextSection;
+                return doYouHateHim;
             }
         }, 
         lie: {
             liePrompt: "Tell him you had no idea.",
             lieDefault: "I didn't, I swear!",
             consequences: "",
-            nextSection: doYouHateHim
+            nextSection: function () {
+                return doYouHateHim;
+            }
         }
     }
 };
@@ -197,7 +201,7 @@ module.exports = {openingLines};
 
 
 
-},{"./act1scene2":2,"./endings":6}],2:[function(require,module,exports){
+},{"./act1scene2":2,"./characterController":4,"./characters":5,"./endings":6}],2:[function(require,module,exports){
 'use strict';
 const sceneThree = require("./act1scene3");
 const endings = require("./endings");
@@ -455,12 +459,17 @@ module.exports = {roderigoIsAMess};
 },{"./endings":6}],4:[function(require,module,exports){
 'use strict';
 
-const characters = require("./characters.js");
+module.exports.adjustTrust = function(characterOne, characterTwo, adjuster){
+    console.log("this should be 10", characterOne.relationships[characterTwo].trust);
+    characterOne.relationships[characterTwo].trust += adjuster;
+    console.log("this should be 9", characterOne.relationships[characterTwo].trust);
+};
 
-},{"./characters.js":5}],5:[function(require,module,exports){
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
-let othello = {
+module.exports.othello = {
     name: "Othello",
     relationships: {
         desdemona: {
@@ -483,7 +492,29 @@ let othello = {
     }
 };
 
-let desdemona = {
+module.exports.roderigo = {
+    name: "Roderigo",
+    relationships: {
+        iago: {
+            trust: 10,
+            anger: 0
+        }, 
+        othello: {
+            trust: 5,
+            anger: 7
+        },
+        cassio: {
+            trust: 5,
+            anger: 5
+        },
+        desdemona: {
+            trust: 10,
+            anger: 0
+        }
+    }
+};
+
+module.exports.desdemona = {
     name: "Desdemona",
     relationships: {
         othello: {
@@ -510,7 +541,7 @@ let desdemona = {
     }
 };
 
-let emilia = {
+module.exports.emilia = {
     name: "Emilia",
     relationships: {
         othello: {
@@ -537,7 +568,7 @@ let emilia = {
     }
 };
 
-let cassio = {
+module.exports.cassio = {
     name: "Cassio",
     relationships: {
         desdemona: {
@@ -561,7 +592,7 @@ let cassio = {
     }
 };
 
-module.exports.charactersArray = [othello, desdemona, cassio, emilia];
+
 
 
 
@@ -797,6 +828,7 @@ module.exports.loadScene = function(scene){
             messagePrinter.clearMessageArea();
         }
         messagePrinter.printSection(nextSection());
+        currentSection.options[truthOrLie].consequences();
         currentSection = nextSection;
     }
 
