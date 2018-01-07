@@ -20,6 +20,10 @@ module.exports.othello = {
             trust: 10,
             anger: 0
         }, 
+        roderigo: {
+            trust: 5,
+            anger: 5
+        }, 
     
     }
 };
