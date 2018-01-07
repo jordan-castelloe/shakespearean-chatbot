@@ -2,9 +2,7 @@
 
 const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
-
-
-
+const charactersView = require("./charactersView");
 
 module.exports.loadScene = function(scene){
    
@@ -37,15 +35,14 @@ module.exports.loadScene = function(scene){
         }
     });
 
-
     function printNextSection(truthOrLie) {
         nextSection = currentSection.options[truthOrLie].nextSection();
-        console.log("this is the return of the next section function", nextSection);
         if ('newCharacter' in nextSection) {
             messagePrinter.clearMessageArea();
         }
         messagePrinter.printSection(nextSection);
         currentSection.options[truthOrLie].consequences();
+        charactersView.logCharacters();
         currentSection = nextSection;
     }
 
@@ -58,7 +55,8 @@ module.exports.loadScene = function(scene){
         messagePrinter.printTruth(currentSection);
         printNextSection("truth");
     }
- 
+
+    
 };
 
 

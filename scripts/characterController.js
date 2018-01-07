@@ -12,3 +12,4 @@ module.exports.killCharacter = function(character){
     character.isAlive = false;
 };
 
+

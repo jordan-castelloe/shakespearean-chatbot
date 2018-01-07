@@ -259,7 +259,7 @@ module.exports = {openingLines};
 
 
 
-},{"./act1scene2":2,"./characterController":4,"./characters":5,"./endings":6}],2:[function(require,module,exports){
+},{"./act1scene2":2,"./characterController":4,"./characters":5,"./endings":7}],2:[function(require,module,exports){
 'use strict';
 const sceneThree = require("./act1scene3");
 const endings = require("./endings");
@@ -502,7 +502,7 @@ let warnOthello = {
 };
 
 module.exports = {warnOthello};
-},{"./act1scene3":3,"./characterController":4,"./characters":5,"./endings":6}],3:[function(require,module,exports){
+},{"./act1scene3":3,"./characterController":4,"./characters":5,"./endings":7}],3:[function(require,module,exports){
 'use strict';
 
 const endings = require("./endings");
@@ -600,7 +600,7 @@ let roderigoIsAMess = {
 
 module.exports = {roderigoIsAMess};
 
-},{"./characterController":4,"./characters":5,"./endings":6}],4:[function(require,module,exports){
+},{"./characterController":4,"./characters":5,"./endings":7}],4:[function(require,module,exports){
 'use strict';
 
 module.exports.adjustTrust = function(characterOne, characterTwo, adjuster){
@@ -614,6 +614,7 @@ module.exports.adjustAnger = function(characterOne, characterTwo, adjuster){
 module.exports.killCharacter = function(character){
     character.isAlive = false;
 };
+
 
 
 },{}],5:[function(require,module,exports){
@@ -760,6 +761,28 @@ module.exports.cassio = {
 },{}],6:[function(require,module,exports){
 'use strict';
 
+const characters = require('./characters');
+
+const characterArray = [];
+
+for (let prop in characters) {
+    characterArray.push(characters[prop]);
+}
+
+module.exports.logCharacters = function(){
+    characterArray.forEach((character) => {
+        console.log("Character Name:", character.name);
+        console.log("Character Relationships", character.relationships);
+        return characterArray;
+    });
+};
+
+
+
+
+},{"./characters":5}],7:[function(require,module,exports){
+'use strict';
+
 module.exports.tinderEnder= {
     scene: "The End",
     characters: ["Roderigo", "You"],
@@ -825,7 +848,7 @@ module.exports.tempEnding= {
     }
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 const storyController = require("./storyController");
 const act1scene1 = require("./act1scene1");
@@ -837,7 +860,7 @@ storyController.loadScene(act1scene1);
 
 
 
-},{"./act1scene1":1,"./storyController":9}],8:[function(require,module,exports){
+},{"./act1scene1":1,"./storyController":10}],9:[function(require,module,exports){
 'use strict';
 
 module.exports.printSection = function (section) {
@@ -940,14 +963,12 @@ module.exports.clearMessageArea= function(){
 
 
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
-
-
-
+const charactersView = require("./charactersView");
 
 module.exports.loadScene = function(scene){
    
@@ -980,15 +1001,14 @@ module.exports.loadScene = function(scene){
         }
     });
 
-
     function printNextSection(truthOrLie) {
         nextSection = currentSection.options[truthOrLie].nextSection();
-        console.log("this is the return of the next section function", nextSection);
         if ('newCharacter' in nextSection) {
             messagePrinter.clearMessageArea();
         }
         messagePrinter.printSection(nextSection);
         currentSection.options[truthOrLie].consequences();
+        charactersView.logCharacters();
         currentSection = nextSection;
     }
 
@@ -1001,7 +1021,8 @@ module.exports.loadScene = function(scene){
         messagePrinter.printTruth(currentSection);
         printNextSection("truth");
     }
- 
+
+    
 };
 
 
@@ -1012,4 +1033,4 @@ module.exports.loadScene = function(scene){
 
 
 
-},{"./characterController.js":4,"./messagesView.js":8}]},{},[7]);
+},{"./characterController.js":4,"./charactersView":6,"./messagesView.js":9}]},{},[8]);
