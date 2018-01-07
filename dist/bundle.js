@@ -259,7 +259,7 @@ module.exports = {openingLines};
 
 
 
-},{"./act1scene2":2,"./characterController":4,"./characters":5,"./endings":6}],2:[function(require,module,exports){
+},{"./act1scene2":2,"./characterController":4,"./characters":5,"./endings":7}],2:[function(require,module,exports){
 'use strict';
 const sceneThree = require("./act1scene3");
 const endings = require("./endings");
@@ -502,7 +502,7 @@ let warnOthello = {
 };
 
 module.exports = {warnOthello};
-},{"./act1scene3":3,"./characterController":4,"./characters":5,"./endings":6}],3:[function(require,module,exports){
+},{"./act1scene3":3,"./characterController":4,"./characters":5,"./endings":7}],3:[function(require,module,exports){
 'use strict';
 
 const endings = require("./endings");
@@ -600,8 +600,16 @@ let roderigoIsAMess = {
 
 module.exports = {roderigoIsAMess};
 
-},{"./characterController":4,"./characters":5,"./endings":6}],4:[function(require,module,exports){
+},{"./characterController":4,"./characters":5,"./endings":7}],4:[function(require,module,exports){
 'use strict';
+// characterOne is always the character you want to adjust
+// characterTwo is always the character they have a relationship with
+// adjuster is a number -- positive if trust or anger increases, negative if it decreases
+// for example, if Iago lies about Desdemona to Othello:
+//     characterOne is Othello
+//     characterTwo is Desdemona
+//     adjuster will be a negative number, depending on the strength of the lie
+// these functions run in the consequence functions for each player choice
 
 module.exports.adjustTrust = function(characterOne, characterTwo, adjuster){
     characterOne.relationships[characterTwo].trust += adjuster;
@@ -614,6 +622,7 @@ module.exports.adjustAnger = function(characterOne, characterTwo, adjuster){
 module.exports.killCharacter = function(character){
     character.isAlive = false;
 };
+
 
 
 },{}],5:[function(require,module,exports){
@@ -760,6 +769,29 @@ module.exports.cassio = {
 },{}],6:[function(require,module,exports){
 'use strict';
 
+const characters = require('./characters');
+
+const characterArray = [];
+
+for (let prop in characters) {
+    characterArray.push(characters[prop]);
+}
+
+// console logs character states for testing purposes
+module.exports.logCharacters = function(){
+    characterArray.forEach((character) => {
+        console.log("Character Name:", character.name);
+        console.log("Character Relationships", character.relationships);
+        return characterArray;
+    });
+};
+
+
+
+
+},{"./characters":5}],7:[function(require,module,exports){
+'use strict';
+
 module.exports.tinderEnder= {
     scene: "The End",
     characters: ["Roderigo", "You"],
@@ -825,23 +857,25 @@ module.exports.tempEnding= {
     }
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 const storyController = require("./storyController");
 const act1scene1 = require("./act1scene1");
 
-
-
+// loads scene 1
 storyController.loadScene(act1scene1);
 
 
 
 
-},{"./act1scene1":1,"./storyController":9}],8:[function(require,module,exports){
+},{"./act1scene1":1,"./storyController":10}],9:[function(require,module,exports){
 'use strict';
+// prints new section 
+// fired when the player sends a message
 
 module.exports.printSection = function (section) {
-
+    // if the player writes first, leave hte message field blank
+    // otherwise, do this stuff:
     if(section.messages != "playerWritesFirst"){
         for (let i = 0; i < section.messages.length; i++) {
             let typingIndicator = createTypingIndicator(section.messages[i].name);
@@ -858,6 +892,7 @@ module.exports.printSection = function (section) {
     $('#scene-title').text(section.scene);
 };
 
+// prints typing indicator and replaces it with message div after 2 seconds
 function startMessageSequence(typingIndicator, messageDiv, messageIndex){
     let offset = 2000;
     if (messageIndex == 0){
@@ -871,16 +906,19 @@ function startMessageSequence(typingIndicator, messageDiv, messageIndex){
     }
 }
 
+// appends typingIndicator to bottom of message area
 function appendTypingIndicator(typingIndicator){
     typingIndicator.appendTo($("#message-area"));
     scrollToBottom();
 }
 
+// switches typing indicator out for text message
 function switchMessageDiv(typingIndicator, messageDiv) {
     typingIndicator.remove();
     messageDiv.appendTo("#message-area");
 }
 
+// grabs value from truth input field and prints it to the DOM
 module.exports.printTruth = function (currentSection) {
     let messageText = $(".truth-textarea").val();
     if(messageText == ""){
@@ -890,6 +928,7 @@ module.exports.printTruth = function (currentSection) {
 
 };
 
+// grabs value from lie input field and prints it to the DOM
 module.exports.printLie = function (currentSection) {
     let messageText = $(".lie-textarea").val();
     if (messageText == "") {
@@ -898,18 +937,20 @@ module.exports.printLie = function (currentSection) {
     printPlayerMessage(messageText);
 };
 
+// prints the player's message and clears the message area so the next section can load
 function printPlayerMessage (text) {
     createMessageDiv(text, "You").appendTo($("#message-area"));
     clearTextArea();
     scrollToBottom();
 }
 
-
+// creates a new message div
 function createMessageDiv(text, character) {
     let messageDiv = $("<div>", { class: `message-div ${character}` }).text(`${character}: ${text}`);
     return messageDiv;
 }
 
+// creates typing indicator in DOM
 function createTypingIndicator(character){
     let typingIndicator = $("<div>", {class: `typing-indicator message-div ${character}`});
     let dotOne = $("<span>").appendTo(typingIndicator);
@@ -918,14 +959,17 @@ function createTypingIndicator(character){
     return typingIndicator;
 }
 
+// clears text area
 function clearTextArea() {
     $(".message-textarea").val("");
 }
 
+// scrolls to bottom of message area - called every time a new message gets posted
 function scrollToBottom(){
     $('#message-area').scrollTop($('#message-area')[0].scrollHeight);
 }
 
+// clears message area-- > do we ever actually use this?
 module.exports.clearMessageArea= function(){
     $("#message-area").text("");
 };
@@ -940,15 +984,14 @@ module.exports.clearMessageArea= function(){
 
 
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
+const charactersView = require("./charactersView");
 
-
-
-
+// loads an entire scene at a time... maybe there's a better way to do this?
 module.exports.loadScene = function(scene){
    
     let currentSection = scene.openingLines;
@@ -956,6 +999,7 @@ module.exports.loadScene = function(scene){
 
     messagePrinter.printSection(scene.openingLines);
     
+    // EVENT LISTNERS FOR SENDING PLAYER MESSAGES
     $('.send-truth').click(function () {
         tellTheTruth();
 
@@ -980,16 +1024,16 @@ module.exports.loadScene = function(scene){
         }
     });
 
-
+    // this is the big kahuna!
     function printNextSection(truthOrLie) {
-        nextSection = currentSection.options[truthOrLie].nextSection();
-        console.log("this is the return of the next section function", nextSection);
+        nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
         if ('newCharacter' in nextSection) {
-            messagePrinter.clearMessageArea();
+            messagePrinter.clearMessageArea(); // if the next section starts with a new character, it clears the message area from the old character
         }
-        messagePrinter.printSection(nextSection);
-        currentSection.options[truthOrLie].consequences();
-        currentSection = nextSection;
+        messagePrinter.printSection(nextSection); // prints the next section
+        currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
+        charactersView.logCharacters(); //logs character states after the consequence function
+        currentSection = nextSection; // resets variable
     }
 
     function tellALie() {
@@ -1001,7 +1045,8 @@ module.exports.loadScene = function(scene){
         messagePrinter.printTruth(currentSection);
         printNextSection("truth");
     }
- 
+
+    
 };
 
 
@@ -1012,4 +1057,4 @@ module.exports.loadScene = function(scene){
 
 
 
-},{"./characterController.js":4,"./messagesView.js":8}]},{},[7]);
+},{"./characterController.js":4,"./charactersView":6,"./messagesView.js":9}]},{},[8]);
