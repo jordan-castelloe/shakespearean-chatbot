@@ -4,6 +4,7 @@ const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
 const charactersView = require("./charactersView");
 
+// loads an entire scene at a time... maybe there's a better way to do this?
 module.exports.loadScene = function(scene){
    
     let currentSection = scene.openingLines;
@@ -11,6 +12,7 @@ module.exports.loadScene = function(scene){
 
     messagePrinter.printSection(scene.openingLines);
     
+    // EVENT LISTNERS FOR SENDING PLAYER MESSAGES
     $('.send-truth').click(function () {
         tellTheTruth();
 
@@ -35,15 +37,16 @@ module.exports.loadScene = function(scene){
         }
     });
 
+    // this is the big kahuna!
     function printNextSection(truthOrLie) {
-        nextSection = currentSection.options[truthOrLie].nextSection();
+        nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
         if ('newCharacter' in nextSection) {
-            messagePrinter.clearMessageArea();
+            messagePrinter.clearMessageArea(); // if the next section starts with a new character, it clears the message area from the old character
         }
-        messagePrinter.printSection(nextSection);
-        currentSection.options[truthOrLie].consequences();
-        charactersView.logCharacters();
-        currentSection = nextSection;
+        messagePrinter.printSection(nextSection); // prints the next section
+        currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
+        charactersView.logCharacters(); //logs character states after the consequence function
+        currentSection = nextSection; // resets variable
     }
 
     function tellALie() {

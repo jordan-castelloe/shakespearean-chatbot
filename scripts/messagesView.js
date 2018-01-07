@@ -1,7 +1,10 @@
 'use strict';
+// prints new section 
+// fired when the player sends a message
 
 module.exports.printSection = function (section) {
-
+    // if the player writes first, leave hte message field blank
+    // otherwise, do this stuff:
     if(section.messages != "playerWritesFirst"){
         for (let i = 0; i < section.messages.length; i++) {
             let typingIndicator = createTypingIndicator(section.messages[i].name);
@@ -18,6 +21,7 @@ module.exports.printSection = function (section) {
     $('#scene-title').text(section.scene);
 };
 
+// prints typing indicator and replaces it with message div after 2 seconds
 function startMessageSequence(typingIndicator, messageDiv, messageIndex){
     let offset = 2000;
     if (messageIndex == 0){
@@ -31,16 +35,19 @@ function startMessageSequence(typingIndicator, messageDiv, messageIndex){
     }
 }
 
+// appends typingIndicator to bottom of message area
 function appendTypingIndicator(typingIndicator){
     typingIndicator.appendTo($("#message-area"));
     scrollToBottom();
 }
 
+// switches typing indicator out for text message
 function switchMessageDiv(typingIndicator, messageDiv) {
     typingIndicator.remove();
     messageDiv.appendTo("#message-area");
 }
 
+// grabs value from truth input field and prints it to the DOM
 module.exports.printTruth = function (currentSection) {
     let messageText = $(".truth-textarea").val();
     if(messageText == ""){
@@ -50,6 +57,7 @@ module.exports.printTruth = function (currentSection) {
 
 };
 
+// grabs value from lie input field and prints it to the DOM
 module.exports.printLie = function (currentSection) {
     let messageText = $(".lie-textarea").val();
     if (messageText == "") {
@@ -58,18 +66,20 @@ module.exports.printLie = function (currentSection) {
     printPlayerMessage(messageText);
 };
 
+// prints the player's message and clears the message area so the next section can load
 function printPlayerMessage (text) {
     createMessageDiv(text, "You").appendTo($("#message-area"));
     clearTextArea();
     scrollToBottom();
 }
 
-
+// creates a new message div
 function createMessageDiv(text, character) {
     let messageDiv = $("<div>", { class: `message-div ${character}` }).text(`${character}: ${text}`);
     return messageDiv;
 }
 
+// creates typing indicator in DOM
 function createTypingIndicator(character){
     let typingIndicator = $("<div>", {class: `typing-indicator message-div ${character}`});
     let dotOne = $("<span>").appendTo(typingIndicator);
@@ -78,14 +88,17 @@ function createTypingIndicator(character){
     return typingIndicator;
 }
 
+// clears text area
 function clearTextArea() {
     $(".message-textarea").val("");
 }
 
+// scrolls to bottom of message area - called every time a new message gets posted
 function scrollToBottom(){
     $('#message-area').scrollTop($('#message-area')[0].scrollHeight);
 }
 
+// clears message area-- > do we ever actually use this?
 module.exports.clearMessageArea= function(){
     $("#message-area").text("");
 };
