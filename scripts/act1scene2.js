@@ -17,13 +17,17 @@ let skipGroupText = {
             truthPrompt: "Play it straight",
             truthDefault: "Good deal. See you tomorrow.",
             consequences: "consequences function",
-            nextSection: sceneThree.roderigoIsAMess
+            nextSection: function () {
+                return sceneThree.roderigoIsAMess;
+            }
         },
         lie: {
             liePrompt: "Suck up to Othello",
             lieDefault: "So glad you got off the hook with the Duke! The Turks won't even know what hit em!",
             consequences: "consequences function",
-            nextSection: sceneThree.roderigoIsAMess
+            nextSection: function () {
+                return sceneThree.roderigoIsAMess;
+            }
         }
     }
 };
@@ -45,13 +49,17 @@ let groupTextTwo = {
             truthPrompt: "Play it straight",
             truthDefault: "Yes, sir!",
             consequences: "consequences function",
-            nextSection: sceneThree.roderigoIsAMess
+            nextSection: function () {
+                return sceneThree.roderigoIsAMess;
+            }
         },
         lie: {
             liePrompt: "Suck up to Othello",
             lieDefault: "WOOHOO! Hell yeah! Can't wait to kick some Turkish butt!",
             consequences: "consequences function",
-            nextSection: sceneThree.roderigoIsAMess
+            nextSection: function () {
+                return sceneThree.roderigoIsAMess;
+            }
         }
     }
 };
@@ -70,13 +78,17 @@ let wtfIago = {
             truthPrompt: "Stick to your guns",
             truthDefault: "Don't listen to him, Mr. Duke! He'll witchcraft you!",
             consequences: "consequences function",
-            nextSection: endings.youreFired
+            nextSection: function () {
+                return endings.youreFired;
+            }
         },
         lie: {
             liePrompt: "Blame autocorrect.",
             lieDefault: "Damn autocorrect! What I meant was Othello DIDN'T use witchcraft.",
             consequences: "consequences function",
-            nextSection: groupTextTwo
+            nextSection: function () {
+                return groupTextTwo;
+            }
         }
     }
 };
@@ -100,13 +112,17 @@ let groupText = {
             truthPrompt: "Sieze the opportunity and stick up for Brabantio. Try to get Othello fired.",
             truthDefault: "Mr. Duke, Brabantio is telling the truth. Othello used witchcraft to seduce Desdemona!",
             consequences: "consequences function",
-            nextSection: wtfIago
+            nextSection: function () {
+                return wtfIago;
+            }
         },
         lie: {
             liePrompt: "Play the long game and stick up for Othello. Try to gain his trust.",
             lieDefault: "Mr. Duke, Othello would never! Brabantio is raving!",
             consequences: "consequences function",
-            nextSection: groupTextTwo
+            nextSection: function () {
+                return groupTextTwo;
+            }
         }
     }
 };
@@ -124,13 +140,17 @@ let brabantioCanSuckMyDick = {
             truthPrompt: "Get in on the group text.",
             truthDefault: "Yes please! Count me in!",
             consequences: "consequences function",
-            nextSection: groupText
+            nextSection: function () {
+                return groupText;
+            }
         },
         lie: {
             liePrompt: "Skip the group text.",
             lieDefault: "Nah, fill me in later.",
             consequences: "consequences function",
-            nextSection: skipGroupText
+            nextSection: function () {
+                return skipGroupText;
+            }
         }
     }
 };
@@ -147,13 +167,17 @@ let imGladYouDidnt = {
             truthPrompt: "Get in on the group text.",
             truthDefault: "Yes, please, count me in!.",
             consequences: "consequences function",
-            nextSection: groupText
+            nextSection: function () {
+                return groupText;
+            }
         },
         lie: {
             liePrompt: "Skip the group text.",
             lieDefault: "Fill me in later.",
             consequences: "consequences function",
-            nextSection: skipGroupText
+            nextSection: function () {
+                return skipGroupText;
+            }
         }
     }
 };
@@ -169,13 +193,17 @@ let warnOthello = {
             truthPrompt: "Warn him that Brabantio knows about the elopement.",
             truthDefault: "FYI, I think Brabantio found out about you and Desdemona.",
             consequences: "consequences function -- trust increases",
-            nextSection: brabantioCanSuckMyDick
+            nextSection: function () {
+                return brabantioCanSuckMyDick;
+            }
         },
         lie: {
             liePrompt: "Shit talk Roderigo.",
             lieDefault: "Dude, you should have heard what Roderigo was saying about you! The only reason I didn't kill him on the spot is because I'm too soft.",
             consequences: "consequences function-- trust increases more",
-            nextSection: imGladYouDidnt
+            nextSection: function () {
+                return imGladYouDidnt;
+            }
         }
     }
 };

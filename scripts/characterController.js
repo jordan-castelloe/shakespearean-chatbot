@@ -1,8 +1,10 @@
 'use strict';
 
 module.exports.adjustTrust = function(characterOne, characterTwo, adjuster){
-    console.log("this should be 10", characterOne.relationships[characterTwo].trust);
     characterOne.relationships[characterTwo].trust += adjuster;
-    console.log("this should be 9", characterOne.relationships[characterTwo].trust);
+};
+
+module.exports.adjustAnger = function(characterOne, characterTwo, adjuster){
+    characterOne.relationships[characterTwo].anger += adjuster;
 };
 
