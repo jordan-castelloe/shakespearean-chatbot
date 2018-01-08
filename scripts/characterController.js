@@ -21,3 +21,7 @@ module.exports.killCharacter = function(character){
 };
 
 
+module.exports.deactivateCharacter = function(character){
+    character.isActive = false;
+};
+

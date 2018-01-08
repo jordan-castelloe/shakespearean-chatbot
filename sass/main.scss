@@ -36,6 +36,48 @@ h1, h2, h3{
     text-align: center;
 }
 
+.character-menu{
+    height: 3em;
+    float: left;
+    opacity: 0.6;
+}
+
+// character menu container
+.character-states{
+    margin-left: 3.5em;
+    padding: 0.5em;
+    background: white;
+    width: 50vw;
+}
+
+.character-block{
+    background-color: rgb(164, 204, 164);
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+.character-block:hover{
+    background-color: rgb(127, 182, 127);
+}
+
+.character-name{
+    padding: 0.4em;
+}
+
+.relationship-name{
+    padding: 0.5em;
+
+}
+
+.trust, .anger{
+    font-size: 0.9em;
+    color: rgb(43, 43, 43);
+}
+
+.hidden{
+    display: none;
+}
 .truth-container{
     background-color: rgb(254, 231, 168);
 }

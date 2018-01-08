@@ -520,7 +520,7 @@ let askRoderigoForMoney = {
             truthDefault: "Just wait it out and be nice to her. She'll come around.",
             consequences: function () {
                 characterController.adjustTrust(characters.roderigo, "iago", -1);
-                characterController.killCharacter(characters.roderigo);
+                characterController.deactivateCharacter(characters.roderigo);
             },
             nextSection: function () {
                 return endings.tempEnding;
@@ -624,6 +624,10 @@ module.exports.killCharacter = function(character){
 };
 
 
+module.exports.deactivateCharacter = function(character){
+    character.isActive = false;
+};
+
 
 },{}],5:[function(require,module,exports){
 'use strict';
@@ -631,6 +635,7 @@ module.exports.killCharacter = function(character){
 module.exports.othello = {
     name: "Othello",
     isAlive: true,
+    isActive: true,
     relationships: {
         desdemona: {
             trust: 10,
@@ -659,6 +664,7 @@ module.exports.othello = {
 module.exports.roderigo = {
     name: "Roderigo",
     isAlive: true,
+    isActive: true,
     relationships: {
         iago: {
             trust: 10,
@@ -682,6 +688,7 @@ module.exports.roderigo = {
 module.exports.desdemona = {
     name: "Desdemona",
     isAlive: true,
+    isActive: true,
     relationships: {
         othello: {
             trust: 10,
@@ -710,6 +717,7 @@ module.exports.desdemona = {
 module.exports.emilia = {
     name: "Emilia",
     isAlive: true,
+    isActive: true,
     relationships: {
         othello: {
             trust: 10,
@@ -738,6 +746,7 @@ module.exports.emilia = {
 module.exports.cassio = {
     name: "Cassio",
     isAlive: true,
+    isActive: true,
     relationships: {
         desdemona: {
             trust: 10,
@@ -777,12 +786,59 @@ for (let prop in characters) {
     characterArray.push(characters[prop]);
 }
 
+
+
 // console logs character states for testing purposes
 module.exports.logCharacters = function(){
     characterArray.forEach((character) => {
         console.log("Character Name:", character.name);
         console.log("Character Relationships", character.relationships);
         return characterArray;
+    });
+};
+
+module.exports.populateCharacterMenu = function(){
+    characterArray.forEach((character) => {
+        let characterBlock = $("<div>", { id: `character-block-${character.name}`, class: "character-block"});
+        let characterName = $("<h5>", { class: "character-name" }).text(character.name);
+        let characterRelationship = $("<div>", { class: "character-relationships" }).css('display', 'none');
+        let relationshipArray = Object.keys(character.relationships);
+
+        relationshipArray.forEach(name => {
+            let relationshipName = $("<div>").addClass("relationship-name").text(`Relationship with ${name.charAt(0).toUpperCase() + name.slice(1) }`);
+            let trust = $("<p>").attr("id", `trust-${character.name}-${name}`).text(`Trust: ${character.relationships[name].trust}`).css('display', 'none');
+            let anger = $("<p>").attr("id", `anger-${character.name}-${name}`).text(`Anger: ${character.relationships[name].anger}`).css('display', 'none');
+            relationshipName.append(trust).append(anger);
+            relationshipName.appendTo(characterRelationship);
+            relationshipName.click(function () {
+                trust.toggle();
+                anger.toggle();
+            });
+        });
+
+        characterBlock.appendTo($("#character-states"));
+        characterName.appendTo(characterBlock);
+        characterRelationship.appendTo(characterBlock);
+        
+       characterName.click(function(){
+           characterRelationship.toggle();
+       });
+    });
+
+};
+
+module.exports.updateCharacterMenu = function(){
+    characterArray.forEach(character => {
+        if (character.isAlive == false) {
+            $(`#character-block-${character.name}`).css('background-color', '#ca9494');
+        } else if (character.isActive == false){
+            $(`#character-block-${character.name}`).css('background-color', 'rgb(148, 148, 148)');
+        }
+        let relationshipArray = Object.keys(character.relationships);
+        relationshipArray.forEach(name => {
+            $(`#trust-${character.name}-${name}`).text(`Trust: ${character.relationships[name].trust}`);
+            $(`#anger-${character.name}-${name}`).text(`Anger: ${character.relationships[name].anger}`);
+        });
     });
 };
 
@@ -861,14 +917,16 @@ module.exports.tempEnding= {
 'use strict';
 const storyController = require("./storyController");
 const act1scene1 = require("./act1scene1");
+const charactersView = require("./charactersView");
 
 // loads scene 1
+charactersView.populateCharacterMenu(); 
 storyController.loadScene(act1scene1);
 
 
 
 
-},{"./act1scene1":1,"./storyController":10}],9:[function(require,module,exports){
+},{"./act1scene1":1,"./charactersView":6,"./storyController":10}],9:[function(require,module,exports){
 'use strict';
 // prints new section 
 // fired when the player sends a message
@@ -1024,6 +1082,10 @@ module.exports.loadScene = function(scene){
         }
     });
 
+    $("#character-menu").click(function(){
+        $("#character-states").toggle();
+    });
+
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
         nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
@@ -1032,7 +1094,7 @@ module.exports.loadScene = function(scene){
         }
         messagePrinter.printSection(nextSection); // prints the next section
         currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
-        charactersView.logCharacters(); //logs character states after the consequence function
+        charactersView.updateCharacterMenu(); 
         currentSection = nextSection; // resets variable
     }
 
