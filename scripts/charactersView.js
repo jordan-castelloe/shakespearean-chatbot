@@ -25,28 +25,28 @@ module.exports.populateCharacterMenu = function(){
         let relationshipArray = Object.keys(character.relationships);
 
         relationshipArray.forEach(name => {
-            
-            let relationshipName = $("<p>").text(`Name : ${name.charAt(0).toUpperCase() + name.slice(1)}`);
-            let trust = $("<p>").text(`Trust: ${character.relationships[name].trust}`);
-            let anger = $("<p>").text(`Anger: ${character.relationships[name].anger}`);
-            characterRelationship.append(relationshipName).append(trust).append(anger);
-            characterRelationship.appendTo(characterName);
-
+            let relationshipName = $("<div>").addClass("relationship-name").text(`Relationship with ${name.charAt(0).toUpperCase() + name.slice(1) }`);
+            let trust = $("<p>").addClass("trust").text(`Trust: ${character.relationships[name].trust}`).css('display', 'none');
+            let anger = $("<p>").addClass("anger").text(`Anger: ${character.relationships[name].anger}`).css('display', 'none');
+            relationshipName.append(trust).append(anger);
+            relationshipName.appendTo(characterRelationship);
+            relationshipName.click(function () {
+                trust.toggle();
+                anger.toggle();
+            });
         });
 
         characterBlock.appendTo($("#character-states"));
         characterName.appendTo(characterBlock);
+        characterRelationship.appendTo(characterBlock);
         
-
-        if (character.isAlive){
-            characterBlock.css('background-color', 'green');
-        } else {
-            characterBlock.css('background-color', 'red');
+        if (character.isAlive == false){
+            characterBlock.css('background-color', 'rgb(148, 148, 148)');
         }
 
-        characterName.click(function(){
-            characterRelationship.toggle();
-        });
+       characterName.click(function(){
+           characterRelationship.toggle();
+       });
     });
 
 };
