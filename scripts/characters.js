@@ -39,7 +39,7 @@ module.exports.roderigo = {
             anger: 0
         }, 
         othello: {
-            trust: 5,
+            trust: 3,
             anger: 7
         },
         cassio: {
@@ -76,7 +76,7 @@ module.exports.desdemona = {
         }, 
         roderigo: {
             trust: 6,
-            anger: 0
+            anger: 4
         }, 
     
     }
@@ -105,7 +105,7 @@ module.exports.emilia = {
         }, 
         roderigo: {
             trust: 7,
-            anger: 0
+            anger: 3
         }, 
     
     }
