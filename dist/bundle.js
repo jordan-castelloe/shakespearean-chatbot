@@ -520,7 +520,7 @@ let askRoderigoForMoney = {
             truthDefault: "Just wait it out and be nice to her. She'll come around.",
             consequences: function () {
                 characterController.adjustTrust(characters.roderigo, "iago", -1);
-                characterController.killCharacter(characters.roderigo);
+                characterController.deactivateCharacter(characters.roderigo);
             },
             nextSection: function () {
                 return endings.tempEnding;
@@ -624,6 +624,10 @@ module.exports.killCharacter = function(character){
 };
 
 
+module.exports.deactivateCharacter = function(character){
+    character.isActive = false;
+};
+
 
 },{}],5:[function(require,module,exports){
 'use strict';
@@ -631,6 +635,7 @@ module.exports.killCharacter = function(character){
 module.exports.othello = {
     name: "Othello",
     isAlive: true,
+    isActive: true,
     relationships: {
         desdemona: {
             trust: 10,
@@ -659,6 +664,7 @@ module.exports.othello = {
 module.exports.roderigo = {
     name: "Roderigo",
     isAlive: true,
+    isActive: true,
     relationships: {
         iago: {
             trust: 10,
@@ -682,6 +688,7 @@ module.exports.roderigo = {
 module.exports.desdemona = {
     name: "Desdemona",
     isAlive: true,
+    isActive: true,
     relationships: {
         othello: {
             trust: 10,
@@ -710,6 +717,7 @@ module.exports.desdemona = {
 module.exports.emilia = {
     name: "Emilia",
     isAlive: true,
+    isActive: true,
     relationships: {
         othello: {
             trust: 10,
@@ -738,6 +746,7 @@ module.exports.emilia = {
 module.exports.cassio = {
     name: "Cassio",
     isAlive: true,
+    isActive: true,
     relationships: {
         desdemona: {
             trust: 10,
@@ -821,6 +830,8 @@ module.exports.populateCharacterMenu = function(){
 module.exports.updateCharacterMenu = function(){
     characterArray.forEach(character => {
         if (character.isAlive == false) {
+            $(`#character-block-${character.name}`).css('background-color', '#ca9494');
+        } else if (character.isActive == false){
             $(`#character-block-${character.name}`).css('background-color', 'rgb(148, 148, 148)');
         }
         let relationshipArray = Object.keys(character.relationships);

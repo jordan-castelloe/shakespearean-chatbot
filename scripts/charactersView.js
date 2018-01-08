@@ -52,6 +52,8 @@ module.exports.populateCharacterMenu = function(){
 module.exports.updateCharacterMenu = function(){
     characterArray.forEach(character => {
         if (character.isAlive == false) {
+            $(`#character-block-${character.name}`).css('background-color', '#ca9494');
+        } else if (character.isActive == false){
             $(`#character-block-${character.name}`).css('background-color', 'rgb(148, 148, 148)');
         }
         let relationshipArray = Object.keys(character.relationships);

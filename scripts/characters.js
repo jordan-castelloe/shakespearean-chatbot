@@ -3,6 +3,7 @@
 module.exports.othello = {
     name: "Othello",
     isAlive: true,
+    isActive: true,
     relationships: {
         desdemona: {
             trust: 10,
@@ -31,6 +32,7 @@ module.exports.othello = {
 module.exports.roderigo = {
     name: "Roderigo",
     isAlive: true,
+    isActive: true,
     relationships: {
         iago: {
             trust: 10,
@@ -54,6 +56,7 @@ module.exports.roderigo = {
 module.exports.desdemona = {
     name: "Desdemona",
     isAlive: true,
+    isActive: true,
     relationships: {
         othello: {
             trust: 10,
@@ -82,6 +85,7 @@ module.exports.desdemona = {
 module.exports.emilia = {
     name: "Emilia",
     isAlive: true,
+    isActive: true,
     relationships: {
         othello: {
             trust: 10,
@@ -110,6 +114,7 @@ module.exports.emilia = {
 module.exports.cassio = {
     name: "Cassio",
     isAlive: true,
+    isActive: true,
     relationships: {
         desdemona: {
             trust: 10,

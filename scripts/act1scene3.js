@@ -15,7 +15,7 @@ let askRoderigoForMoney = {
             truthDefault: "Just wait it out and be nice to her. She'll come around.",
             consequences: function () {
                 characterController.adjustTrust(characters.roderigo, "iago", -1);
-                characterController.killCharacter(characters.roderigo);
+                characterController.deactivateCharacter(characters.roderigo);
             },
             nextSection: function () {
                 return endings.tempEnding;
