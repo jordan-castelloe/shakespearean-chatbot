@@ -49,8 +49,7 @@ module.exports.loadScene = function(scene){
         }
         messagePrinter.printSection(nextSection); // prints the next section
         currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
-        // charactersView.logCharacters();
-        charactersView.populateCharacterMenu(); 
+        charactersView.updateCharacterMenu(); 
         currentSection = nextSection; // resets variable
     }
 
