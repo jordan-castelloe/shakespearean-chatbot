@@ -885,6 +885,7 @@ module.exports.tempEnding= {
 const storyController = require("./storyController");
 const act1scene1 = require("./act1scene1");
 const charactersView = require("./charactersView");
+const sceneFactory = require('./sceneFactory');
 
 // loads scene 1
 charactersView.populateCharacterMenu(); 
@@ -893,7 +894,7 @@ storyController.loadScene(act1scene1);
 
 
 
-},{"./act1scene1":1,"./charactersView":6,"./storyController":10}],9:[function(require,module,exports){
+},{"./act1scene1":1,"./charactersView":6,"./sceneFactory":10,"./storyController":11}],9:[function(require,module,exports){
 'use strict';
 // prints new section 
 // fired when the player sends a message
@@ -1010,6 +1011,13 @@ module.exports.clearMessageArea= function(){
 
 
 },{}],10:[function(require,module,exports){
+'use strict';
+
+
+module.exports.uploadSection = function(section) {
+
+};
+},{}],11:[function(require,module,exports){
 'use strict';
 
 const messagePrinter = require("./messagesView.js");
