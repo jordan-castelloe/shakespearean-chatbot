@@ -13,10 +13,10 @@ module.exports.printSection = function (section) {
         }
     }
     $('.narration').text(section.narration);
-    $('.truth-text').text(section.options.truth.truthPrompt);
-    $('.truth-textarea').attr('placeholder', section.options.truth.truthDefault);
-    $('.lie-text').text(section.options.lie.liePrompt);
-    $('.lie-textarea').attr('placeholder', section.options.lie.lieDefault);
+    $('.truth-text').text(section.truth.truthPrompt);
+    $('.truth-textarea').attr('placeholder', section.truth.truthDefault);
+    $('.lie-text').text(section.lie.liePrompt);
+    $('.lie-textarea').attr('placeholder', section.lie.lieDefault);
     $('#character-list').text(section.characters.join(', '));
     $('#scene-title').text(section.scene);
 };
@@ -51,7 +51,7 @@ function switchMessageDiv(typingIndicator, messageDiv) {
 module.exports.printTruth = function (currentSection) {
     let messageText = $(".truth-textarea").val();
     if(messageText == ""){
-        messageText = currentSection.options.truth.truthDefault;
+        messageText = currentSection.truth.truthDefault;
     }
     printPlayerMessage(messageText);
 
@@ -61,7 +61,7 @@ module.exports.printTruth = function (currentSection) {
 module.exports.printLie = function (currentSection) {
     let messageText = $(".lie-textarea").val();
     if (messageText == "") {
-        messageText = currentSection.options.lie.lieDefault;
+        messageText = currentSection.lie.lieDefault;
     }
     printPlayerMessage(messageText);
 };
