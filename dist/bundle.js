@@ -1037,6 +1037,7 @@ module.exports.uploadSection = function(section) {
 const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
 const charactersView = require("./charactersView");
+const storyLogger = require("./storyLogger.js");
 
 // loads an entire scene at a time... maybe there's a better way to do this?
 module.exports.loadScene = function(scene){
@@ -1075,6 +1076,15 @@ module.exports.loadScene = function(scene){
         $("#character-states").toggle();
     });
 
+    $("#back-arrow").click(function(){
+        console.log("You're trying to go back!");
+        let storyLog  = storyLogger.getPreviousSections();
+        console.log("this should be the previous section array when you click on the back arrow", storyLog);
+        let previousSection = storyLog[storyLog.length-1];
+        messagePrinter.printSection(previousSection);
+        // reverse character function
+    });
+
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
         nextSection = currentSection[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
@@ -1084,6 +1094,7 @@ module.exports.loadScene = function(scene){
         messagePrinter.printSection(nextSection); // prints the next section
         currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
         charactersView.updateCharacterMenu(); 
+        storyLogger.logSection(currentSection);
         currentSection = nextSection; // resets variable
     }
 
@@ -1108,4 +1119,16 @@ module.exports.loadScene = function(scene){
 
 
 
-},{"./characterController.js":4,"./charactersView":6,"./messagesView.js":9}]},{},[8]);
+},{"./characterController.js":4,"./charactersView":6,"./messagesView.js":9,"./storyLogger.js":12}],12:[function(require,module,exports){
+'use strict';
+
+let previousSections = [];
+module.exports.logSection = function(section){
+    previousSections.push(section);
+    return previousSections;
+};
+
+module.exports.getPreviousSections = function(){
+    return previousSections;
+};
+},{}]},{},[8]);
