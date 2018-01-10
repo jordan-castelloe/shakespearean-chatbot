@@ -888,6 +888,7 @@ const charactersView = require("./charactersView");
 const sceneFactory = require('./sceneFactory');
 
 // loads scene 1
+sceneFactory.uploadSection(act1scene1);
 charactersView.populateCharacterMenu(); 
 storyController.loadScene(act1scene1);
 
@@ -1013,10 +1014,23 @@ module.exports.clearMessageArea= function(){
 },{}],10:[function(require,module,exports){
 'use strict';
 
-
 module.exports.uploadSection = function(section) {
-
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://othello-af74b.firebaseio.com/allSections.json",
+                method: "POST",
+                data: JSON.stringify(section)
+            })
+                .done(tripObject => {
+                    resolve(tripObject);
+                })
+                .fail(error => {
+                    console.log("uh-oh", error.statusText);
+                    reject(error);
+                });
+        });
 };
+
 },{}],11:[function(require,module,exports){
 'use strict';
 
