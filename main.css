@@ -26,16 +26,22 @@ h1, h2, h3 {
   padding: 0.5em;
   text-align: center; }
 
-.character-menu {
+.menu-icon {
   height: 3em;
-  float: left;
   opacity: 0.6; }
 
+.back-arrow {
+  float: left; }
+
+.character-menu {
+  float: right; }
+
 .character-states {
+  float: right;
   margin-left: 3.5em;
   padding: 0.5em;
   background: white;
-  width: 50vw; }
+  width: 15vw; }
 
 .character-block {
   background-color: #a4cca4;
@@ -47,17 +53,18 @@ h1, h2, h3 {
   background-color: #7fb67f; }
 
 .character-name {
-  padding: 0.4em; }
+  padding: 0.4em;
+  font-size: 0.9em; }
 
 .relationship-name {
   padding: 0.5em;
+  font-size: 0.7em;
   background-color: white;
   border-radius: 0.4em;
   margin: 0.4em; }
 
 .trust, .anger {
-  font-size: 0.9em;
-  color: #2b2b2b; }
+  font-size: 0.6em; }
 
 .hidden {
   display: none; }
