@@ -43,11 +43,16 @@ module.exports.loadScene = function(scene){
     });
 
     $("#back-arrow").click(function(){
-        console.log("You're trying to go back!");
         let storyLog  = storyLogger.getPreviousSections();
-        console.log("this should be the previous section array when you click on the back arrow", storyLog);
         let previousSection = storyLog[storyLog.length-1];
+        // let previousCharacterMessages = previousSection.messages;
+        let yourPreviousMessage = $(`#${previousSection.name}-you`);
+        let previousCharacterMessages = $(`.${previousSection}`);
+        console.log("this is your previous message", yourPreviousMessage);
+        console.log("these are previous character messages", previousCharacterMessages);
         messagePrinter.printSection(previousSection);
+        
+        // delete last messages from message div
         // reverse character function
     });
 

@@ -5,6 +5,7 @@ const characters = require("./characters");
 const characterController = require("./characterController");
 
 let askRoderigoForMoney = {
+    name: "askRoderigoForMoney",
     scene: "Act One, Scene Three",
     characters: ["Roderigo", "You"],
     messages: [{ text: "What should I do?", name: "Roderigo" }],
@@ -33,6 +34,7 @@ let askRoderigoForMoney = {
 };
 
 let reassureRoderigo = {
+    name: "reassureRoderigo",
     scene: "Act One, Scene Three",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Desdemona will never go for me.", name: "Roderigo" }],
@@ -60,6 +62,7 @@ let reassureRoderigo = {
 };
 
 let roderigoIsAMess = {
+    name: "roderigoIsAMess",
     scene: "Act One, Scene Three",
     newCharacter: true,
     characters: ["Roderigo", "You"],

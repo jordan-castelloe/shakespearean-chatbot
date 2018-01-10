@@ -7,6 +7,7 @@ const characters = require("./characters");
 const characterController = require("./characterController");
 
 let brabantioIsPissed= {
+    name: "brabantioIsPissed",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "That worked. He's pissed.", name: "Roderigo" }, 
@@ -37,6 +38,7 @@ let brabantioIsPissed= {
 };
 
 let tellHerDad = {
+    name: "tellHerDad",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Omg, Brabantio will flip", name: "Roderigo" }, 
@@ -70,6 +72,7 @@ let tellHerDad = {
 
 
 let maybeTheEnd = {
+    name: "maybeTheEnd",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Ugh, you're right. She has weird teeth anyway.", name: "Roderigo" }],
@@ -97,6 +100,7 @@ let maybeTheEnd = {
 };
 
 let suggestSnitching= {
+    name: "suggestSnitching",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "There has to be a way to stop the marraige!", name: "Roderigo" }],
@@ -124,6 +128,7 @@ let suggestSnitching= {
 };
 
 let youShouldQuit= {
+    name: "youShouldQuit",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you hate him, you should quit.", name: "Roderigo" }],
@@ -151,6 +156,7 @@ let youShouldQuit= {
 };
 
 let whyHelpMe = {
+    name: "whyHelpMe",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you don't hate him, why are you helping me?", name: "Roderigo" }],
@@ -179,6 +185,7 @@ let whyHelpMe = {
 };
 
 let doYouHateHim = {
+    name: "doYouHateHim",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "I thought you hated him.", name: "Roderigo" }],
@@ -207,6 +214,7 @@ let doYouHateHim = {
 };
 
 let openingLines = {
+    name: "openingLines",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages:[{text: "Tell me you didn't know about this.", name: "Roderigo"}],
@@ -254,6 +262,7 @@ const characters = require("./characters");
 const characterController = require("./characterController");
 
 let skipGroupText = {
+    name: "skipGroupText",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [
@@ -286,6 +295,7 @@ let skipGroupText = {
 };
 
 let groupTextTwo = {
+    name: "groupTextTwo",
     scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     messages: [
@@ -320,6 +330,7 @@ let groupTextTwo = {
 };
 
 let wtfIago = {
+    name: "wtfIago",
     scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     messages: [
@@ -352,6 +363,7 @@ let wtfIago = {
 
 
 let groupText = {
+    name: "groupText",
     scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     newCharacter: true,
@@ -387,6 +399,7 @@ let groupText = {
 };
 
 let brabantioCanSuckMyDick = {
+    name: "brabantioCanSuckMyDick",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [
@@ -417,6 +430,7 @@ let brabantioCanSuckMyDick = {
 };
 
 let imGladYouDidnt = {
+    name: "imGladYouDidnt",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [{ text: "Thanks for watching my back, man.", name: "Othello" },
@@ -446,6 +460,7 @@ let imGladYouDidnt = {
 };
 
 let warnOthello = {
+    name: "warnOthello",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     newCharacter: true,
@@ -483,6 +498,7 @@ const characters = require("./characters");
 const characterController = require("./characterController");
 
 let askRoderigoForMoney = {
+    name: "askRoderigoForMoney",
     scene: "Act One, Scene Three",
     characters: ["Roderigo", "You"],
     messages: [{ text: "What should I do?", name: "Roderigo" }],
@@ -511,6 +527,7 @@ let askRoderigoForMoney = {
 };
 
 let reassureRoderigo = {
+    name: "reassureRoderigo",
     scene: "Act One, Scene Three",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Desdemona will never go for me.", name: "Roderigo" }],
@@ -538,6 +555,7 @@ let reassureRoderigo = {
 };
 
 let roderigoIsAMess = {
+    name: "roderigoIsAMess",
     scene: "Act One, Scene Three",
     newCharacter: true,
     characters: ["Roderigo", "You"],
@@ -906,7 +924,7 @@ module.exports.printSection = function (section) {
     if(section.messages != "playerWritesFirst"){
         for (let i = 0; i < section.messages.length; i++) {
             let typingIndicator = createTypingIndicator(section.messages[i].name);
-            let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
+            let messageDiv = createMessageDiv(section.name, section.messages[i].text, section.messages[i].name);
             startMessageSequence(typingIndicator, messageDiv, i);
         }
     }
@@ -951,7 +969,7 @@ module.exports.printTruth = function (currentSection) {
     if(messageText == ""){
         messageText = currentSection.truth.truthDefault;
     }
-    printPlayerMessage(messageText);
+    printPlayerMessage(messageText, currentSection.name);
 
 };
 
@@ -961,19 +979,20 @@ module.exports.printLie = function (currentSection) {
     if (messageText == "") {
         messageText = currentSection.lie.lieDefault;
     }
-    printPlayerMessage(messageText);
+    console.log("this should be message text", messageText);
+    printPlayerMessage(messageText, currentSection.name);
 };
 
 // prints the player's message and clears the message area so the next section can load
-function printPlayerMessage (text) {
-    createMessageDiv(text, "You").appendTo($("#message-area"));
+function printPlayerMessage (text, currentSectionName) {
+    createMessageDiv(currentSectionName, text, "You").appendTo($("#message-area"));
     clearTextArea();
     scrollToBottom();
 }
 
 // creates a new message div
-function createMessageDiv(text, character) {
-    let messageDiv = $("<div>", { class: `message-div ${character}` }).text(`${character}: ${text}`);
+function createMessageDiv(sectionName, text, character) {
+    let messageDiv = $("<div>", { class: `message-div ${character}`, id: `${sectionName}`}).text(`${character}: ${text}`);
     return messageDiv;
 }
 
@@ -1077,11 +1096,16 @@ module.exports.loadScene = function(scene){
     });
 
     $("#back-arrow").click(function(){
-        console.log("You're trying to go back!");
         let storyLog  = storyLogger.getPreviousSections();
-        console.log("this should be the previous section array when you click on the back arrow", storyLog);
         let previousSection = storyLog[storyLog.length-1];
+        // let previousCharacterMessages = previousSection.messages;
+        let yourPreviousMessage = $(`#${previousSection.name}-you`);
+        let previousCharacterMessages = $(`.${previousSection}`);
+        console.log("this is your previous message", yourPreviousMessage);
+        console.log("these are previous character messages", previousCharacterMessages);
         messagePrinter.printSection(previousSection);
+        
+        // delete last messages from message div
         // reverse character function
     });
 

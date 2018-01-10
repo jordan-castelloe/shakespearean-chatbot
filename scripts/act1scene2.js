@@ -5,6 +5,7 @@ const characters = require("./characters");
 const characterController = require("./characterController");
 
 let skipGroupText = {
+    name: "skipGroupText",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [
@@ -37,6 +38,7 @@ let skipGroupText = {
 };
 
 let groupTextTwo = {
+    name: "groupTextTwo",
     scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     messages: [
@@ -71,6 +73,7 @@ let groupTextTwo = {
 };
 
 let wtfIago = {
+    name: "wtfIago",
     scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     messages: [
@@ -103,6 +106,7 @@ let wtfIago = {
 
 
 let groupText = {
+    name: "groupText",
     scene: "Act One, Scene Two",
     characters: ["Othello", "Brabantio", "The Duke of Venice", "You", "Desdemona"],
     newCharacter: true,
@@ -138,6 +142,7 @@ let groupText = {
 };
 
 let brabantioCanSuckMyDick = {
+    name: "brabantioCanSuckMyDick",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [
@@ -168,6 +173,7 @@ let brabantioCanSuckMyDick = {
 };
 
 let imGladYouDidnt = {
+    name: "imGladYouDidnt",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     messages: [{ text: "Thanks for watching my back, man.", name: "Othello" },
@@ -197,6 +203,7 @@ let imGladYouDidnt = {
 };
 
 let warnOthello = {
+    name: "warnOthello",
     scene: "Act One, Scene Two",
     characters: ["Othello", "You"],
     newCharacter: true,
