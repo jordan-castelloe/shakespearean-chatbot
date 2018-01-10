@@ -45,11 +45,9 @@ module.exports.loadScene = function(scene){
     $("#back-arrow").click(function(){
         let storyLog  = storyLogger.getPreviousSections();
         let previousSection = storyLog[storyLog.length-1];
-        // let previousCharacterMessages = previousSection.messages;
-        let yourPreviousMessage = $(`#${previousSection.name}-you`);
-        let previousCharacterMessages = $(`.${previousSection}`);
-        console.log("this is your previous message", yourPreviousMessage);
-        console.log("these are previous character messages", previousCharacterMessages);
+        let messagesToDelete = $(`.${previousSection.name}`);
+        console.log(messagesToDelete);
+        messagesToDelete.remove();
         messagePrinter.printSection(previousSection);
         
         // delete last messages from message div

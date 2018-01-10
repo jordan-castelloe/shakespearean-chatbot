@@ -76,7 +76,7 @@ function printPlayerMessage (text, currentSectionName) {
 
 // creates a new message div
 function createMessageDiv(sectionName, text, character) {
-    let messageDiv = $("<div>", { class: `message-div ${character}`, id: `${sectionName}`}).text(`${character}: ${text}`);
+    let messageDiv = $("<div>").addClass('message-div').addClass(character).addClass(sectionName).text(`${character}: ${text}`);
     return messageDiv;
 }
 
