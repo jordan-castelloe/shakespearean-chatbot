@@ -43,12 +43,12 @@ module.exports.loadScene = function(scene){
 
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
-        nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
+        nextSection = currentSection[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
         if ('newCharacter' in nextSection) {
             messagePrinter.clearMessageArea(); // if the next section starts with a new character, it clears the message area from the old character
         }
         messagePrinter.printSection(nextSection); // prints the next section
-        currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
+        currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
         charactersView.updateCharacterMenu(); 
         currentSection = nextSection; // resets variable
     }

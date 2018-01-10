@@ -14,26 +14,24 @@ let brabantioIsPissed= {
         { text: "He's going to look for Othello", name: "Roderigo" },
         { text: "I'm gonna go with him", name: "Roderigo" }],
     narration: "You really can't be seen working against your boss.",
-    options: {
-        truth: {
-            truthPrompt: "Tell Roderigo to delete his text history.",
-            truthDefault: "I can't be seen working against Othello, can you delete these texts?",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function () {
-                return sceneTwo.warnOthello;
-            }
+    truth: {
+        truthPrompt: "Tell Roderigo to delete his text history.",
+        truthDefault: "I can't be seen working against Othello, can you delete these texts?",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
         },
-        lie: {
-            liePrompt: "Tell Roderigo where Othello will be and THEN to delete his text history.",
-            lieDefault: "Othello will be at the Sagittarius Inn. Don't tell him I told you. Delete your texts.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return sceneTwo.warnOthello;
-            }
+        nextSection: function () {
+            return sceneTwo.warnOthello;
+        }
+    },
+    lie: {
+        liePrompt: "Tell Roderigo where Othello will be and THEN to delete his text history.",
+        lieDefault: "Othello will be at the Sagittarius Inn. Don't tell him I told you. Delete your texts.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return sceneTwo.warnOthello;
         }
     }
 };
@@ -47,26 +45,24 @@ let tellHerDad = {
         { text: "Okay, he REALLY doesn't want to talk to me", name: "Roderigo" }, 
         { text: "Thinks I'm still after Desdemona", name: "Roderigo" }],
     narration: "Desdemona's father, Brabantio, is a powerful man with powerful friends. He'll make life difficult for Othello once he learns that his daughter has eloped.",
-    options: {
-        truth: {
-            truthPrompt: "Stick to the truth. He'll figure it all out eventually anyway.",
-            truthDefault: "Tell him to go look for Desdemona in her bedroom",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return brabantioIsPissed;
-            }
+    truth: {
+        truthPrompt: "Stick to the truth. He'll figure it all out eventually anyway.",
+        truthDefault: "Tell him to go look for Desdemona in her bedroom",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
         },
-        lie: {
-            liePrompt: "Might as well go the whole nine yards.",
-            lieDefault: "Oooh tell him you heard she was preggo",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return brabantioIsPissed;
-            }
+        nextSection: function () {
+            return brabantioIsPissed;
+        }
+    },
+    lie: {
+        liePrompt: "Might as well go the whole nine yards.",
+        lieDefault: "Oooh tell him you heard she was preggo",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return brabantioIsPissed;
         }
     }
 };
@@ -78,26 +74,24 @@ let maybeTheEnd = {
     characters: ["Roderigo", "You"],
     messages: [{ text: "Ugh, you're right. She has weird teeth anyway.", name: "Roderigo" }],
     narration: "Well, that's that. Better move on with your life, right?",
-    options: {
-        truth: {
-            truthPrompt: "Totally. Time to move on. No reason to hold a grudge.",
-            truthDefault: "Gotta go. You should look into Tinder.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function () {
-                return endings.tinderEnder;
-            }
+    truth: {
+        truthPrompt: "Totally. Time to move on. No reason to hold a grudge.",
+        truthDefault: "Gotta go. You should look into Tinder.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
         },
-        lie: {
-            liePrompt: "Just kidding, that was lame. Stir the pot! Let's tell her dad!",
-            lieDefault: "On second thought, we might owe it to her dad to let him know. Man to man.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return tellHerDad;
-            }
+        nextSection: function () {
+            return endings.tinderEnder;
+        }
+    },
+    lie: {
+        liePrompt: "Just kidding, that was lame. Stir the pot! Let's tell her dad!",
+        lieDefault: "On second thought, we might owe it to her dad to let him know. Man to man.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return tellHerDad;
         }
     }
 };
@@ -107,26 +101,24 @@ let suggestSnitching= {
     characters: ["Roderigo", "You"],
     messages: [{ text: "There has to be a way to stop the marraige!", name: "Roderigo" }],
     narration: "You're pretty sure they're already married.",
-    options: {
-        truth: {
-            truthPrompt: "Tell Roderigo to cut his losses and move on.",
-            truthDefault: "I think it's a done deal, bro. There's plenty of other fish in the sea.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function () {
-                return maybeTheEnd;
-            }
+    truth: {
+        truthPrompt: "Tell Roderigo to cut his losses and move on.",
+        truthDefault: "I think it's a done deal, bro. There's plenty of other fish in the sea.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
         },
-        lie: {
-            liePrompt: "Suggest that Roderigo tell Desdemona's father, Brabantio, about the elopement.",
-            lieDefault: "Let's tell her dad that they eloped!",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return tellHerDad;
-            }
+        nextSection: function () {
+            return maybeTheEnd;
+        }
+    },
+    lie: {
+        liePrompt: "Suggest that Roderigo tell Desdemona's father, Brabantio, about the elopement.",
+        lieDefault: "Let's tell her dad that they eloped!",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return tellHerDad;
         }
     }
 };
@@ -136,26 +128,24 @@ let youShouldQuit= {
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you hate him, you should quit.", name: "Roderigo" }],
     narration: "But hey, you have a comfortable job and Othello totally loves you.",
-    options: {
-        truth: {
-            truthPrompt: "Say you're just sticking around to cause trouble.",
-            truthDefault: "We can't all run the show. I'd rather stay behind the scenes. Othello trusts me, and I want to screw him over.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function () {
-                return suggestSnitching;
-            }
+    truth: {
+        truthPrompt: "Say you're just sticking around to cause trouble.",
+        truthDefault: "We can't all run the show. I'd rather stay behind the scenes. Othello trusts me, and I want to screw him over.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
         },
-        lie: {
-            liePrompt: "Say you're leaving.",
-            lieDefault: "I'll leave the first chance I get!",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return suggestSnitching;
-            }
+        nextSection: function () {
+            return suggestSnitching;
+        }
+    },
+    lie: {
+        liePrompt: "Say you're leaving.",
+        lieDefault: "I'll leave the first chance I get!",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return suggestSnitching;
         }
     }
 };
@@ -165,28 +155,27 @@ let whyHelpMe = {
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you don't hate him, why are you helping me?", name: "Roderigo" }],
     narration: "That's a really good question. Seriously, scholars will labor over your motivations for hundreds of years.",
-    options: {
-        truth: {
-            truthPrompt: "Say you're just in it for the drama.",
-            truthDefault: "Othello's gullible and it'll be fun to mess with him.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function(){
-                return suggestSnitching;
-            }
+    truth: {
+        truthPrompt: "Say you're just in it for the drama.",
+        truthDefault: "Othello's gullible and it'll be fun to mess with him.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
         },
-        lie: {
-            liePrompt: "Say you believe that Roderigo really deserves the girl.",
-            lieDefault: "You and Desdemona were made for each other!",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function(){
-                return suggestSnitching;
-            }
+        nextSection: function(){
+            return suggestSnitching;
+        }
+    },
+    lie: {
+        liePrompt: "Say you believe that Roderigo really deserves the girl.",
+        lieDefault: "You and Desdemona were made for each other!",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function(){
+            return suggestSnitching;
         }
     }
+
 };
 
 let doYouHateHim = {
@@ -194,28 +183,27 @@ let doYouHateHim = {
     characters: ["Roderigo", "You"],
     messages: [{ text: "I thought you hated him.", name: "Roderigo" }],
     narration: "You don't really hate Othello, but he is, after all, your boss. Othello recently passed you over for a promotion in favor of Michael Cassio, a math major straight out of school. Not cool.",
-    options: {
-        truth: {
-            truthPrompt: "Explain the situation in emotionally reasonable terms.",
-            truthDefault: "Hate's a strong word, but it pissed me off when he promoted Michael Cassio over me.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);  
-            },
-            nextSection: function(){
-                return whyHelpMe;
-            }
+    truth: {
+        truthPrompt: "Explain the situation in emotionally reasonable terms.",
+        truthDefault: "Hate's a strong word, but it pissed me off when he promoted Michael Cassio over me.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);  
         },
-        lie: {
-            liePrompt: "Say you totally hate him.",
-            lieDefault: "I hate his guts! The bastard passed me over for a promotion! You'll see, I'll screw him over!",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function(){
-                return youShouldQuit;
-            }
+        nextSection: function(){
+            return whyHelpMe;
+        }
+    },
+    lie: {
+        liePrompt: "Say you totally hate him.",
+        lieDefault: "I hate his guts! The bastard passed me over for a promotion! You'll see, I'll screw him over!",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function(){
+            return youShouldQuit;
         }
     }
+
 };
 
 let openingLines = {
@@ -223,28 +211,27 @@ let openingLines = {
     characters: ["Roderigo", "You"],
     messages:[{text: "Tell me you didn't know about this.", name: "Roderigo"}],
     narration: "Your friend, Roderigo, is in love with a young woman named Desdemona. He's just learned that she has eloped with your commanding officer, Othello.",
-    options: {
-        truth: {
-            truthPrompt: "Admit that you knew about it.",
-            truthDefault: "I knew about it, but I was afraid to tell you",
-            consequences: function(){
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function(){
-                return doYouHateHim;
-            }
-        }, 
-        lie: {
-            liePrompt: "Tell him you had no idea.",
-            lieDefault: "I didn't, I swear!",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return doYouHateHim;
-            }
+    truth: {
+        truthPrompt: "Admit that you knew about it.",
+        truthDefault: "I knew about it, but I was afraid to tell you",
+        consequences: function(){
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
+        },
+        nextSection: function(){
+            return doYouHateHim;
+        }
+    }, 
+    lie: {
+        liePrompt: "Tell him you had no idea.",
+        lieDefault: "I didn't, I swear!",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return doYouHateHim;
         }
     }
+
 };
 
 
@@ -276,26 +263,24 @@ let skipGroupText = {
         { text: "Pack your bags, we're going to Cyprus!", name: "Othello" },
     ],
     narration: "Looks like you're going to Cyprus.",
-    options: {
-        truth: {
-            truthPrompt: "Play it straight",
-            truthDefault: "Good deal. See you tomorrow.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return sceneThree.roderigoIsAMess;
-            }
+    truth: {
+        truthPrompt: "Play it straight",
+        truthDefault: "Good deal. See you tomorrow.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
         },
-        lie: {
-            liePrompt: "Suck up to Othello",
-            lieDefault: "So glad you got off the hook with the Duke! The Turks won't even know what hit em!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 2);
-            },
-            nextSection: function () {
-                return sceneThree.roderigoIsAMess;
-            }
+        nextSection: function () {
+            return sceneThree.roderigoIsAMess;
+        }
+    },
+    lie: {
+        liePrompt: "Suck up to Othello",
+        lieDefault: "So glad you got off the hook with the Duke! The Turks won't even know what hit em!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 2);
+        },
+        nextSection: function () {
+            return sceneThree.roderigoIsAMess;
         }
     }
 };
@@ -312,26 +297,24 @@ let groupTextTwo = {
         { text: "Stop whining, Brabantio. Othello, you and your wife are going to Cyprus. Iago and Cassio, you're going too. Meeting adjourned!", name: "The Duke" },    
     ],
     narration: "Looks like you're going to Cyprus.",
-    options: {
-        truth: {
-            truthPrompt: "Play it straight",
-            truthDefault: "Yes, sir!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return sceneThree.roderigoIsAMess;
-            }
+    truth: {
+        truthPrompt: "Play it straight",
+        truthDefault: "Yes, sir!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
         },
-        lie: {
-            liePrompt: "Suck up to Othello",
-            lieDefault: "WOOHOO! Hell yeah! Can't wait to kick some Turkish butt!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 2);
-            },
-            nextSection: function () {
-                return sceneThree.roderigoIsAMess;
-            }
+        nextSection: function () {
+            return sceneThree.roderigoIsAMess;
+        }
+    },
+    lie: {
+        liePrompt: "Suck up to Othello",
+        lieDefault: "WOOHOO! Hell yeah! Can't wait to kick some Turkish butt!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 2);
+        },
+        nextSection: function () {
+            return sceneThree.roderigoIsAMess;
         }
     }
 };
@@ -345,26 +328,24 @@ let wtfIago = {
         { text: "Othello, what do you have to say?", name: "The Duke" }
     ],
     narration: "Uh oh, looks like the Duke's not going for it.",
-    options: {
-        truth: {
-            truthPrompt: "Stick to your guns",
-            truthDefault: "Don't listen to him, Mr. Duke! He'll witchcraft you!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", -1);
-            },
-            nextSection: function () {
-                return endings.youreFired;
-            }
+    truth: {
+        truthPrompt: "Stick to your guns",
+        truthDefault: "Don't listen to him, Mr. Duke! He'll witchcraft you!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", -1);
         },
-        lie: {
-            liePrompt: "Blame autocorrect.",
-            lieDefault: "Damn autocorrect! What I meant was Othello DIDN'T use witchcraft.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return groupTextTwo;
-            }
+        nextSection: function () {
+            return endings.youreFired;
+        }
+    },
+    lie: {
+        liePrompt: "Blame autocorrect.",
+        lieDefault: "Damn autocorrect! What I meant was Othello DIDN'T use witchcraft.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
+        },
+        nextSection: function () {
+            return groupTextTwo;
         }
     }
 };
@@ -383,26 +364,24 @@ let groupText = {
         { text: "It was Othello!", name: "Brabantio" }
     ],
     narration: "If you stick up for Othello in front of the whole group, he'll trust you even more than he already does. On the other hand, your ultimate goal is to ruin Othello's life. Do you play the long game or sieze the opportunity?",
-    options: {
-        truth: {
-            truthPrompt: "Sieze the opportunity and stick up for Brabantio. Try to get Othello fired.",
-            truthDefault: "Mr. Duke, Brabantio is telling the truth. Othello used witchcraft to seduce Desdemona!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", -5);
-            },
-            nextSection: function () {
-                return wtfIago;
-            }
+    truth: {
+        truthPrompt: "Sieze the opportunity and stick up for Brabantio. Try to get Othello fired.",
+        truthDefault: "Mr. Duke, Brabantio is telling the truth. Othello used witchcraft to seduce Desdemona!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", -5);
         },
-        lie: {
-            liePrompt: "Play the long game and stick up for Othello. Try to gain his trust.",
-            lieDefault: "Mr. Duke, Othello would never! Brabantio is raving!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 5);
-            },
-            nextSection: function () {
-                return groupTextTwo;
-            }
+        nextSection: function () {
+            return wtfIago;
+        }
+    },
+    lie: {
+        liePrompt: "Play the long game and stick up for Othello. Try to gain his trust.",
+        lieDefault: "Mr. Duke, Othello would never! Brabantio is raving!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 5);
+        },
+        nextSection: function () {
+            return groupTextTwo;
         }
     }
 };
@@ -415,26 +394,24 @@ let brabantioCanSuckMyDick = {
         { text: "Speaking of, Cassio just texted and says the Duke wants to talk to us about the war in Cyprus", name: "Othello" },
         { text: "I'm gonna start a group text, want me to include you?", name: "Othello" }],
     narration: "On the one hand, you love knowing everybody's business. On the other hand, group texts are the actual worst.",
-    options: {
-        truth: {
-            truthPrompt: "Get in on the group text.",
-            truthDefault: "Yes please! Count me in!",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return groupText;
-            }
+    truth: {
+        truthPrompt: "Get in on the group text.",
+        truthDefault: "Yes please! Count me in!",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
         },
-        lie: {
-            liePrompt: "Skip the group text.",
-            lieDefault: "Nah, fill me in later.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return skipGroupText;
-            }
+        nextSection: function () {
+            return groupText;
+        }
+    },
+    lie: {
+        liePrompt: "Skip the group text.",
+        lieDefault: "Nah, fill me in later.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
+        },
+        nextSection: function () {
+            return skipGroupText;
         }
     }
 };
@@ -446,26 +423,24 @@ let imGladYouDidnt = {
     { text: "Oh, hey. Cassio just texted. He said the Duke wants to talk to us about the war in Cyprus", name: "Othello" },
     { text: "I'm gonna start a group text, do you want in?", name: "Othello" }],
     narration: "On the one hand, you love knowing everybody's business. On the other hand, group texts are the actual worst.",
-    options: {
-        truth: {
-            truthPrompt: "Get in on the group text.",
-            truthDefault: "Yes, please, count me in!.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return groupText;
-            }
+    truth: {
+        truthPrompt: "Get in on the group text.",
+        truthDefault: "Yes, please, count me in!.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
         },
-        lie: {
-            liePrompt: "Skip the group text.",
-            lieDefault: "Fill me in later.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return skipGroupText;
-            }
+        nextSection: function () {
+            return groupText;
+        }
+    },
+    lie: {
+        liePrompt: "Skip the group text.",
+        lieDefault: "Fill me in later.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
+        },
+        nextSection: function () {
+            return skipGroupText;
         }
     }
 };
@@ -476,27 +451,25 @@ let warnOthello = {
     newCharacter: true,
     messages: "playerWritesFirst",
     narration: "You really want Othello to trust you. You could warn him about Brabantio or tell him that Roderigo was insulting him.",
-    options: {
-        truth: {
-            truthPrompt: "Warn him that Brabantio knows about the elopement.",
-            truthDefault: "FYI, I think Brabantio found out about you and Desdemona.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 1);
-            },
-            nextSection: function () {
-                return brabantioCanSuckMyDick;
-            }
+    truth: {
+        truthPrompt: "Warn him that Brabantio knows about the elopement.",
+        truthDefault: "FYI, I think Brabantio found out about you and Desdemona.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 1);
         },
-        lie: {
-            liePrompt: "Shit talk Roderigo.",
-            lieDefault: "Dude, you should have heard what Roderigo was saying about you! The only reason I didn't kill him on the spot is because I'm too soft.",
-            consequences: function () {
-                characterController.adjustTrust(characters.othello, "iago", 2);
-                characterController.adjustTrust(characters.othello, "roderigo", -2);
-            },
-            nextSection: function () {
-                return imGladYouDidnt;
-            }
+        nextSection: function () {
+            return brabantioCanSuckMyDick;
+        }
+    },
+    lie: {
+        liePrompt: "Shit talk Roderigo.",
+        lieDefault: "Dude, you should have heard what Roderigo was saying about you! The only reason I didn't kill him on the spot is because I'm too soft.",
+        consequences: function () {
+            characterController.adjustTrust(characters.othello, "iago", 2);
+            characterController.adjustTrust(characters.othello, "roderigo", -2);
+        },
+        nextSection: function () {
+            return imGladYouDidnt;
         }
     }
 };
@@ -514,27 +487,25 @@ let askRoderigoForMoney = {
     characters: ["Roderigo", "You"],
     messages: [{ text: "What should I do?", name: "Roderigo" }],
     narration: "You're hatching a plan: if you really want to screw Othello over, you'll need to ruin his marriage. You'll have to make him think that Desdemona having an affair. It might be nice to have Roderigo around for the dirty work. On the other hand, he's emotional and a pain and you work better alone.",
-    options: {
-        truth: {
-            truthPrompt: "Leave him out of the plan. You can do this on your own.",
-            truthDefault: "Just wait it out and be nice to her. She'll come around.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-                characterController.deactivateCharacter(characters.roderigo);
-            },
-            nextSection: function () {
-                return endings.tempEnding;
-            }
+    truth: {
+        truthPrompt: "Leave him out of the plan. You can do this on your own.",
+        truthDefault: "Just wait it out and be nice to her. She'll come around.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
+            characterController.deactivateCharacter(characters.roderigo);
         },
-        lie: {
-            liePrompt: "Why not use him? Tell him to raise a bunch of money.",
-            lieDefault: "Sell all your land and raise a bunch of cash. That way you can elope with her when the time comes!",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return endings.tempEnding;
-            }
+        nextSection: function () {
+            return endings.tempEnding;
+        }
+    },
+    lie: {
+        liePrompt: "Why not use him? Tell him to raise a bunch of money.",
+        lieDefault: "Sell all your land and raise a bunch of cash. That way you can elope with her when the time comes!",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
+        },
+        nextSection: function () {
+            return endings.tempEnding;
         }
     }
 };
@@ -544,26 +515,24 @@ let reassureRoderigo = {
     characters: ["Roderigo", "You"],
     messages: [{ text: "Desdemona will never go for me.", name: "Roderigo" }],
     narration: "She probably won't.",
-    options: {
-        truth: {
-            truthPrompt: "Tell him to move on.",
-            truthDefault: "I'm sure you'll get over her.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", -1);
-            },
-            nextSection: function () {
-                return endings.tinderEnder;
-            }
+    truth: {
+        truthPrompt: "Tell him to move on.",
+        truthDefault: "I'm sure you'll get over her.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", -1);
         },
-        lie: {
-            liePrompt: "Tell him that Desdemona will get tired of Othello",
-            lieDefault: "She'll get tired of Othello, and then she'll go looking for an affair with a younger man.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 2);
-            },
-            nextSection: function () {
-                return askRoderigoForMoney;
-            }
+        nextSection: function () {
+            return endings.tinderEnder;
+        }
+    },
+    lie: {
+        liePrompt: "Tell him that Desdemona will get tired of Othello",
+        lieDefault: "She'll get tired of Othello, and then she'll go looking for an affair with a younger man.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 2);
+        },
+        nextSection: function () {
+            return askRoderigoForMoney;
         }
     }
 };
@@ -574,26 +543,24 @@ let roderigoIsAMess = {
     characters: ["Roderigo", "You"],
     messages: [{ text: "I want to drown myself.", name: "Roderigo" }],
     narration: "Roderigo is an idiot, but he's a rich idiot. He might still come in handy.",
-    options: {
-        truth: {
-            truthPrompt: "Tell him to man up.",
-            truthDefault: "You're acting like an idiot. Drown yourself? Who says stuff like that?",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 1);
-            },
-            nextSection: function () {
-                return reassureRoderigo;
-            }
+    truth: {
+        truthPrompt: "Tell him to man up.",
+        truthDefault: "You're acting like an idiot. Drown yourself? Who says stuff like that?",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 1);
         },
-        lie: {
-            liePrompt: "Tell him you're his friend",
-            lieDefault: "Come on, man. I've got your back. We'll figure this out.",
-            consequences: function () {
-                characterController.adjustTrust(characters.roderigo, "iago", 2);
-            },
-            nextSection: function () {
-                return reassureRoderigo;
-            }
+        nextSection: function () {
+            return reassureRoderigo;
+        }
+    },
+    lie: {
+        liePrompt: "Tell him you're his friend",
+        lieDefault: "Come on, man. I've got your back. We'll figure this out.",
+        consequences: function () {
+            characterController.adjustTrust(characters.roderigo, "iago", 2);
+        },
+        nextSection: function () {
+            return reassureRoderigo;
         }
     }
 };
@@ -918,15 +885,17 @@ module.exports.tempEnding= {
 const storyController = require("./storyController");
 const act1scene1 = require("./act1scene1");
 const charactersView = require("./charactersView");
+const sceneFactory = require('./sceneFactory');
 
 // loads scene 1
+sceneFactory.uploadSection(act1scene1);
 charactersView.populateCharacterMenu(); 
 storyController.loadScene(act1scene1);
 
 
 
 
-},{"./act1scene1":1,"./charactersView":6,"./storyController":10}],9:[function(require,module,exports){
+},{"./act1scene1":1,"./charactersView":6,"./sceneFactory":10,"./storyController":11}],9:[function(require,module,exports){
 'use strict';
 // prints new section 
 // fired when the player sends a message
@@ -942,10 +911,10 @@ module.exports.printSection = function (section) {
         }
     }
     $('.narration').text(section.narration);
-    $('.truth-text').text(section.options.truth.truthPrompt);
-    $('.truth-textarea').attr('placeholder', section.options.truth.truthDefault);
-    $('.lie-text').text(section.options.lie.liePrompt);
-    $('.lie-textarea').attr('placeholder', section.options.lie.lieDefault);
+    $('.truth-text').text(section.truth.truthPrompt);
+    $('.truth-textarea').attr('placeholder', section.truth.truthDefault);
+    $('.lie-text').text(section.lie.liePrompt);
+    $('.lie-textarea').attr('placeholder', section.lie.lieDefault);
     $('#character-list').text(section.characters.join(', '));
     $('#scene-title').text(section.scene);
 };
@@ -980,7 +949,7 @@ function switchMessageDiv(typingIndicator, messageDiv) {
 module.exports.printTruth = function (currentSection) {
     let messageText = $(".truth-textarea").val();
     if(messageText == ""){
-        messageText = currentSection.options.truth.truthDefault;
+        messageText = currentSection.truth.truthDefault;
     }
     printPlayerMessage(messageText);
 
@@ -990,7 +959,7 @@ module.exports.printTruth = function (currentSection) {
 module.exports.printLie = function (currentSection) {
     let messageText = $(".lie-textarea").val();
     if (messageText == "") {
-        messageText = currentSection.options.lie.lieDefault;
+        messageText = currentSection.lie.lieDefault;
     }
     printPlayerMessage(messageText);
 };
@@ -1045,6 +1014,26 @@ module.exports.clearMessageArea= function(){
 },{}],10:[function(require,module,exports){
 'use strict';
 
+module.exports.uploadSection = function(section) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://othello-af74b.firebaseio.com/allSections.json",
+                method: "POST",
+                data: JSON.stringify(section)
+            })
+                .done(tripObject => {
+                    resolve(tripObject);
+                })
+                .fail(error => {
+                    console.log("uh-oh", error.statusText);
+                    reject(error);
+                });
+        });
+};
+
+},{}],11:[function(require,module,exports){
+'use strict';
+
 const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
 const charactersView = require("./charactersView");
@@ -1088,12 +1077,12 @@ module.exports.loadScene = function(scene){
 
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
-        nextSection = currentSection.options[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
+        nextSection = currentSection[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
         if ('newCharacter' in nextSection) {
             messagePrinter.clearMessageArea(); // if the next section starts with a new character, it clears the message area from the old character
         }
         messagePrinter.printSection(nextSection); // prints the next section
-        currentSection.options[truthOrLie].consequences(); // runs the consequences function for the last section
+        currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
         charactersView.updateCharacterMenu(); 
         currentSection = nextSection; // resets variable
     }
