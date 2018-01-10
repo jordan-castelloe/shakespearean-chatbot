@@ -1098,6 +1098,8 @@ module.exports.loadScene = function(scene){
     $("#back-arrow").click(function(){
         let storyLog  = storyLogger.getPreviousSections();
         let previousSection = storyLog[storyLog.length-1];
+        console.log("this is the story log", storyLog);
+        console.log("this is the previous section length", storyLog.length);
         let messagesToDelete = $(`.${previousSection.name}`);
         console.log(messagesToDelete);
         messagesToDelete.remove();
