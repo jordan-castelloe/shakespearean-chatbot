@@ -26,6 +26,10 @@ module.exports.deactivateCharacter = function(character){
     character.isActive = false;
 };
 
-module.exports.reverseConsequences = function(previousSection, truthOrLie){
-   _.negate(previousSection[truthOrLie].consequences);
+module.exports.reverseConsequences = function(previousSection){
+    let reverseConsequences =  _.negate(previousSection.truth.consequences);
+    console.log("this is the function that's being reversed", previousSection.truth.consequences);
+    console.log("this is the reverse function", reverseConsequences);
+  reverseConsequences();
+  // why isn't this working??
 };
