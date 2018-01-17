@@ -16,7 +16,6 @@ module.exports.loadScene = function(scene){
     // EVENT LISTNERS FOR SENDING PLAYER MESSAGES
     $('.send-truth').click(function () {
         tellTheTruth();
-
     });
 
     $(".truth-textarea").keydown(function (e) {
@@ -47,10 +46,10 @@ module.exports.loadScene = function(scene){
         let previousSection = storyLog[storyLog.length-1];
         console.log("this is the story log", storyLog);
         console.log("this is the story log length", storyLog.length);
-        console.log("this is the previous s")
-        let messagesToDelete = $(`.${previousSection.name}`);
-        console.log(messagesToDelete);
-        messagesToDelete.remove();
+        console.log("this is the previous section", previousSection);
+        console.log("this is the current section", currentSection);
+        $(`.${previousSection.name}`).remove();
+        $(`.${currentSection.name}`).remove();
         messagePrinter.printSection(previousSection);
         
         // delete last messages from message div
