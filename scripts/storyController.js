@@ -47,7 +47,6 @@ module.exports.loadScene = function(scene){
         let previousSection = storyLog[storyLog.length-1]; // set the previous scene
         $(`.${previousSection.name}`).remove(); // remove the last messages from the character
         $(`.${currentSection.name}`).remove(); // remove the last messages from the player
-        characterController.reverseConsequences(previousSection);
         charactersView.updateCharacterMenu();
         messagePrinter.printSection(previousSection); // print the previous section
         currentSection = previousSection; // reset the current section counter
