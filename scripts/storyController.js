@@ -3,6 +3,7 @@
 const messagePrinter = require("./messagesView.js");
 const characterController = require("./characterController.js");
 const charactersView = require("./charactersView");
+const storyLogger = require("./storyLogger.js");
 
 // loads an entire scene at a time... maybe there's a better way to do this?
 module.exports.loadScene = function(scene){
@@ -15,7 +16,6 @@ module.exports.loadScene = function(scene){
     // EVENT LISTNERS FOR SENDING PLAYER MESSAGES
     $('.send-truth').click(function () {
         tellTheTruth();
-
     });
 
     $(".truth-textarea").keydown(function (e) {
@@ -41,6 +41,18 @@ module.exports.loadScene = function(scene){
         $("#character-states").toggle();
     });
 
+    
+    $("#back-arrow").click(function(){
+        let storyLog  = storyLogger.getPreviousSections(); // grab previous scenes
+        let previousSection = storyLog[storyLog.length-1]; // set the previous scene
+        $(`.${previousSection.name}`).remove(); // remove the last messages from the character
+        $(`.${currentSection.name}`).remove(); // remove the last messages from the player
+        characterController.reverseConsequences(previousSection);
+        charactersView.updateCharacterMenu();
+        messagePrinter.printSection(previousSection); // print the previous section
+        currentSection = previousSection; // reset the current section counter
+    });
+
     // this is the big kahuna!
     function printNextSection(truthOrLie) {
         nextSection = currentSection[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
@@ -50,6 +62,7 @@ module.exports.loadScene = function(scene){
         messagePrinter.printSection(nextSection); // prints the next section
         currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
         charactersView.updateCharacterMenu(); 
+        storyLogger.logSection(currentSection);
         currentSection = nextSection; // resets variable
     }
 

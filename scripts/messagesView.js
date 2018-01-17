@@ -8,7 +8,7 @@ module.exports.printSection = function (section) {
     if(section.messages != "playerWritesFirst"){
         for (let i = 0; i < section.messages.length; i++) {
             let typingIndicator = createTypingIndicator(section.messages[i].name);
-            let messageDiv = createMessageDiv(section.messages[i].text, section.messages[i].name);
+            let messageDiv = createMessageDiv(section.name, section.messages[i].text, section.messages[i].name);
             startMessageSequence(typingIndicator, messageDiv, i);
         }
     }
@@ -53,7 +53,7 @@ module.exports.printTruth = function (currentSection) {
     if(messageText == ""){
         messageText = currentSection.truth.truthDefault;
     }
-    printPlayerMessage(messageText);
+    printPlayerMessage(messageText, currentSection.name);
 
 };
 
@@ -63,19 +63,20 @@ module.exports.printLie = function (currentSection) {
     if (messageText == "") {
         messageText = currentSection.lie.lieDefault;
     }
-    printPlayerMessage(messageText);
+    console.log("this should be message text", messageText);
+    printPlayerMessage(messageText, currentSection.name);
 };
 
 // prints the player's message and clears the message area so the next section can load
-function printPlayerMessage (text) {
-    createMessageDiv(text, "You").appendTo($("#message-area"));
+function printPlayerMessage (text, currentSectionName) {
+    createMessageDiv(currentSectionName, text, "You").appendTo($("#message-area"));
     clearTextArea();
     scrollToBottom();
 }
 
 // creates a new message div
-function createMessageDiv(text, character) {
-    let messageDiv = $("<div>", { class: `message-div ${character}` }).text(`${character}: ${text}`);
+function createMessageDiv(sectionName, text, character) {
+    let messageDiv = $("<div>").addClass('message-div').addClass(character).addClass(sectionName).text(`${character}: ${text}`);
     return messageDiv;
 }
 

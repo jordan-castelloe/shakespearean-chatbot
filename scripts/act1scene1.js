@@ -6,6 +6,7 @@ const characters = require("./characters");
 const characterController = require("./characterController");
 
 let brabantioIsPissed= {
+    name: "brabantioIsPissed",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "That worked. He's pissed.", name: "Roderigo" }, 
@@ -36,6 +37,7 @@ let brabantioIsPissed= {
 };
 
 let tellHerDad = {
+    name: "tellHerDad",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Omg, Brabantio will flip", name: "Roderigo" }, 
@@ -69,6 +71,7 @@ let tellHerDad = {
 
 
 let maybeTheEnd = {
+    name: "maybeTheEnd",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "Ugh, you're right. She has weird teeth anyway.", name: "Roderigo" }],
@@ -96,6 +99,7 @@ let maybeTheEnd = {
 };
 
 let suggestSnitching= {
+    name: "suggestSnitching",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "There has to be a way to stop the marraige!", name: "Roderigo" }],
@@ -123,6 +127,7 @@ let suggestSnitching= {
 };
 
 let youShouldQuit= {
+    name: "youShouldQuit",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you hate him, you should quit.", name: "Roderigo" }],
@@ -150,6 +155,7 @@ let youShouldQuit= {
 };
 
 let whyHelpMe = {
+    name: "whyHelpMe",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "If you don't hate him, why are you helping me?", name: "Roderigo" }],
@@ -178,6 +184,7 @@ let whyHelpMe = {
 };
 
 let doYouHateHim = {
+    name: "doYouHateHim",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages: [{ text: "I thought you hated him.", name: "Roderigo" }],
@@ -206,6 +213,7 @@ let doYouHateHim = {
 };
 
 let openingLines = {
+    name: "openingLines",
     scene: "Act One, Scene One",
     characters: ["Roderigo", "You"],
     messages:[{text: "Tell me you didn't know about this.", name: "Roderigo"}],

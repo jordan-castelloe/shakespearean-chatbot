@@ -1,4 +1,5 @@
 'use strict';
+let _ = require("lodash");
 // characterOne is always the character you want to adjust
 // characterTwo is always the character they have a relationship with
 // adjuster is a number -- positive if trust or anger increases, negative if it decreases
@@ -25,3 +26,10 @@ module.exports.deactivateCharacter = function(character){
     character.isActive = false;
 };
 
+module.exports.reverseConsequences = function(previousSection){
+    let reverseConsequences =  _.negate(previousSection.truth.consequences);
+    console.log("this is the function that's being reversed", previousSection.truth.consequences);
+    console.log("this is the reverse function", reverseConsequences);
+  reverseConsequences();
+  // why isn't this working??
+};

@@ -36,18 +36,26 @@ h1, h2, h3{
     text-align: center;
 }
 
-.character-menu{
+.menu-icon{
     height: 3em;
-    float: left;
     opacity: 0.6;
+}
+
+.back-arrow{
+    float: left;
+}
+
+.character-menu{
+    float: right;
 }
 
 // character menu container
 .character-states{
+    float: right;
     margin-left: 3.5em;
     padding: 0.5em;
     background: white;
-    width: 50vw;
+    width: 15vw;
 }
 
 .character-block{
@@ -63,19 +71,19 @@ h1, h2, h3{
 
 .character-name{
     padding: 0.4em;
+    font-size: 0.9em;
 }
 
 .relationship-name{
     padding: 0.5em;
-    background-color: white;
+    font-size: 0.7em;
+    background-color:white;
     border-radius: 0.4em;
     margin: 0.4em;
-
 }
 
 .trust, .anger{
-    font-size: 0.9em;
-    color: rgb(43, 43, 43);
+    font-size: 0.6em;
 }
 
 .hidden{
