@@ -51,6 +51,7 @@ module.exports.loadScene = function(scene){
         $(`.${previousSection.name}`).remove();
         $(`.${currentSection.name}`).remove();
         messagePrinter.printSection(previousSection);
+        currentSection = previousSection;
         
         // delete last messages from message div
         // reverse character function
