@@ -17702,13 +17702,6 @@ module.exports.deactivateCharacter = function(character){
     character.isActive = false;
 };
 
-module.exports.reverseConsequences = function(previousSection){
-    let reverseConsequences =  _.negate(previousSection.truth.consequences);
-    console.log("this is the function that's being reversed", previousSection.truth.consequences);
-    console.log("this is the reverse function", reverseConsequences);
-  reverseConsequences();
-  // why isn't this working??
-};
 
 },{"lodash":1}],6:[function(require,module,exports){
 'use strict';
@@ -18196,7 +18189,6 @@ module.exports.loadScene = function(scene){
         let previousSection = storyLog[storyLog.length-1]; // set the previous scene
         $(`.${previousSection.name}`).remove(); // remove the last messages from the character
         $(`.${currentSection.name}`).remove(); // remove the last messages from the player
-        characterController.reverseConsequences(previousSection);
         charactersView.updateCharacterMenu();
         messagePrinter.printSection(previousSection); // print the previous section
         currentSection = previousSection; // reset the current section counter
