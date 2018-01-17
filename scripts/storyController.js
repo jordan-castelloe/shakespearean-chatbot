@@ -41,20 +41,16 @@ module.exports.loadScene = function(scene){
         $("#character-states").toggle();
     });
 
+    
     $("#back-arrow").click(function(){
-        let storyLog  = storyLogger.getPreviousSections();
-        let previousSection = storyLog[storyLog.length-1];
-        console.log("this is the story log", storyLog);
-        console.log("this is the story log length", storyLog.length);
-        console.log("this is the previous section", previousSection);
-        console.log("this is the current section", currentSection);
-        $(`.${previousSection.name}`).remove();
-        $(`.${currentSection.name}`).remove();
-        messagePrinter.printSection(previousSection);
-        currentSection = previousSection;
-        
-        // delete last messages from message div
-        // reverse character function
+        let storyLog  = storyLogger.getPreviousSections(); // grab previous scenes
+        let previousSection = storyLog[storyLog.length-1]; // set the previous scene
+        $(`.${previousSection.name}`).remove(); // remove the last messages from the character
+        $(`.${currentSection.name}`).remove(); // remove the last messages from the player
+        characterController.reverseConsequences(previousSection);
+        charactersView.updateCharacterMenu();
+        messagePrinter.printSection(previousSection); // print the previous section
+        currentSection = previousSection; // reset the current section counter
     });
 
     // this is the big kahuna!

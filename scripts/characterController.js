@@ -1,4 +1,5 @@
 'use strict';
+let _ = require("lodash");
 // characterOne is always the character you want to adjust
 // characterTwo is always the character they have a relationship with
 // adjuster is a number -- positive if trust or anger increases, negative if it decreases
@@ -25,3 +26,6 @@ module.exports.deactivateCharacter = function(character){
     character.isActive = false;
 };
 
+module.exports.reverseConsequences = function(previousSection, truthOrLie){
+   _.negate(previousSection[truthOrLie].consequences);
+};
