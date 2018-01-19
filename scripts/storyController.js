@@ -62,6 +62,7 @@ module.exports.loadScene = function(scene){
         currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
         charactersView.updateCharacterMenu(); 
         storyLogger.logSection(currentSection);
+        storyLogger.logConsequences(currentSection[truthOrLie].consequences);
         currentSection = nextSection; // resets variable
     }
 

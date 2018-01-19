@@ -18204,6 +18204,7 @@ module.exports.loadScene = function(scene){
         currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
         charactersView.updateCharacterMenu(); 
         storyLogger.logSection(currentSection);
+        storyLogger.logConsequences(currentSection[truthOrLie].consequences);
         currentSection = nextSection; // resets variable
     }
 
@@ -18232,10 +18233,15 @@ module.exports.loadScene = function(scene){
 'use strict';
 
 let previousSections = [];
+let consequences = [];
 module.exports.logSection = function(section){
     previousSections.push(section);
     return previousSections;
     // needs to log the character's choice
+};
+
+module.exports.logConsequences = function(consequenceFunction){
+    consequences.push(consequenceFunction);
 };
 
 module.exports.getPreviousSections = function(){
