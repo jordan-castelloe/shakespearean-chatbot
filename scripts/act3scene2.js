@@ -92,14 +92,3 @@
 //         Iago: I'll kill him because you want it. But let Desdemona live.
 // Othello: No! I need to kill her!
 
-// EMILIA AND IAGO
-// Emilia: Desdemona is asking me for her hankerchief.Why do you want it ?
-//     Iago : NO reason
-// Emilia: She's worried her husband will suspect her if he finds out it's missing
-// Iago: oops, I'll give it back
-// OR that's ridiculous? Who'd place that much weight on a hankerchief ?
-//     Emilia : You'd be surprised
-// Emilia: Othello's here and he's furious that she lost it
-// Emilia: Jealous bastard
-
-// // Cassio copies the hankerchief
