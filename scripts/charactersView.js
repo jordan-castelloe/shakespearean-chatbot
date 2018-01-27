@@ -1,6 +1,7 @@
 'use strict';
 
-const characters = require('./characters');
+const characters = require('../story/characters/characters.js');
+
 
 const characterArray = [];
 

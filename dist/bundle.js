@@ -17088,11 +17088,373 @@
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
 'use strict';
+let _ = require("lodash");
+// characterOne is always the character you want to adjust
+// characterTwo is always the character they have a relationship with
+// adjuster is a number -- positive if trust or anger increases, negative if it decreases
+// for example, if Iago lies about Desdemona to Othello:
+//     characterOne is Othello
+//     characterTwo is Desdemona
+//     adjuster will be a negative number, depending on the strength of the lie
+// these functions run in the consequence functions for each player choice
 
-const sceneTwo = require("./act1scene2");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+module.exports.adjustTrust = function(characterOne, characterTwo, adjuster){
+    characterOne.relationships[characterTwo].trust += adjuster;
+};
+
+module.exports.adjustAnger = function(characterOne, characterTwo, adjuster){
+    characterOne.relationships[characterTwo].anger += adjuster;
+};
+
+module.exports.killCharacter = function(character){
+    character.isAlive = false;
+};
+
+
+module.exports.deactivateCharacter = function(character){
+    character.isActive = false;
+};
+
+
+},{"lodash":1}],3:[function(require,module,exports){
+'use strict';
+
+const characters = require('../story/characters/characters.js');
+
+
+const characterArray = [];
+
+for (let prop in characters) {
+    characterArray.push(characters[prop]);
+}
+
+
+
+// console logs character states for testing purposes
+module.exports.logCharacters = function(){
+    characterArray.forEach((character) => {
+        console.log("Character Name:", character.name);
+        console.log("Character Relationships", character.relationships);
+        return characterArray;
+    });
+};
+
+module.exports.populateCharacterMenu = function(){
+    characterArray.forEach((character) => {
+        let characterBlock = $("<div>", { id: `character-block-${character.name}`, class: "character-block"});
+        let characterName = $("<h5>", { class: "character-name" }).text(character.name);
+        let characterRelationship = $("<div>", { class: "character-relationships" }).css('display', 'none');
+        let relationshipArray = Object.keys(character.relationships);
+
+        relationshipArray.forEach(name => {
+            let relationshipName = $("<div>").addClass("relationship-name").text(`Relationship with ${name.charAt(0).toUpperCase() + name.slice(1) }`);
+            let trust = $("<p>").attr("id", `trust-${character.name}-${name}`).text(`Trust: ${character.relationships[name].trust}`).css('display', 'none');
+            let anger = $("<p>").attr("id", `anger-${character.name}-${name}`).text(`Anger: ${character.relationships[name].anger}`).css('display', 'none');
+            relationshipName.append(trust).append(anger);
+            relationshipName.appendTo(characterRelationship);
+            relationshipName.click(function () {
+                trust.toggle();
+                anger.toggle();
+            });
+        });
+
+        characterBlock.appendTo($("#character-states"));
+        characterName.appendTo(characterBlock);
+        characterRelationship.appendTo(characterBlock);
+        
+       characterName.click(function(){
+           characterRelationship.toggle();
+       });
+    });
+
+};
+
+module.exports.updateCharacterMenu = function(){
+    characterArray.forEach(character => {
+        if (character.isAlive == false) {
+            $(`#character-block-${character.name}`).css('background-color', '#ca9494');
+        } else if (character.isActive == false){
+            $(`#character-block-${character.name}`).css('background-color', 'rgb(148, 148, 148)');
+        }
+        let relationshipArray = Object.keys(character.relationships);
+        relationshipArray.forEach(name => {
+            $(`#trust-${character.name}-${name}`).text(`Trust: ${character.relationships[name].trust}`);
+            $(`#anger-${character.name}-${name}`).text(`Anger: ${character.relationships[name].anger}`);
+        });
+    });
+};
+
+
+
+
+},{"../story/characters/characters.js":14}],4:[function(require,module,exports){
+'use strict';
+const storyController = require("./storyController");
+const act1scene1 = require("../story/actOne/act1scene1");
+const charactersView = require("./charactersView");
+const sceneFactory = require('./sceneFactory');
+
+// loads scene 1
+charactersView.populateCharacterMenu(); 
+storyController.loadScene(act1scene1);
+
+
+
+
+
+
+},{"../story/actOne/act1scene1":9,"./charactersView":3,"./sceneFactory":6,"./storyController":7}],5:[function(require,module,exports){
+'use strict';
+// prints new section 
+// fired when the player sends a message
+
+module.exports.printSection = function (section) {
+    // if the player writes first, leave hte message field blank
+    // otherwise, do this stuff:
+    if(section.messages != "playerWritesFirst"){
+        for (let i = 0; i < section.messages.length; i++) {
+            let typingIndicator = createTypingIndicator(section.messages[i].name);
+            let messageDiv = createMessageDiv(section.name, section.messages[i].text, section.messages[i].name);
+            startMessageSequence(typingIndicator, messageDiv, i);
+        }
+    }
+    $('.narration').text(section.narration);
+    $('.truth-text').text(section.truth.truthPrompt);
+    $('.truth-textarea').attr('placeholder', section.truth.truthDefault);
+    $('.lie-text').text(section.lie.liePrompt);
+    $('.lie-textarea').attr('placeholder', section.lie.lieDefault);
+    $('#character-list').text(section.characters.join(', '));
+    $('#scene-title').text(section.scene);
+};
+
+// prints typing indicator and replaces it with message div after 2 seconds
+function startMessageSequence(typingIndicator, messageDiv, messageIndex){
+    let offset = 2000;
+    if (messageIndex == 0){
+        appendTypingIndicator(typingIndicator);
+        setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
+    } else if (messageIndex > 0){
+        let typingOffset = messageIndex * offset;
+        let messageOffset = typingOffset + offset;
+        setTimeout(appendTypingIndicator, typingOffset, typingIndicator);
+        setTimeout(switchMessageDiv, messageOffset, typingIndicator, messageDiv);
+    }
+}
+
+// appends typingIndicator to bottom of message area
+function appendTypingIndicator(typingIndicator){
+    typingIndicator.appendTo($("#message-area"));
+    scrollToBottom();
+}
+
+// switches typing indicator out for text message
+function switchMessageDiv(typingIndicator, messageDiv) {
+    typingIndicator.remove();
+    messageDiv.appendTo("#message-area");
+}
+
+// grabs value from truth input field and prints it to the DOM
+module.exports.printTruth = function (currentSection) {
+    let messageText = $(".truth-textarea").val();
+    if(messageText == ""){
+        messageText = currentSection.truth.truthDefault;
+    }
+    printPlayerMessage(messageText, currentSection.name);
+
+};
+
+// grabs value from lie input field and prints it to the DOM
+module.exports.printLie = function (currentSection) {
+    let messageText = $(".lie-textarea").val();
+    if (messageText == "") {
+        messageText = currentSection.lie.lieDefault;
+    }
+    console.log("this should be message text", messageText);
+    printPlayerMessage(messageText, currentSection.name);
+};
+
+// prints the player's message and clears the message area so the next section can load
+function printPlayerMessage (text, currentSectionName) {
+    createMessageDiv(currentSectionName, text, "You").appendTo($("#message-area"));
+    clearTextArea();
+    scrollToBottom();
+}
+
+// creates a new message div
+function createMessageDiv(sectionName, text, character) {
+    let messageDiv = $("<div>").addClass('message-div').addClass(character).addClass(sectionName).text(`${character}: ${text}`);
+    return messageDiv;
+}
+
+// creates typing indicator in DOM
+function createTypingIndicator(character){
+    let typingIndicator = $("<div>", {class: `typing-indicator message-div ${character}`});
+    let dotOne = $("<span>").appendTo(typingIndicator);
+    let dotTwo = $("<span>").appendTo(typingIndicator);
+    let dotThree = $("<span>").appendTo(typingIndicator);
+    return typingIndicator;
+}
+
+// clears text area
+function clearTextArea() {
+    $(".message-textarea").val("");
+}
+
+// scrolls to bottom of message area - called every time a new message gets posted
+function scrollToBottom(){
+    $('#message-area').scrollTop($('#message-area')[0].scrollHeight);
+}
+
+// clears message area-- > do we ever actually use this?
+module.exports.clearMessageArea= function(){
+    $("#message-area").text("");
+};
+
+
+
+
+
+
+
+
+
+
+
+},{}],6:[function(require,module,exports){
+'use strict';
+
+module.exports.uploadSection = function(section) {
+        return new Promise((resolve, reject) => {
+            $.ajax({
+                url: "https://othello-af74b.firebaseio.com/allSections.json",
+                method: "POST",
+                data: JSON.stringify(section)
+            })
+                .done(tripObject => {
+                    resolve(tripObject);
+                })
+                .fail(error => {
+                    console.log("uh-oh", error.statusText);
+                    reject(error);
+                });
+        });
+};
+
+},{}],7:[function(require,module,exports){
+'use strict';
+
+const messagePrinter = require("./messagesView.js");
+const characterController = require("./characterController.js");
+const charactersView = require("./charactersView");
+const storyLogger = require("./storyLogger.js");
+
+// loads an entire scene at a time... maybe there's a better way to do this?
+module.exports.loadScene = function(scene){
+   
+    let currentSection = scene.openingLines;
+    let nextSection = "";
+
+    messagePrinter.printSection(scene.openingLines);
+    
+    // EVENT LISTNERS FOR SENDING PLAYER MESSAGES
+    $('.send-truth').click(function () {
+        tellTheTruth();
+    });
+
+    $(".truth-textarea").keydown(function (e) {
+        if (e.keyCode == 13) {
+            event.preventDefault();
+            tellTheTruth();
+        }
+    });
+
+    $('.send-lie').click(function () {
+       tellALie();
+    });
+
+
+    $(".lie-textarea").keydown(function (e) {
+        if (e.keyCode == 13) {
+            event.preventDefault();
+            tellALie();
+        }
+    });
+
+    $("#character-menu").click(function(){
+        $("#character-states").toggle();
+    });
+
+    
+    $("#back-arrow").click(function(){
+        let storyLog  = storyLogger.getPreviousSections(); // grab previous scenes
+        let previousSection = storyLog[storyLog.length-1]; // set the previous scene
+        $(`.${previousSection.name}`).remove(); // remove the last messages from the character
+        $(`.${currentSection.name}`).remove(); // remove the last messages from the player
+        charactersView.updateCharacterMenu();
+        messagePrinter.printSection(previousSection); // print the previous section
+        currentSection = previousSection; // reset the current section counter
+    });
+
+    // this is the big kahuna!
+    function printNextSection(truthOrLie) {
+        nextSection = currentSection[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
+        if ('newCharacter' in nextSection) {
+            messagePrinter.clearMessageArea(); // if the next section starts with a new character, it clears the message area from the old character
+        }
+        messagePrinter.printSection(nextSection); // prints the next section
+        currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
+        charactersView.updateCharacterMenu(); 
+        storyLogger.logSection(currentSection);
+        storyLogger.logConsequences(currentSection[truthOrLie].consequences);
+        currentSection = nextSection; // resets variable
+    }
+
+    function tellALie() {
+        messagePrinter.printLie(currentSection);
+        printNextSection("lie");
+    }
+
+    function tellTheTruth() {
+        messagePrinter.printTruth(currentSection);
+        printNextSection("truth");
+    }
+
+    
+};
+
+
+
+
+
+
+
+
+
+},{"./characterController.js":2,"./charactersView":3,"./messagesView.js":5,"./storyLogger.js":8}],8:[function(require,module,exports){
+'use strict';
+
+let previousSections = [];
+let consequences = [];
+module.exports.logSection = function(section){
+    previousSections.push(section);
+    return previousSections;
+    // needs to log the character's choice
+};
+
+module.exports.logConsequences = function(consequenceFunction){
+    consequences.push(consequenceFunction);
+};
+
+module.exports.getPreviousSections = function(){
+    return previousSections;
+};
+},{}],9:[function(require,module,exports){
+'use strict';
+
+const sceneTwo = require("../actOne/act1scene2");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let brabantioIsPissed= {
     name: "brabantioIsPissed",
@@ -17342,12 +17704,12 @@ module.exports = {openingLines};
 
 
 
-},{"./act1scene2":3,"./characterController":7,"./characters":8,"./endings":10}],3:[function(require,module,exports){
+},{"../../scripts/characterController":2,"../actOne/act1scene2":10,"../characters/characters":14,"../endings/endings":15}],10:[function(require,module,exports){
 'use strict';
 const sceneThree = require("./act1scene3");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let skipGroupText = {
     name: "skipGroupText",
@@ -17578,13 +17940,13 @@ let warnOthello = {
 };
 
 module.exports = {warnOthello};
-},{"./act1scene3":4,"./characterController":7,"./characters":8,"./endings":10}],4:[function(require,module,exports){
+},{"../../scripts/characterController":2,"../characters/characters":14,"../endings/endings":15,"./act1scene3":11}],11:[function(require,module,exports){
 'use strict';
 
-const actTwo = require("./act2scene1");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const actTwo = require("../actTwo/act2scene1");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let askRoderigoForMoney = {
     name: "askRoderigoForMoney",
@@ -17674,12 +18036,12 @@ let roderigoIsAMess = {
 
 module.exports = {roderigoIsAMess};
 
-},{"./act2scene1":5,"./characterController":7,"./characters":8,"./endings":10}],5:[function(require,module,exports){
+},{"../../scripts/characterController":2,"../actTwo/act2scene1":12,"../characters/characters":14,"../endings/endings":15}],12:[function(require,module,exports){
 'use strict';
 const sceneTwo = require("./act2scene2");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 
 let getCassioDrunk = {
@@ -18042,7 +18404,7 @@ module.exports = {wheresOthello};
 
 
 
-},{"./act2scene2":6,"./characterController":7,"./characters":8,"./endings":10}],6:[function(require,module,exports){
+},{"../../scripts/characterController":2,"../characters/characters":14,"../endings/endings":15,"./act2scene2":13}],13:[function(require,module,exports){
 // A herald announces that Othello plans revelry for the evening in celebration of Cyprus’s safety from the Turks, and also in celebration of his marriage to Desdemona.
 
 // Cassio and Iago
@@ -18114,37 +18476,7 @@ module.exports = {wheresOthello};
 // Iaog: hold on! Look at that tiny sacrifice! You got Cassio discharged!
 // if Roderigo trusts you enough, he stays
 // Otherwise, he deactivates
-},{}],7:[function(require,module,exports){
-'use strict';
-let _ = require("lodash");
-// characterOne is always the character you want to adjust
-// characterTwo is always the character they have a relationship with
-// adjuster is a number -- positive if trust or anger increases, negative if it decreases
-// for example, if Iago lies about Desdemona to Othello:
-//     characterOne is Othello
-//     characterTwo is Desdemona
-//     adjuster will be a negative number, depending on the strength of the lie
-// these functions run in the consequence functions for each player choice
-
-module.exports.adjustTrust = function(characterOne, characterTwo, adjuster){
-    characterOne.relationships[characterTwo].trust += adjuster;
-};
-
-module.exports.adjustAnger = function(characterOne, characterTwo, adjuster){
-    characterOne.relationships[characterTwo].anger += adjuster;
-};
-
-module.exports.killCharacter = function(character){
-    character.isAlive = false;
-};
-
-
-module.exports.deactivateCharacter = function(character){
-    character.isActive = false;
-};
-
-
-},{"lodash":1}],8:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 module.exports.othello = {
@@ -18290,77 +18622,7 @@ module.exports.cassio = {
 
   
 
-},{}],9:[function(require,module,exports){
-'use strict';
-
-const characters = require('./characters');
-
-const characterArray = [];
-
-for (let prop in characters) {
-    characterArray.push(characters[prop]);
-}
-
-
-
-// console logs character states for testing purposes
-module.exports.logCharacters = function(){
-    characterArray.forEach((character) => {
-        console.log("Character Name:", character.name);
-        console.log("Character Relationships", character.relationships);
-        return characterArray;
-    });
-};
-
-module.exports.populateCharacterMenu = function(){
-    characterArray.forEach((character) => {
-        let characterBlock = $("<div>", { id: `character-block-${character.name}`, class: "character-block"});
-        let characterName = $("<h5>", { class: "character-name" }).text(character.name);
-        let characterRelationship = $("<div>", { class: "character-relationships" }).css('display', 'none');
-        let relationshipArray = Object.keys(character.relationships);
-
-        relationshipArray.forEach(name => {
-            let relationshipName = $("<div>").addClass("relationship-name").text(`Relationship with ${name.charAt(0).toUpperCase() + name.slice(1) }`);
-            let trust = $("<p>").attr("id", `trust-${character.name}-${name}`).text(`Trust: ${character.relationships[name].trust}`).css('display', 'none');
-            let anger = $("<p>").attr("id", `anger-${character.name}-${name}`).text(`Anger: ${character.relationships[name].anger}`).css('display', 'none');
-            relationshipName.append(trust).append(anger);
-            relationshipName.appendTo(characterRelationship);
-            relationshipName.click(function () {
-                trust.toggle();
-                anger.toggle();
-            });
-        });
-
-        characterBlock.appendTo($("#character-states"));
-        characterName.appendTo(characterBlock);
-        characterRelationship.appendTo(characterBlock);
-        
-       characterName.click(function(){
-           characterRelationship.toggle();
-       });
-    });
-
-};
-
-module.exports.updateCharacterMenu = function(){
-    characterArray.forEach(character => {
-        if (character.isAlive == false) {
-            $(`#character-block-${character.name}`).css('background-color', '#ca9494');
-        } else if (character.isActive == false){
-            $(`#character-block-${character.name}`).css('background-color', 'rgb(148, 148, 148)');
-        }
-        let relationshipArray = Object.keys(character.relationships);
-        relationshipArray.forEach(name => {
-            $(`#trust-${character.name}-${name}`).text(`Trust: ${character.relationships[name].trust}`);
-            $(`#anger-${character.name}-${name}`).text(`Anger: ${character.relationships[name].anger}`);
-        });
-    });
-};
-
-
-
-
-},{"./characters":8}],10:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 module.exports.tinderEnder= {
@@ -18428,265 +18690,4 @@ module.exports.tempEnding= {
     }
 };
 
-},{}],11:[function(require,module,exports){
-'use strict';
-const storyController = require("./storyController");
-const act1scene1 = require("./act1scene1");
-const charactersView = require("./charactersView");
-const sceneFactory = require('./sceneFactory');
-
-// loads scene 1
-charactersView.populateCharacterMenu(); 
-storyController.loadScene(act1scene1);
-
-
-
-
-
-
-},{"./act1scene1":2,"./charactersView":9,"./sceneFactory":13,"./storyController":14}],12:[function(require,module,exports){
-'use strict';
-// prints new section 
-// fired when the player sends a message
-
-module.exports.printSection = function (section) {
-    // if the player writes first, leave hte message field blank
-    // otherwise, do this stuff:
-    if(section.messages != "playerWritesFirst"){
-        for (let i = 0; i < section.messages.length; i++) {
-            let typingIndicator = createTypingIndicator(section.messages[i].name);
-            let messageDiv = createMessageDiv(section.name, section.messages[i].text, section.messages[i].name);
-            startMessageSequence(typingIndicator, messageDiv, i);
-        }
-    }
-    $('.narration').text(section.narration);
-    $('.truth-text').text(section.truth.truthPrompt);
-    $('.truth-textarea').attr('placeholder', section.truth.truthDefault);
-    $('.lie-text').text(section.lie.liePrompt);
-    $('.lie-textarea').attr('placeholder', section.lie.lieDefault);
-    $('#character-list').text(section.characters.join(', '));
-    $('#scene-title').text(section.scene);
-};
-
-// prints typing indicator and replaces it with message div after 2 seconds
-function startMessageSequence(typingIndicator, messageDiv, messageIndex){
-    let offset = 2000;
-    if (messageIndex == 0){
-        appendTypingIndicator(typingIndicator);
-        setTimeout(switchMessageDiv, offset, typingIndicator, messageDiv);
-    } else if (messageIndex > 0){
-        let typingOffset = messageIndex * offset;
-        let messageOffset = typingOffset + offset;
-        setTimeout(appendTypingIndicator, typingOffset, typingIndicator);
-        setTimeout(switchMessageDiv, messageOffset, typingIndicator, messageDiv);
-    }
-}
-
-// appends typingIndicator to bottom of message area
-function appendTypingIndicator(typingIndicator){
-    typingIndicator.appendTo($("#message-area"));
-    scrollToBottom();
-}
-
-// switches typing indicator out for text message
-function switchMessageDiv(typingIndicator, messageDiv) {
-    typingIndicator.remove();
-    messageDiv.appendTo("#message-area");
-}
-
-// grabs value from truth input field and prints it to the DOM
-module.exports.printTruth = function (currentSection) {
-    let messageText = $(".truth-textarea").val();
-    if(messageText == ""){
-        messageText = currentSection.truth.truthDefault;
-    }
-    printPlayerMessage(messageText, currentSection.name);
-
-};
-
-// grabs value from lie input field and prints it to the DOM
-module.exports.printLie = function (currentSection) {
-    let messageText = $(".lie-textarea").val();
-    if (messageText == "") {
-        messageText = currentSection.lie.lieDefault;
-    }
-    console.log("this should be message text", messageText);
-    printPlayerMessage(messageText, currentSection.name);
-};
-
-// prints the player's message and clears the message area so the next section can load
-function printPlayerMessage (text, currentSectionName) {
-    createMessageDiv(currentSectionName, text, "You").appendTo($("#message-area"));
-    clearTextArea();
-    scrollToBottom();
-}
-
-// creates a new message div
-function createMessageDiv(sectionName, text, character) {
-    let messageDiv = $("<div>").addClass('message-div').addClass(character).addClass(sectionName).text(`${character}: ${text}`);
-    return messageDiv;
-}
-
-// creates typing indicator in DOM
-function createTypingIndicator(character){
-    let typingIndicator = $("<div>", {class: `typing-indicator message-div ${character}`});
-    let dotOne = $("<span>").appendTo(typingIndicator);
-    let dotTwo = $("<span>").appendTo(typingIndicator);
-    let dotThree = $("<span>").appendTo(typingIndicator);
-    return typingIndicator;
-}
-
-// clears text area
-function clearTextArea() {
-    $(".message-textarea").val("");
-}
-
-// scrolls to bottom of message area - called every time a new message gets posted
-function scrollToBottom(){
-    $('#message-area').scrollTop($('#message-area')[0].scrollHeight);
-}
-
-// clears message area-- > do we ever actually use this?
-module.exports.clearMessageArea= function(){
-    $("#message-area").text("");
-};
-
-
-
-
-
-
-
-
-
-
-
-},{}],13:[function(require,module,exports){
-'use strict';
-
-module.exports.uploadSection = function(section) {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                url: "https://othello-af74b.firebaseio.com/allSections.json",
-                method: "POST",
-                data: JSON.stringify(section)
-            })
-                .done(tripObject => {
-                    resolve(tripObject);
-                })
-                .fail(error => {
-                    console.log("uh-oh", error.statusText);
-                    reject(error);
-                });
-        });
-};
-
-},{}],14:[function(require,module,exports){
-'use strict';
-
-const messagePrinter = require("./messagesView.js");
-const characterController = require("./characterController.js");
-const charactersView = require("./charactersView");
-const storyLogger = require("./storyLogger.js");
-
-// loads an entire scene at a time... maybe there's a better way to do this?
-module.exports.loadScene = function(scene){
-   
-    let currentSection = scene.openingLines;
-    let nextSection = "";
-
-    messagePrinter.printSection(scene.openingLines);
-    
-    // EVENT LISTNERS FOR SENDING PLAYER MESSAGES
-    $('.send-truth').click(function () {
-        tellTheTruth();
-    });
-
-    $(".truth-textarea").keydown(function (e) {
-        if (e.keyCode == 13) {
-            event.preventDefault();
-            tellTheTruth();
-        }
-    });
-
-    $('.send-lie').click(function () {
-       tellALie();
-    });
-
-
-    $(".lie-textarea").keydown(function (e) {
-        if (e.keyCode == 13) {
-            event.preventDefault();
-            tellALie();
-        }
-    });
-
-    $("#character-menu").click(function(){
-        $("#character-states").toggle();
-    });
-
-    
-    $("#back-arrow").click(function(){
-        let storyLog  = storyLogger.getPreviousSections(); // grab previous scenes
-        let previousSection = storyLog[storyLog.length-1]; // set the previous scene
-        $(`.${previousSection.name}`).remove(); // remove the last messages from the character
-        $(`.${currentSection.name}`).remove(); // remove the last messages from the player
-        charactersView.updateCharacterMenu();
-        messagePrinter.printSection(previousSection); // print the previous section
-        currentSection = previousSection; // reset the current section counter
-    });
-
-    // this is the big kahuna!
-    function printNextSection(truthOrLie) {
-        nextSection = currentSection[truthOrLie].nextSection(); // grabs a reference to the nextSection and stores it in a variable
-        if ('newCharacter' in nextSection) {
-            messagePrinter.clearMessageArea(); // if the next section starts with a new character, it clears the message area from the old character
-        }
-        messagePrinter.printSection(nextSection); // prints the next section
-        currentSection[truthOrLie].consequences(); // runs the consequences function for the last section
-        charactersView.updateCharacterMenu(); 
-        storyLogger.logSection(currentSection);
-        storyLogger.logConsequences(currentSection[truthOrLie].consequences);
-        currentSection = nextSection; // resets variable
-    }
-
-    function tellALie() {
-        messagePrinter.printLie(currentSection);
-        printNextSection("lie");
-    }
-
-    function tellTheTruth() {
-        messagePrinter.printTruth(currentSection);
-        printNextSection("truth");
-    }
-
-    
-};
-
-
-
-
-
-
-
-
-
-},{"./characterController.js":7,"./charactersView":9,"./messagesView.js":12,"./storyLogger.js":15}],15:[function(require,module,exports){
-'use strict';
-
-let previousSections = [];
-let consequences = [];
-module.exports.logSection = function(section){
-    previousSections.push(section);
-    return previousSections;
-    // needs to log the character's choice
-};
-
-module.exports.logConsequences = function(consequenceFunction){
-    consequences.push(consequenceFunction);
-};
-
-module.exports.getPreviousSections = function(){
-    return previousSections;
-};
-},{}]},{},[11]);
+},{}]},{},[4]);

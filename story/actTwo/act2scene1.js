@@ -1,14 +1,13 @@
 'use strict';
 const sceneTwo = require("./act2scene2");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 
 let getCassioDrunk = {
   name: "getCassioDrunk",
   scene: "Act Two, Scene One",
-  newCharacter: true,
   characters: ["Roderigo", "You"],
   messages: [{ text: "Oh shit, really?", name: "Roderigo"}, {text: "I knew she'd never go for me.", name: "Roderigo"}],
   narration: "Here's the plan: get Cassio drunk and talk him into doing something stupid.",
@@ -37,7 +36,6 @@ let getCassioDrunk = {
 let liquidCourage= {
   name: "liquidCourage",
   scene: "Act Two, Scene One",
-  newCharacter: true,
   characters: ["Roderigo", "You"],
   messages: [{ text: "You think so??", name: "Roderigo"}],
   narration: "You need Roderigo to flirt with Desdemona. That way you can convince Othello that Desdemona is cheating on him.",
@@ -221,7 +219,7 @@ let insultEmilia = {
   name: "insultEmilia",
   scene: "Act Two, Scene One",
   characters: ["Desdemona", "Emilia", "Cassio", "You"],
-  messages: [{ text: "Don't worry about Othello, Des. You'll be happily reunited within an hour.", name: "Emilia" }, { text: "I'd listen to Emilia on this one, Des", name: "Cassio" }],
+  messages: [{ text: "Don't worry about Othello, Des. You'll be happily reunited within an hour.", name: "Emilia" }, { text: "Thanks, Emilia, you're the best", name: "Desdemona" }],
   narration: "Here's the thing: everything Emilia says automatically pisses you off. You usually respond with a snappy insult, which usually devolves into an argument.",
   truth: {
     truthPrompt: "Let this one slide. You don't want Desdemona and Cassio to see you insulting your wife.",
@@ -333,10 +331,10 @@ let wheresOthello = {
   scene: "Act Two, Scene One",
   characters: ["Desdemona", "Emilia", "Cassio", "You"],
   messages: [{ text: "Does anyone know when Othello is supposed to get here?", name: "Desdemona" }],
-  narration: "The war is over! You won! The troops are regrouping in Cyprus. You, your wife (Emilia), Michael Cassio, and Emilia have just arrived. Othello is late.",
+  narration: "The war is over! You won! The troops are regrouping in Cyprus. You, your wife (Emilia) and Cassio have just arrived. Othello is late.",
   truth: {
-    truthPrompt: "Reassure Desdemona",
-    truthDefault: "His ship got caught in a storm, but he'll be fine!",
+    truthPrompt: "You're pretty sure his ship caught some bad weather.",
+    truthDefault: "I think he got caught in a storm.",
     consequences: function () {
       characterController.adjustTrust(characters.desdemona, "iago", 1);
       characterController.adjustTrust(characters.cassio, "iago", 1);
