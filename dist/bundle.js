@@ -17342,7 +17342,7 @@ module.exports = {openingLines};
 
 
 
-},{"./act1scene2":3,"./characterController":5,"./characters":6,"./endings":8}],3:[function(require,module,exports){
+},{"./act1scene2":3,"./characterController":7,"./characters":8,"./endings":10}],3:[function(require,module,exports){
 'use strict';
 const sceneThree = require("./act1scene3");
 const endings = require("./endings");
@@ -17578,9 +17578,10 @@ let warnOthello = {
 };
 
 module.exports = {warnOthello};
-},{"./act1scene3":4,"./characterController":5,"./characters":6,"./endings":8}],4:[function(require,module,exports){
+},{"./act1scene3":4,"./characterController":7,"./characters":8,"./endings":10}],4:[function(require,module,exports){
 'use strict';
 
+const actTwo = require("./act2scene1");
 const endings = require("./endings");
 const characters = require("./characters");
 const characterController = require("./characterController");
@@ -17599,7 +17600,7 @@ let askRoderigoForMoney = {
             characterController.deactivateCharacter(characters.roderigo);
         },
         nextSection: function () {
-            return endings.tempEnding;
+            return actTwo.wheresOthello;
         }
     },
     lie: {
@@ -17609,7 +17610,7 @@ let askRoderigoForMoney = {
             characterController.adjustTrust(characters.roderigo, "iago", 1);
         },
         nextSection: function () {
-            return endings.tempEnding;
+            return actTwo.wheresOthello;
         }
     }
 };
@@ -17673,7 +17674,209 @@ let roderigoIsAMess = {
 
 module.exports = {roderigoIsAMess};
 
-},{"./characterController":5,"./characters":6,"./endings":8}],5:[function(require,module,exports){
+},{"./act2scene1":5,"./characterController":7,"./characters":8,"./endings":10}],5:[function(require,module,exports){
+'use strict';
+const sceneTwo = require("./act2scene2");
+const endings = require("./endings");
+const characters = require("./characters");
+const characterController = require("./characterController");
+
+let insultEmilia = {
+  name: "wheresOthello",
+  scene: "Act Two, Scene One",
+  characters: ["Desdemona", "Emilia", "Cassio", "You"],
+  messages: [{ text: "Does anyone know when Othello is supposed to get here?", name: "Desdemona" }],
+  narration: "The war is over! You won. You're regrouping in Cyprus after the battle. Othello's ship was caught in a storm and hasn't made it back yet.",
+  truth: {
+    truthPrompt: "Reassure Desdemona",
+    truthDefault: "His ship hit some rough weather, but I'm sure he'll be here soon.",
+    consequences: function () {
+      characterController.adjustTrust(characters.desdemona, "iago", 1);
+      characterController.adjustTrust(characters.cassio, "iago", 1);
+      characterController.adjustTrust(characters.emilia, "iago", 1);
+
+    },
+    nextSection: function () {
+      return insultEmilia;
+    }
+  },
+  lie: {
+    liePrompt: "Drop hints that he might be cheating on her.",
+    lieDefault: "Don't worry, Othello always takes a while to make it back from battle! He has to stop and celebrate in town first.",
+    consequences: function () {
+      characterController.adjustTrust(characters.desdemona, "othello", -1);
+      characterController.adjustAnger(characters.emilia, "iago", 4);
+      characterController.adjustTrust(characters.cassio, "iago", -1);
+    },
+    nextSection: function () {
+      return emiliaCallsBullshit;
+    }
+  }
+};
+
+let emiliaCallsBullshit = {
+  name: "wheresOthello",
+  scene: "Act Two, Scene One",
+  characters: ["Desdemona", "Emilia", "Cassio", "You"],
+  messages: [{ text: "Does anyone know when Othello is supposed to get here?", name: "Desdemona" }],
+  narration: "The war is over! You won. You're regrouping in Cyprus after the battle. Othello's ship was caught in a storm and hasn't made it back yet.",
+  truth: {
+    truthPrompt: "Reassure Desdemona",
+    truthDefault: "His ship hit some rough weather, but I'm sure he'll be here soon.",
+    consequences: function () {
+      characterController.adjustTrust(characters.desdemona, "iago", 1);
+      characterController.adjustTrust(characters.cassio, "iago", 1);
+      characterController.adjustTrust(characters.emilia, "iago", 1);
+
+    },
+    nextSection: function () {
+      return insultEmilia;
+    }
+  },
+  lie: {
+    liePrompt: "Drop hints that he might be cheating on her.",
+    lieDefault: "Don't worry, Othello always takes a while to make it back from battle! He has to stop and celebrate in town first.",
+    consequences: function () {
+      characterController.adjustTrust(characters.desdemona, "othello", -1);
+      characterController.adjustAnger(characters.emilia, "iago", 4);
+      characterController.adjustTrust(characters.cassio, "iago", -1);
+    },
+    nextSection: function () {
+      return emiliaCallsBullshit;
+    }
+  }
+};
+
+let wheresOthello = {
+  name: "wheresOthello",
+  scene: "Act Two, Scene One",
+  characters: ["Desdemona", "Emilia", "Cassio", "You"],
+  messages: [{ text: "Does anyone know when Othello is supposed to get here?", name: "Desdemona" }],
+  narration: "The war is over! You won. You're regrouping in Cyprus after the battle. Othello's ship was caught in a storm and hasn't made it back yet.",
+  truth: {
+    truthPrompt: "Reassure Desdemona",
+    truthDefault: "His ship hit some rough weather, but I'm sure he'll be here soon.",
+    consequences: function () {
+      characterController.adjustTrust(characters.desdemona, "iago", 1);
+      characterController.adjustTrust(characters.cassio, "iago", 1);
+      characterController.adjustTrust(characters.emilia, "iago", 1);
+
+    },
+    nextSection: function () {
+      return insultEmilia;
+    }
+  },
+  lie: {
+    liePrompt: "Drop hints that he might be cheating on her.",
+    lieDefault: "Don't worry, Othello always takes a while to make it back from battle! He has to stop and celebrate in town first.",
+    consequences: function () {
+      characterController.adjustTrust(characters.desdemona, "othello", -1);
+      characterController.adjustAnger(characters.emilia, "iago", 4);
+      characterController.adjustTrust(characters.cassio, "iago", -1);
+    },
+    nextSection: function () {
+      return emiliaCallsBullshit;
+    }
+  }
+};
+
+
+// Othello talks Roderigo into provoking Michael Cassio
+// Desdemona:
+// I'm looking for Othello. Has anyone seen him.
+// you notice that Cassio is being extra nice to Desdemona. Useful info. 
+// Cassio:
+// I don't think his ship is back yet
+
+// Emilia:
+// He'll be back soon, Desdemona!
+
+// Insult your wife-- > Desdemona says you're an asshole, asks you to say a nice thing about her
+// --> say a compliment(scene ends) OR say you're critical by nature
+// OR
+// Reassure Desdemona-- > scene ends, Othello arrives
+
+// WITH RODERIGO
+// Ugh, you should have seen the happy couple's reunion. Made me want to puke.
+
+// Tell him that Desdemona's completely in love with him OR
+// --> tell him to approach Desdemona at the party that night
+// Tell him that Desdemona's completely in love with Cassio
+// --> tell him to provoke Cassio at the party that night, to ruin his reputation
+
+},{"./act2scene2":6,"./characterController":7,"./characters":8,"./endings":10}],6:[function(require,module,exports){
+// A herald announces that Othello plans revelry for the evening in celebration of Cyprus’s safety from the Turks, and also in celebration of his marriage to Desdemona.
+
+// Cassio and Iago
+// What's up Iago!! We're on guard duty tonight together!
+// Say Othello just wanted to get rid of them early so he could sleep with Desdemona, let's grab a drink!
+// --> get him drunk
+// cassio IM NOT DRFUNK
+// --> nope, you're sure not
+// --> proceed to guard duty
+// --> you're drunk dude, I'll take your shift tonight
+// --> game over
+// OR say yes, let's get to guard duty
+// --> proceed to guard duty, except Cassio isn't drunk
+
+// if Cassio's not drunk, Roderigo gets in trouble for starting a fight and gets arrested
+// Roderigo is no longer active
+
+// Iago and Montano
+// Montano: Wow he was so smashed
+// Say he's like this a lot and it's a problem
+// OR say he's never like this
+// Montano: we should say something
+// Iago: no, I love Cassio, and I'd like to cure his alcoholism
+// Montano: Did you hear something ?
+//     Montano : Oh no
+// Montano: Cassio's attacked Roderigo!
+
+// Iago and Roderigo
+// Go tell everyone there's a riot!
+
+// Othello enters
+
+// Othello: Wtf is going on, Iago ??
+//     Iago : Please, everybody stop!
+// Othello: How did this start ?
+//     Iago : We were all having fun until a minute ago.
+//         Othello: Michael, what happened ?
+//             Michael : I cant talk
+// Othello: Montano ? You're supposed to be calm and collected!
+// Montano: I was attacked! Iago can tell you what happened! Michael Cassio attacked me!
+
+
+// Montano and Iago
+// Montano: I know you're close to Cassio, but if you lie to Othello now you're not a true soldier
+
+// Iago: I'd rather cut out my tongue than say anything bad about Michael Cassio! It's just the truth.Cassio was chasing Roderigo with his sword out, trying to kill him.Montano tried to stop him.But nobody's perfect. I'm sure the guy who was running away must have said something awful for Cassio to try to kill him.
+
+//     Othello: Iago, I know you're fond of Cassio and are downplaying this for his benefit. Cassio, I love you but you're fired.
+
+//         Othello: Go and calm down the towns people, Iago.
+
+// IAGO AND CASSIO
+// Iago: Are you hurt, Cassio ?
+//     Cassio : Yes, but no doctor can help me!
+// Iago: I hope that's not true!
+// Cassio: I've lost my reputation!
+// Iago: Othello's bound to want you back.
+// OR Cut your losses and move on
+// Cassio: I can't imagine!
+// Iago: get in Desdemona's good graces OR
+// ask Othello directly
+// Cassio: That's good advice
+// Iago: I'm helping you because I like and respect you
+// OR hell yeah dude, I know how to play people
+// Cassio: good night, honest Iago!
+
+// IAGO AND RODERIGO
+// Roderigo: I've spent all my money coming here to Cyprus. And I got beaten up. I'm going home!
+// Iaog: hold on! Look at that tiny sacrifice! You got Cassio discharged!
+// if Roderigo trusts you enough, he stays
+// Otherwise, he deactivates
+},{}],7:[function(require,module,exports){
 'use strict';
 let _ = require("lodash");
 // characterOne is always the character you want to adjust
@@ -17703,7 +17906,7 @@ module.exports.deactivateCharacter = function(character){
 };
 
 
-},{"lodash":1}],6:[function(require,module,exports){
+},{"lodash":1}],8:[function(require,module,exports){
 'use strict';
 
 module.exports.othello = {
@@ -17849,7 +18052,7 @@ module.exports.cassio = {
 
   
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 const characters = require('./characters');
@@ -17919,7 +18122,7 @@ module.exports.updateCharacterMenu = function(){
 
 
 
-},{"./characters":6}],8:[function(require,module,exports){
+},{"./characters":8}],10:[function(require,module,exports){
 'use strict';
 
 module.exports.tinderEnder= {
@@ -17987,7 +18190,7 @@ module.exports.tempEnding= {
     }
 };
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 'use strict';
 const storyController = require("./storyController");
 const act1scene1 = require("./act1scene1");
@@ -18002,7 +18205,7 @@ storyController.loadScene(act1scene1);
 
 
 
-},{"./act1scene1":2,"./charactersView":7,"./sceneFactory":11,"./storyController":12}],10:[function(require,module,exports){
+},{"./act1scene1":2,"./charactersView":9,"./sceneFactory":13,"./storyController":14}],12:[function(require,module,exports){
 'use strict';
 // prints new section 
 // fired when the player sends a message
@@ -18119,7 +18322,7 @@ module.exports.clearMessageArea= function(){
 
 
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 module.exports.uploadSection = function(section) {
@@ -18139,7 +18342,7 @@ module.exports.uploadSection = function(section) {
         });
 };
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 const messagePrinter = require("./messagesView.js");
@@ -18229,7 +18432,7 @@ module.exports.loadScene = function(scene){
 
 
 
-},{"./characterController.js":5,"./charactersView":7,"./messagesView.js":10,"./storyLogger.js":13}],13:[function(require,module,exports){
+},{"./characterController.js":7,"./charactersView":9,"./messagesView.js":12,"./storyLogger.js":15}],15:[function(require,module,exports){
 'use strict';
 
 let previousSections = [];
@@ -18247,4 +18450,4 @@ module.exports.logConsequences = function(consequenceFunction){
 module.exports.getPreviousSections = function(){
     return previousSections;
 };
-},{}]},{},[9]);
+},{}]},{},[11]);
