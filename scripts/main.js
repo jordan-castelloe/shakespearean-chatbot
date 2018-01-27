@@ -7,7 +7,8 @@ const sceneFactory = require('./sceneFactory');
 // loads scene 1
 charactersView.populateCharacterMenu(); 
 storyController.loadScene(act1scene1);
-// sceneFactory.uploadSection(act1scene1);
+
+
 
 
 
