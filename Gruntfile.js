@@ -5,7 +5,7 @@ module.exports = function (grunt) {
             "dist/bundle.js": ["scripts/main.js"]
         },
         jshint: {
-            files: ["scripts/**/*.js"],
+            files: ["scripts/**/*.js", "story/**/*.js"],
             options: {
                 predef: ["document", "console", "$"],
                 esnext: true,
@@ -23,7 +23,7 @@ module.exports = function (grunt) {
         },
         watch: {
             javascripts: {
-                files: ["scripts/**/*.js"],
+                files: ["scripts/**/*.js", "story/**/*.js"],
                 tasks: ["jshint", "browserify"]
             },
             sass: {

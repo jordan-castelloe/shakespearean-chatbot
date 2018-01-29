@@ -18406,13 +18406,17 @@ module.exports = {wheresOthello};
 // A herald announces that Othello plans revelry for the evening in celebration of Cyprus’s safety from the Turks, and also in celebration of his marriage to Desdemona.
 
 // add into consequence functions if next scene has a property of new character or if something changes about the next scene
+'use strict'; 
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let roderigoWantsOut = {
   name: "roderigoWantsOut",
   scene: "Act Two, Scene Two",
   newCharacter: true,
   characters: ["Roderigo", "You"],
-  messages: [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I spend all my money, and look what I get.", name: "Roderigo" }],
+  messages: [{ text: "Listen dude, I think I'm done.", name: "Roderigo" }, { text: "I spend all my money and I really don't think Desdemona will go for me.", name: "Roderigo" }],
   narration: "Roderigo has every right to be pissed at you, but you might still need him.",
   truth: {
     truthPrompt: "Apologize and tell him to cut his losses.",
@@ -18451,7 +18455,7 @@ let thatsAGreatIdea= {
     },
     nextSection: function () {
       roderigoWantsOut.newCharacter = true;
-      roderioWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
       return roderigoWantsOut;
     }
   },
@@ -18463,13 +18467,14 @@ let thatsAGreatIdea= {
     },
     nextSection: function () {
       roderigoWantsOut.newCharacter = true;
-      roderioWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
       return roderigoWantsOut;
     }
   }
 };
 
 let cassioIsDepressed = {
+  newCharacter: true,
   name: "cassioIsDepressed",
   scene: "Act Two, Scene Two",
   characters: ["Cassio", "You"],
@@ -18483,7 +18488,7 @@ let cassioIsDepressed = {
     },
     nextSection: function () {
       roderigoWantsOut.newCharacter = true;
-      roderioWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, {text: "Desdemona will never go for me.", name: "Roderigo"}];
+      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, {text: "Desdemona will never go for me.", name: "Roderigo"}];
       return roderigoWantsOut;
     }
   },
@@ -18534,10 +18539,11 @@ let othelloInvestigates= {
 
 
 let roderigoStartsAFight = {
+  newCharacter: true,
   name: "roderigoStartsAFight",
   scene: "Act Two, Scene Two",
   characters: ["Roderigo", "You"],
-  messages: [{ text: "Well your plan worked, Cassio just beat my ass", name: "Roderigo" }, { text: "Othello's coming down to investigate", name: "Roderigo" }, { text: "WTF, Othello just fired him for drinking on the job!", name: "Roderigo" }],
+  messages: [{ text: "Well your plan worked, Cassio just beat my ass", name: "Roderigo" }, { text: "Othello's coming down to investigate", name: "Roderigo" }, { text: "WTF, Othello just fired Cassio for drinking on the job!", name: "Roderigo" }],
   narration: "Your sinister plot worked! Woohoo!",
   truth: {
     truthPrompt: "Gloat in your victory",
@@ -18546,12 +18552,8 @@ let roderigoStartsAFight = {
       characterController.adjustTrust(characters.roderigo, "iago", -1);
     },
     nextSection: function () {
-      if (roderigo.iago.trust > 7){
-        return endings.tempEnding // move on to next scene without roderigo wanting out
-      } else {
-        return roderigoWantsOut;
+        return cassioIsDepressed;
       }
-    }
   },
   lie: {
     liePrompt: "Tell Roderigo that he's a genius",
@@ -18560,11 +18562,7 @@ let roderigoStartsAFight = {
       characterController.adjustTrust(characters.roderigo, "iago", 2);
     },
     nextSection: function () {
-      if (roderigo.iago.trust > 7) {
-        return endings.tempEnding // move on to next scene without roderigo wanting out
-      } else {
-        return roderigoWantsOut;
-      }
+     return cassioIsDepressed;
     }
   }
 };
@@ -18743,8 +18741,9 @@ let cassioIsDrunk = {
     liePrompt: "Tell him that Roderigo was talking shit.",
     lieDefault: "Hey, I just heard Roderigo saying something about your mom",
     consequences: function () {
-      characterController.adjustTrust(characters.cassio, "iago", 2);
-      characterController.adjustAnger(characters.cassio, "roderigo", 2);
+      console.log(characterController.adjustTrust);
+      // characterController.adjustTrust(characters.cassio, "iago", 2); // why is this undefined?
+      // characterController.adjustAnger(characters.cassio, "roderigo", 2);
     },
     nextSection: function () {
       return roderigoStartsAFight;
@@ -18784,7 +18783,7 @@ let cassioIsNotDrunk = {
 };
 
 module.exports = {cassioIsDrunk, cassioIsNotDrunk, roderigoIsNotDrunk, roderigoIsDrunk};
-},{}],14:[function(require,module,exports){
+},{"../../scripts/characterController":2,"../characters/characters":14,"../endings/endings":15}],14:[function(require,module,exports){
 'use strict';
 
 module.exports.othello = {
