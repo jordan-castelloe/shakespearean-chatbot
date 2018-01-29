@@ -18047,28 +18047,27 @@ const characterController = require("../../scripts/characterController");
 let getCassioDrunk = {
   name: "getCassioDrunk",
   scene: "Act Two, Scene One",
-  newCharacter: true,
   characters: ["Roderigo", "You"],
   messages: [{ text: "Oh shit, really?", name: "Roderigo"}, {text: "I knew she'd never go for me.", name: "Roderigo"}],
-  narration: "Here's the plan: get Cassio drunk and talk him into doing something stupid.",
+  narration: "Here's the plan: you need to get Cassio in trouble. That way Desdemona will feel sorry for him and you can convince Othello that her pity is really unfaithfulness.",
   truth: {
-    truthPrompt: "Tell him to get Cassio drunk",
-    truthDefault: "Just buy Cassio a few drinks and let him make an idiot of himself. Then Desdemona will move on to you.",
+    truthPrompt: "Tell Roderigo to start a fight with Cassio.",
+    truthDefault: "Just say his mom's a ho. He'll start a fight and the Othello will fire him. No sweat.",
     consequences: function () {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return sceneTwo.cassioIsNotDrunk;
     }
   },
   lie: {
-    liePrompt: "Tell Roderigo to get Cassio drunk and then start a fight with him",
-    lieDefault: "Buy him some drinks and then insult his mom! If he gets in a fight, Othello will totally fire him.",
+    liePrompt: "Tell Roderigo to get Cassio drunk and THEN start a fight with him.",
+    lieDefault: "Buy him some drinks and then insult his mom!",
     consequences: function () {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
     },
     nextSection: function () {
-     return endings.tempEnding;
+     return sceneTwo.cassioIsNotDrunk;
     }
   }
 };
@@ -18076,7 +18075,6 @@ let getCassioDrunk = {
 let liquidCourage= {
   name: "liquidCourage",
   scene: "Act Two, Scene One",
-  newCharacter: true,
   characters: ["Roderigo", "You"],
   messages: [{ text: "You think so??", name: "Roderigo"}],
   narration: "You need Roderigo to flirt with Desdemona. That way you can convince Othello that Desdemona is cheating on him.",
@@ -18087,7 +18085,7 @@ let liquidCourage= {
       characterController.adjustTrust(characters.roderigo, "iago", 2);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return endings.roderigoIsNotDrunk;
     }
   },
   lie: {
@@ -18097,7 +18095,7 @@ let liquidCourage= {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
     },
     nextSection: function () {
-     return endings.tempEnding;
+     return sceneTwo.roderigoIsDrunk;
     }
   }
 };
@@ -18120,7 +18118,7 @@ let happyCouplesMakeMeSick = {
     }
   },
   lie: {
-    liePrompt: "Tell Roderigo that Desdemona is in love with Cassio. You need to get Cassio in trouble. That way Desdemona will feel sorry for him, and you can convince Othello that her pity is really unfaithfulness.",
+    liePrompt: "Tell Roderigo that Desdemona is in love with Cassio.",
     lieDefault: "Bad news, bro. I think she's into Michael Cassio.",
     consequences: function () {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
@@ -18260,7 +18258,7 @@ let insultEmilia = {
   name: "insultEmilia",
   scene: "Act Two, Scene One",
   characters: ["Desdemona", "Emilia", "Cassio", "You"],
-  messages: [{ text: "Don't worry about Othello, Des. You'll be happily reunited within an hour.", name: "Emilia" }, { text: "I'd listen to Emilia on this one, Des", name: "Cassio" }],
+  messages: [{ text: "Don't worry about Othello, Des. You'll be happily reunited within an hour.", name: "Emilia" }, { text: "Thanks, Emilia, you're the best", name: "Desdemona" }],
   narration: "Here's the thing: everything Emilia says automatically pisses you off. You usually respond with a snappy insult, which usually devolves into an argument.",
   truth: {
     truthPrompt: "Let this one slide. You don't want Desdemona and Cassio to see you insulting your wife.",
@@ -18372,10 +18370,10 @@ let wheresOthello = {
   scene: "Act Two, Scene One",
   characters: ["Desdemona", "Emilia", "Cassio", "You"],
   messages: [{ text: "Does anyone know when Othello is supposed to get here?", name: "Desdemona" }],
-  narration: "The war is over! You won! The troops are regrouping in Cyprus. You, your wife (Emilia), Michael Cassio, and Emilia have just arrived. Othello is late.",
+  narration: "The war is over! You won! The troops are regrouping in Cyprus. You, your wife (Emilia) and Cassio have just arrived. Othello is late.",
   truth: {
-    truthPrompt: "Reassure Desdemona",
-    truthDefault: "His ship got caught in a storm, but he'll be fine!",
+    truthPrompt: "You're pretty sure his ship caught some bad weather.",
+    truthDefault: "I think he got caught in a storm.",
     consequences: function () {
       characterController.adjustTrust(characters.desdemona, "iago", 1);
       characterController.adjustTrust(characters.cassio, "iago", 1);
@@ -18406,76 +18404,391 @@ module.exports = {wheresOthello};
 
 },{"../../scripts/characterController":2,"../characters/characters":14,"../endings/endings":15,"./act2scene2":13}],13:[function(require,module,exports){
 // A herald announces that Othello plans revelry for the evening in celebration of Cyprus’s safety from the Turks, and also in celebration of his marriage to Desdemona.
+let roderigoWantsOut = {
+  name: "roderigoWantsOut",
+  scene: "Act Two, Scene Two",
+  newCharacter: true,
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I spend all my money, and look what I get.", name: "Roderigo" }],
+  narration: "Roderigo has every right to be pissed at you, but you might still need him.",
+  truth: {
+    truthPrompt: "Apologize and tell him to cut his losses.",
+    truthDefault: "You're right, I'm sorry. No hard feelings if you want to go on back to Venice.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 1);
+      characterController.deactivateCharacter(characters.roderigo);
+    },
+    nextSection: function () {
+      return endings.tempEnding;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him to keep going.",
+    lieDefault: "Don't give up now! Nothing worth having comes easy, bro. Look how far we've gotten already! Othello and Desdemona are in the palm of our hand.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 2);
+    },
+    nextSection: function () {
+      return endings.tempEnding;
+    }
+  }
+};
 
-// Cassio and Iago
-// What's up Iago!! We're on guard duty tonight together!
-// Say Othello just wanted to get rid of them early so he could sleep with Desdemona, let's grab a drink!
-// --> get him drunk
-// cassio IM NOT DRFUNK
-// --> nope, you're sure not
-// --> proceed to guard duty
-// --> you're drunk dude, I'll take your shift tonight
-// --> game over
-// OR say yes, let's get to guard duty
-// --> proceed to guard duty, except Cassio isn't drunk
+let thatsAGreatIdea= {
+  name: "thatsAGreatIdea",
+  scene: "Act Two, Scene Two",
+  characters: ["Cassio", "You"],
+  messages: [{ text: "That's a great idea", name: "Cassio" }],
+  narration: "You laugh maniacally to yourself. Everything is going according to plan!",
+  truth: {
+    truthPrompt: "Tell him how nice Desdemona is.",
+    truthDefault: "Desdemona's such a softie, she'll totally go for it.",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "othello", 1);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him what a great guy he is.",
+    lieDefault: "You're such a good officer, Othello will totally regret firing you.",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 2);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  }
+};
 
-// if Cassio's not drunk, Roderigo gets in trouble for starting a fight and gets arrested
-// Roderigo is no longer active
+let cassioIsDepressed = {
+  name: "cassioIsDepressed",
+  scene: "Act Two, Scene Two",
+  characters: ["Cassio", "You"],
+  messages: [{ text: "I can't believe I got so drunk last night", name: "Cassio" }, { text: "I'm ashamed of myself", name: "Cassio" }, { text: "Othello was right to fire me", name: "Cassio" }],
+  narration: "Realistically, Othello probably won't give Cassio his job back. But if you can convince Cassio to appeal to Desdemona for support, you can probably convince Othello that Desdemona is unfaithful.",
+  truth: {
+    truthPrompt: "Tell him to cut his losses",
+    truthDefault: "I'm sorry bro. I'm sure you'll find another job in Venice, you're very employable.",
+    consequences: function () {
+      characterController.deactivateCharacter(characters.cassio);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him to go to Desdemona",
+    lieDefault: "Listen, you should talk to Desdemona. I bet she can get you back on Othello's good side.",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 2);
+    },
+    nextSection: function () {
+      return thatsAGreatIdea;
+    }
+  }
+};
 
-// Iago and Montano
-// Montano: Wow he was so smashed
-// Say he's like this a lot and it's a problem
-// OR say he's never like this
-// Montano: we should say something
-// Iago: no, I love Cassio, and I'd like to cure his alcoholism
-// Montano: Did you hear something ?
-//     Montano : Oh no
-// Montano: Cassio's attacked Roderigo!
 
-// Iago and Roderigo
-// Go tell everyone there's a riot!
+let othelloInvestigates= {
+  name: "othelloInvestigates",
+  scene: "Act Two, Scene Two",
+  characters: ["Othello", "You", "Cassio"],
+  messages: [{ text: "Okay, what's up with this guy named Roderigo?", name: "Othello" }],
+  narration: "Should you throw Roderigo under the bus to gain Othello's trust, or stick up for Roderigo?",
+  truth: {
+    truthPrompt: "Stick up for Roderigo",
+    truthDefault: "Sorry, he's just drunk. I'll get him home.",
+    consequences: function () {
+      characterController.adjustTrust(characters.othello, "iago", -1);
+      characterController.adjustTrust(characters.cassio, "iago", -1);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "Throw Roderigo under the bus",
+    lieDefault: "This asshole is trying to flirt with Desdemona!",
+    consequences: function () {
+      characterController.adjustTrust(characters.othello, "iago", 4);
+    },
+    nextSection: function () {
+      return roderigoGetsFired;
+    }
+  }
+};
 
-// Othello enters
 
-// Othello: Wtf is going on, Iago ??
-//     Iago : Please, everybody stop!
-// Othello: How did this start ?
-//     Iago : We were all having fun until a minute ago.
-//         Othello: Michael, what happened ?
-//             Michael : I cant talk
-// Othello: Montano ? You're supposed to be calm and collected!
-// Montano: I was attacked! Iago can tell you what happened! Michael Cassio attacked me!
+let roderigoStartsAFight = {
+  name: "roderigoStartsAFight",
+  scene: "Act Two, Scene Two",
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "Well your plan worked, Cassio just beat my ass", name: "Roderigo" }, { text: "Othello's coming down to investigate", name: "Roderigo" }, { text: "WTF, Othello just fired him for drinking on the job!", name: "Roderigo" }],
+  narration: "Your plan worked!",
+  truth: {
+    truthPrompt: "Gloat in your victory",
+    truthDefault: "Hell yeah! My plan worked! I'm a genius!",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", -1);
+    },
+    nextSection: function () {
+      if (roderigo.iago.trust > 7){
+        return endings.tempEnding // move on to next scene without roderigo wanting out
+      } else {
+        return roderigoWantsOut;
+      }
+    }
+  },
+  lie: {
+    liePrompt: "Tell Roderigo that he's a genius",
+    lieDefault: "You're a genius, dude! Now Desdemona's all yours!",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 2);
+    },
+    nextSection: function () {
+      if (roderigo.iago.trust > 7) {
+        return endings.tempEnding // move on to next scene without roderigo wanting out
+      } else {
+        return roderigoWantsOut;
+      }
+    }
+  }
+};
 
 
-// Montano and Iago
-// Montano: I know you're close to Cassio, but if you lie to Othello now you're not a true soldier
+let roderigoGetsFired = {
+  name: "roderigoGetsFired",
+  scene: "Act Two, Scene Two",
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "Welp, Othello just fired me", name: "Roderigo" }],
+  narration: "Drat.",
+  truth: {
+    truthPrompt: "Apologize and tell him to go home.",
+    truthDefault: "Sorry man, that sucks. You should go back to Venice, I'll hit you up when we get back.",
+    consequences: function () {
+      characterController.deactivateCharacter(characters.roderigo);
+    },
+    nextSection: function () {
+      return endings.tempEnding;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him to stick around.",
+    lieDefault: "Bummer dude! Well, you might as well stay in Cyprus and see what happens.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", -3);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  }
+};
 
-// Iago: I'd rather cut out my tongue than say anything bad about Michael Cassio! It's just the truth.Cassio was chasing Roderigo with his sword out, trying to kill him.Montano tried to stop him.But nobody's perfect. I'm sure the guy who was running away must have said something awful for Cassio to try to kill him.
+let roderigoDrunkenlyTalksToHer = {
+  name: "roderigoDrunkenlyTalksToHer",
+  scene: "Act Two, Scene Two",
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "IM GOIN TO TALK TO HER", name: "Roderigo" }, { text: "CRAP", name: "Roderigo" }, { text: "OTHELLO JUST SAT DOWN NEXT TO US", name: "Roderigo" }],
+  narration: "Roderigo will totally get fired if Othello catches him flirting with Desdemona.",
+  truth: {
+    truthPrompt: "Tell him to cut his losses.",
+    truthDefault: "Dude, get out of there. You don't want Othello to hear you talking to her.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 2);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "#YOLO.",
+    lieDefault: "Who cares if Othello hears you! Don't miss your chance, dude!",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", -1);
+      characterController.adjustAnger(characters.othello, "roderigo",5);
+    },
+    nextSection: function () {
+      return roderigoGetsFired;
+    }
+  }
+};
 
-//     Othello: Iago, I know you're fond of Cassio and are downplaying this for his benefit. Cassio, I love you but you're fired.
+let roderigoTalksToHer = {
+  name: "roderigoTalksToHer",
+  scene: "Act Two, Scene Two",
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "Okay, I'm about to go talk to her", name: "Roderigo" }, { text: "It's not going well", name: "Roderigo" }, { text: "Oh man, Othelleo just sat down next to us. I'm screwed.", name: "Roderigo" }],
+  narration: "Roderigo will totally get fired if Othello catches him flirting with Desdemona.",
+  truth: {
+    truthPrompt: "Tell him to cut his losses.",
+    truthDefault: "Dude, get out of there. You don't want Othello to hear you talking to her.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 2);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "#YOLO.",
+    lieDefault: "Who cares if Othello hears you! Don't miss your chance, dude!",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", -1);
+      characterController.adjustAnger(characters.othello, "roderigo",5);
+    },
+    nextSection: function () {
+      return roderigoGetsFired;
+    }
+  }
+};
 
-//         Othello: Go and calm down the towns people, Iago.
 
-// IAGO AND CASSIO
-// Iago: Are you hurt, Cassio ?
-//     Cassio : Yes, but no doctor can help me!
-// Iago: I hope that's not true!
-// Cassio: I've lost my reputation!
-// Iago: Othello's bound to want you back.
-// OR Cut your losses and move on
-// Cassio: I can't imagine!
-// Iago: get in Desdemona's good graces OR
-// ask Othello directly
-// Cassio: That's good advice
-// Iago: I'm helping you because I like and respect you
-// OR hell yeah dude, I know how to play people
-// Cassio: good night, honest Iago!
+let cassioTellsOthello = {
+  name: "cassioTellsOthello",
+  scene: "Act Two, Scene Two",
+  characters: ["Cassio", "You"],
+  messages: [{ text: "I think I better tell Othello that he's trying to start trouble", name: "Cassio" }],
+  narration: "If Othello fires Roderigo, you've lost your henchman. On the other hand, Roderigo is a total pain.",
+  truth: {
+    truthPrompt: "Encourage Cassio to tell Othello.",
+    truthDefault: "That's a good idea, Othello should definitely hear about it",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 2);
+    },
+    nextSection: function () {
+      return roderigoGetsFired;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him you'll talk to Roderigo.",
+    lieDefault: "Nah, don't tell Othello yet. I'll try talking to Roderigo first.",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 1);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  }
+};
 
-// IAGO AND RODERIGO
-// Roderigo: I've spent all my money coming here to Cyprus. And I got beaten up. I'm going home!
-// Iaog: hold on! Look at that tiny sacrifice! You got Cassio discharged!
-// if Roderigo trusts you enough, he stays
-// Otherwise, he deactivates
+let roderigoIsDrunk = {
+  name: "roderigoIsDrunk",
+  scene: "Act Two, Scene Two",
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "THIS WINE IS AMAJING", name: "Roderigo" }],
+  narration: "Later that night: you and Roderigo are on guard duty at a party. Roderigo is a sloppy drunk.",
+  truth: {
+    truthPrompt: "Tell him to go home.",
+    truthDefault: "Dude, you're wasted. Go home, I'll take your shift.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 4);
+    },
+    nextSection: function () {
+      return roderigoWantsOut; 
+    }
+  },
+  lie: {
+    liePrompt: "Tell him to go talk to Desdemona.",
+    lieDefault: "Now's your chance! Go tell her how you feel!",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 2);
+    },
+    nextSection: function () {
+      return roderigoTalksToHer;
+    }
+  }
+};
+
+let roderigoIsNotDrunk = {
+  name: "roderigoIsNotDrunk",
+  scene: "Act Two, Scene Two",
+  characters: ["Roderigo", "You"],
+  messages: [{ text: "Dude, I'm too scared to talk to her", name: "Roderigo" }],
+  narration: "Later that night: you and Roderigo are on guard duty. Roderigo is getting cold feet.",
+  truth: {
+    truthPrompt: "Give him an easy out.",
+    truthDefault: "Yeah, maybe tonight's not your night. Go home, I'll take your shift.",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 4);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him to go for it.",
+    lieDefault: "Dude, she's totally into you! Just go say hey!",
+    consequences: function () {
+      characterController.adjustTrust(characters.roderigo, "iago", 2);
+    },
+    nextSection: function () {
+      return roderigoGetsFired;
+    }
+  }
+};
+
+let cassioIsDrunk = {
+  name: "cassioIsDrunk",
+  scene: "Act Two, Scene Two",
+  characters: ["Cassio", "You"],
+  messages: [{ text: "I LOVE YOU MAN", name: "Cassio" }],
+  narration: "Later that night: you, Cassio, and Roderigo are on guard duty. Cassio is drunk and generally acting like an idiot, but Roderigo hasn't managed to start a fight with him yet.",
+  truth: {
+    truthPrompt: "Tell him to go home.",
+    truthDefault: "Dude, you're wasted. Go home, I'll take your shift.",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 4);
+    },
+    nextSection: function () {
+      return roderigoWantsOut;
+    }
+  },
+  lie: {
+    liePrompt: "Tell him that Roderigo was talking shit.",
+    lieDefault: "Hey, I just heard Roderigo saying something about your mom",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 2);
+      characterController.adjustAnger(characters.cassio, "roderigo", 2);
+    },
+    nextSection: function () {
+      return roderigoStartsAFight;
+    }
+  }
+};
+
+
+
+let cassioIsNotDrunk = {
+  name: "cassioIsNotDrunk",
+  scene: "Act Two, Scene Two",
+  characters: ["Cassio", "You"],
+  messages: [{ text: "Dude, your friend Roderigo is a jerk", name: "Cassio" }],
+  narration: "Later that night: you, Cassio, and Roderigo are on guard duty. Roderigo is doing his darndest to start a fight with Cassio, but apparently Cassio isn't going for it.",
+  truth: {
+    truthPrompt: "Apologize for Roderigo.",
+    truthDefault: "Sorry man, he's a bit rough around the edges",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", 2);
+    },
+    nextSection: function () {
+      return cassioTellsOthello;
+    }
+  },
+  lie: {
+    liePrompt: "Pretend like you don't know Roderigo.",
+    lieDefault: "Roderigo who? Barely know the guy",
+    consequences: function () {
+      characterController.adjustTrust(characters.cassio, "iago", -2);
+    },
+    nextSection: function () {
+      return cassioTellsOthello;
+    }
+  }
+};
+
+module.exports = {cassioIsDrunk, cassioIsNotDrunk, roderigoIsNotDrunk, roderigoIsDrunk};
 },{}],14:[function(require,module,exports){
 'use strict';
 

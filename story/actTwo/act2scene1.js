@@ -10,25 +10,25 @@ let getCassioDrunk = {
   scene: "Act Two, Scene One",
   characters: ["Roderigo", "You"],
   messages: [{ text: "Oh shit, really?", name: "Roderigo"}, {text: "I knew she'd never go for me.", name: "Roderigo"}],
-  narration: "Here's the plan: get Cassio drunk and talk him into doing something stupid.",
+  narration: "Here's the plan: you need to get Cassio in trouble. That way Desdemona will feel sorry for him and you can convince Othello that her pity is really unfaithfulness.",
   truth: {
-    truthPrompt: "Tell him to get Cassio drunk",
-    truthDefault: "Just buy Cassio a few drinks and let him make an idiot of himself. Then Desdemona will move on to you.",
+    truthPrompt: "Tell Roderigo to start a fight with Cassio.",
+    truthDefault: "Just say his mom's a ho. He'll start a fight and the Othello will fire him. No sweat.",
     consequences: function () {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return sceneTwo.cassioIsNotDrunk;
     }
   },
   lie: {
-    liePrompt: "Tell Roderigo to get Cassio drunk and then start a fight with him",
-    lieDefault: "Buy him some drinks and then insult his mom! If he gets in a fight, Othello will totally fire him.",
+    liePrompt: "Tell Roderigo to get Cassio drunk and THEN start a fight with him.",
+    lieDefault: "Buy him some drinks and then insult his mom!",
     consequences: function () {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
     },
     nextSection: function () {
-     return endings.tempEnding;
+     return sceneTwo.cassioIsDrunk;
     }
   }
 };
@@ -46,7 +46,7 @@ let liquidCourage= {
       characterController.adjustTrust(characters.roderigo, "iago", 2);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return endings.roderigoIsNotDrunk;
     }
   },
   lie: {
@@ -56,7 +56,7 @@ let liquidCourage= {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
     },
     nextSection: function () {
-     return endings.tempEnding;
+     return sceneTwo.roderigoIsDrunk;
     }
   }
 };
@@ -79,7 +79,7 @@ let happyCouplesMakeMeSick = {
     }
   },
   lie: {
-    liePrompt: "Tell Roderigo that Desdemona is in love with Cassio. You need to get Cassio in trouble. That way Desdemona will feel sorry for him, and you can convince Othello that her pity is really unfaithfulness.",
+    liePrompt: "Tell Roderigo that Desdemona is in love with Cassio.",
     lieDefault: "Bad news, bro. I think she's into Michael Cassio.",
     consequences: function () {
       characterController.adjustTrust(characters.roderigo, "iago", 1);
