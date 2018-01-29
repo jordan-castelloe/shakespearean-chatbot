@@ -7,7 +7,7 @@ let roderigoWantsOut = {
   scene: "Act Two, Scene Two",
   newCharacter: true,
   characters: ["Roderigo", "You"],
-  messages: [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I spend all my money, and look what I get.", name: "Roderigo" }],
+  messages: [{ text: "Listen dude, I think I'm done.", name: "Roderigo" }, { text: "I spend all my money and I really don't think Desdemona will go for me.", name: "Roderigo" }],
   narration: "Roderigo has every right to be pissed at you, but you might still need him.",
   truth: {
     truthPrompt: "Apologize and tell him to cut his losses.",
@@ -65,6 +65,7 @@ let thatsAGreatIdea= {
 };
 
 let cassioIsDepressed = {
+  newCharacter: true,
   name: "cassioIsDepressed",
   scene: "Act Two, Scene Two",
   characters: ["Cassio", "You"],
@@ -96,7 +97,7 @@ let cassioIsDepressed = {
 
 
 let othelloInvestigates= {
-  newCharacter = true;
+  newCharacter: true,
   name: "othelloInvestigates",
   scene: "Act Two, Scene Two",
   characters: ["Othello", "You", "Cassio"],
@@ -129,10 +130,11 @@ let othelloInvestigates= {
 
 
 let roderigoStartsAFight = {
+  newCharacter: true,
   name: "roderigoStartsAFight",
   scene: "Act Two, Scene Two",
   characters: ["Roderigo", "You"],
-  messages: [{ text: "Well your plan worked, Cassio just beat my ass", name: "Roderigo" }, { text: "Othello's coming down to investigate", name: "Roderigo" }, { text: "WTF, Othello just fired him for drinking on the job!", name: "Roderigo" }],
+  messages: [{ text: "Well your plan worked, Cassio just beat my ass", name: "Roderigo" }, { text: "Othello's coming down to investigate", name: "Roderigo" }, { text: "WTF, Othello just fired Cassio for drinking on the job!", name: "Roderigo" }],
   narration: "Your sinister plot worked! Woohoo!",
   truth: {
     truthPrompt: "Gloat in your victory",
@@ -141,12 +143,8 @@ let roderigoStartsAFight = {
       characterController.adjustTrust(characters.roderigo, "iago", -1);
     },
     nextSection: function () {
-      if (roderigo.iago.trust > 7){
-        return endings.tempEnding // move on to next scene without roderigo wanting out
-      } else {
-        return roderigoWantsOut;
+        return cassioIsDepressed;
       }
-    }
   },
   lie: {
     liePrompt: "Tell Roderigo that he's a genius",
@@ -155,11 +153,7 @@ let roderigoStartsAFight = {
       characterController.adjustTrust(characters.roderigo, "iago", 2);
     },
     nextSection: function () {
-      if (roderigo.iago.trust > 7) {
-        return endings.tempEnding // move on to next scene without roderigo wanting out
-      } else {
-        return roderigoWantsOut;
-      }
+     return cassioIsDepressed;
     }
   }
 };
@@ -238,7 +232,6 @@ let cassioTellsOthello = {
       characterController.adjustTrust(characters.cassio, "iago", 2);
     },
     nextSection: function () {
-      roderigoGetsFired.newCharacter = true;
       return othelloInvestigates;
     }
   },
@@ -249,6 +242,8 @@ let cassioTellsOthello = {
       characterController.adjustTrust(characters.cassio, "iago", 1);
     },
     nextSection: function () {
+      roderigoWantsOut.newCharacter = true;
+      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I spend all my money, I have a horrible hangover, and nothing came of it", name: "Roderigo" }, { text: "Desdemona will never go for me. I'm going home.", name: "Roderigo" }];
       return roderigoWantsOut;
     }
   }
@@ -315,6 +310,7 @@ let roderigoIsNotDrunk = {
 };
 
 let cassioIsDrunk = {
+  newCharacter: true,
   name: "cassioIsDrunk",
   scene: "Act Two, Scene Two",
   characters: ["Cassio", "You"],
@@ -348,6 +344,7 @@ let cassioIsDrunk = {
 
 
 let cassioIsNotDrunk = {
+  neCharacter: true,
   name: "cassioIsNotDrunk",
   scene: "Act Two, Scene Two",
   characters: ["Cassio", "You"],
