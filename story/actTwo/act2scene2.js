@@ -5,6 +5,7 @@
 const endings = require("../endings/endings");
 const characters = require("../characters/characters");
 const characterController = require("../../scripts/characterController");
+const actThree = "../actThree/act3Scene1";
 
 let roderigoWantsOut = {
   name: "roderigoWantsOut",
@@ -21,7 +22,7 @@ let roderigoWantsOut = {
       characterController.deactivateCharacter(characters.roderigo);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return actThree.askEmilia; // TODO: change to act 3
     }
   },
   lie: {
@@ -31,7 +32,7 @@ let roderigoWantsOut = {
       characterController.adjustTrust(characters.roderigo, "iago", 2);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return actThree.askEmilia; // TODO: change to act 3
     }
   }
 };
@@ -50,7 +51,8 @@ let thatsAGreatIdea= {
     },
     nextSection: function () {
       roderigoWantsOut.newCharacter = true;
-      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.messages = [{ text: "Bro, I'm kind of exahusted.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.lie.lieDefault = "Look how far we've come! We got Cassio fired! Now the path is clear!";
       return roderigoWantsOut;
     }
   },
@@ -62,7 +64,8 @@ let thatsAGreatIdea= {
     },
     nextSection: function () {
       roderigoWantsOut.newCharacter = true;
-      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.messages = [{ text: "Bro, I'm kind of exhausted.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.lie.lieDefault = "Look how far we've come! We got Cassio fired! Now the path is clear!";
       return roderigoWantsOut;
     }
   }
@@ -83,7 +86,8 @@ let cassioIsDepressed = {
     },
     nextSection: function () {
       roderigoWantsOut.newCharacter = true;
-      roderigoWantsOut.messages = [{ text: "I'm done.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, {text: "Desdemona will never go for me.", name: "Roderigo"}];
+      roderigoWantsOut.messages = [{ text: "Bro, I'm kind of exhausted.", name: "Roderigo" }, { text: "I come all the way to Cyprus, I get my ass kicked by Cassio, and nothing came of it.", name: "Roderigo" }, { text: "Desdemona will never go for me.", name: "Roderigo" }];
+      roderigoWantsOut.lie.lieDefault = "Look how far we've come! We got Cassio fired! Now the path is clear!";
       return roderigoWantsOut;
     }
   },
@@ -176,7 +180,7 @@ let roderigoGetsFired = {
       characterController.deactivateCharacter(characters.roderigo);
     },
     nextSection: function () {
-      return endings.tempEnding;
+      return actThree.askEmilia; // TODO: change to act 3
     }
   },
   lie: {
