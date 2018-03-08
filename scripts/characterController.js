@@ -1,5 +1,4 @@
 'use strict';
-let _ = require("lodash");
 // characterOne is always the character you want to adjust
 // characterTwo is always the character they have a relationship with
 // adjuster is a number -- positive if trust or anger increases, negative if it decreases
