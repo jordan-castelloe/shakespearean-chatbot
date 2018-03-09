@@ -1,8 +1,8 @@
 'use strict';
 const sceneThree = require("./act1scene3");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let skipGroupText = {
     name: "skipGroupText",

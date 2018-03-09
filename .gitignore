@@ -1,3 +1,6 @@
 node_modules
 .DS_Store
 .sass-cache
+story/actFour/
+story/actThree/act3scene2.js
+story/actThree/act3scene3.js

@@ -1,8 +1,9 @@
 'use strict';
 
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const actTwo = require("../actTwo/act2scene1");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let askRoderigoForMoney = {
     name: "askRoderigoForMoney",
@@ -18,7 +19,7 @@ let askRoderigoForMoney = {
             characterController.deactivateCharacter(characters.roderigo);
         },
         nextSection: function () {
-            return endings.tempEnding;
+            return actTwo.wheresOthello;
         }
     },
     lie: {
@@ -28,7 +29,7 @@ let askRoderigoForMoney = {
             characterController.adjustTrust(characters.roderigo, "iago", 1);
         },
         nextSection: function () {
-            return endings.tempEnding;
+            return actTwo.wheresOthello;
         }
     }
 };

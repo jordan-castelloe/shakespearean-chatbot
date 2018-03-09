@@ -1,9 +1,9 @@
 'use strict';
 
-const sceneTwo = require("./act1scene2");
-const endings = require("./endings");
-const characters = require("./characters");
-const characterController = require("./characterController");
+const sceneTwo = require("../actOne/act1scene2");
+const endings = require("../endings/endings");
+const characters = require("../characters/characters");
+const characterController = require("../../scripts/characterController");
 
 let brabantioIsPissed= {
     name: "brabantioIsPissed",
